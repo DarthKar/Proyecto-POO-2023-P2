@@ -3,7 +3,7 @@ from opinion import opinion
 class opinionVendedor(opinion):
 
     def __init__(self, comentario, valoracion, comprador, vendedor):
-        super(comentario, valoracion)
+        super.__init__(comentario, valoracion)
         self.comprador = comprador
         self.vendedor = vendedor
 
@@ -17,6 +17,10 @@ class opinionVendedor(opinion):
     def setVendedor(self,vendedor):
         self.vendedor = vendedor
     
-    @override
+    def getComentario(self):
+        return self.comentario
     def setComentario(self,comentario):
         self.comentario = comentario
+    
+    def getVendedor(self):
+        return self.vendedor
