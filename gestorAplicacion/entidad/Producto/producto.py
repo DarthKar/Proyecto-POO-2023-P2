@@ -69,6 +69,5 @@ class Producto:
         
         def agregarResenador(self,resenador):
             resenadores.append(resenador)
-        
-        
-            
+
+        #Seguir copiando el codigo....
