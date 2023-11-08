@@ -1,3 +1,4 @@
+
 from opinion import opinion
 class opinionVendedor(opinion):
 
@@ -16,4 +17,6 @@ class opinionVendedor(opinion):
     def setVendedor(self,vendedor):
         self.vendedor = vendedor
     
-    
+    @override
+    def setComentario(self,comentario):
+        self.comentario = comentario
