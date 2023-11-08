@@ -1,6 +1,6 @@
 
 from opinion import opinion
-class opinionVendedor(opinion):
+class OpinionVendedor(opinion):
 
     def __init__(self, comentario, valoracion, comprador, vendedor):
         super.__init__(comentario, valoracion)
@@ -21,6 +21,12 @@ class opinionVendedor(opinion):
         return self.comentario
     def setComentario(self,comentario):
         self.comentario = comentario
+    
+    def getValoracion(self):
+        return self.valoracion
+    def setValoracion(self,valoracion):
+        self.valoracion = valoracion
+
     
     def getVendedor(self):
         return self.vendedor
