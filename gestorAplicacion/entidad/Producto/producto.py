@@ -1,20 +1,20 @@
 import categoria
 class Producto:
     def __init__(self,id,nombre,categoria):
-        self.id = id
-        self.nombre = nombre
-        self.categoria = categoria
-        opinion = []
-        compradores = []
-        publicaciones = []
-        resenadores = []
+        self._id = id
+        self._nombre = nombre
+        self._categoria = categoria
+        _opinion = []
+        _compradores = []
+        _publicaciones = []
+        _resenadores = []
 
-        def addOpinionProducto(resena):
+        def addopinionProducto(resena):
             if resena is not None:
-                opinion.append(resena)
+                _opinion.append(resena)
         
         def existeResena(comprador):
-            return comprador in self.resenadores
+            return comprador in self._resenadores
         
         def getId(self):
             return self.id
@@ -25,14 +25,14 @@ class Producto:
         def getCategoria(self):
             return self.categoria
         
-        def getOpiniones(self):
-            return self.opinion
+        def getopiniones(self):
+            return self._opinion
         
-        def getPublicaciones(self):
-            return self.publicaciones
+        def getpublicaciones(self):
+            return self._publicaciones
         
         def agregarPublicacion(self,publicacion):
-            publicaciones.append(publicacion)
+            _publicaciones.append(publicacion)
         
         def setId(self,id):
             self.id = id
@@ -43,31 +43,31 @@ class Producto:
         def setCategoria(self,categoria):
             self.categoria = categoria
         
-        def setCompradores(self,compradores):
-            self.compradores = compradores
+        def setcompradores(self,compradores):
+            self._compradores = compradores
         
-        def getCompradores(self):
-            return self.compradores
+        def get_compradores(self):
+            return self._compradores
         
-        def getResenadores(self):
-            return self.resenadores
+        def getresenadores(self):
+            return self._resenadores
 
-        def setOpinion(self,opinion):
-            self.opinion = opinion
+        def setopinion(self,opinion):
+            self._opinion = opinion
         
-        def setCompradores(self,compradores):
-            self.compradores = compradores
+        def setcompradores(self,compradores):
+            self._compradores = compradores
         
-        def setResenadores(self,resenadores):
-            self.resenadores = resenadores
+        def setresenadores(self,resenadores):
+            self._resenadores = resenadores
         
         def is_perecedero(self):
             return self.categoria.perecedero
 
         def agregarComprador(self,comprador):
-            compradores.append(comprador)
+            _compradores.append(comprador)
         
         def agregarResenador(self,resenador):
-            resenadores.append(resenador)
+            _resenadores.append(resenador)
 
         #Seguir copiando el codigo....
