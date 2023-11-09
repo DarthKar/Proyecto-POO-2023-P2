@@ -3,7 +3,7 @@ from opinion import opinion
 class OpinionVendedor(opinion):
 
     def __init__(self, comentario, valoracion, comprador, vendedor):
-        super.__init__(comentario, valoracion)
+        super().__init__(comentario, valoracion)
         self.comprador = comprador
         self.vendedor = vendedor
 
