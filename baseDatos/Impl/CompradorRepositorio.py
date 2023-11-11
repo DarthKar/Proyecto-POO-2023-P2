@@ -2,16 +2,16 @@
 class CompradorRepositorio():   #Implementar Repositorio
 
 
-    def guardar(self,comprador):
+    def guardarComprador(self,comprador):
         if comprador is not None:
-            Repositorio.guardar(comprador)
+            Repositorio.guardarC(comprador)
         return
 
     def obtenerPorId(id):
         return Repositorio.obtenerCompradorPorId(id)
 
-    def obtener():
+    def obtenerCompradores():
         return Repositorio.obtenerCompradores()
 
-    def eliminar(id):
+    def eliminarComprador(id):
         Repositorio.eliminarComprador(id)   
