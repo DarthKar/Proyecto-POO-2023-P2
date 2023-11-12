@@ -1,4 +1,4 @@
-
+from baseDatos.Impl import Repositorio
 class ProductoRepositorio():
 
 

@@ -1,4 +1,4 @@
-
+import Repositorio
 class CompradorRepositorio():   #Implementar Repositorio
 
 
