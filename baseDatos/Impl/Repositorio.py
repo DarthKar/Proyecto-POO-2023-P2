@@ -4,6 +4,7 @@ import pickle
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
 from gestorAplicacion.entidad.Producto import producto
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador import Comprador
+from typing import Optional
 
 class Repositorio:
     basesDatos=[]
@@ -43,7 +44,7 @@ class Repositorio:
         pos = next((i for i, v in enumerate(cls.baseDatos.vendedores) if vendedor.id == v.id), None)
 
         if pos is None:
-            cls.baseDatos.vendedores.append(vendedor)
+            cls.basesDatos.vendedores.append(vendedor)
         else:
             cls.baseDatos.vendedores[pos] = vendedor
         cls.guardarArchivo()
@@ -53,7 +54,7 @@ class Repositorio:
         pos = next((i for i, v in enumerate(cls.baseDatos.vendedores) if comprador.id == v.id), None)
 
         if pos is None:
-            cls.baseDatos.compradores.append(comprador)
+            cls.basesDatos.compradores.append(comprador)
         else:
             cls.baseDatos.compradores[pos] = comprador
         cls.guardarArchivo()

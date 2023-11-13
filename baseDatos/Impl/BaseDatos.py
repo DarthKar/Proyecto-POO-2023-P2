@@ -1,6 +1,7 @@
 import pickle
 from gestorAplicacion.entidad.Producto import Categoria
 from gestorAplicacion.entidad.Producto import Producto
+from gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador import Comprador
 
