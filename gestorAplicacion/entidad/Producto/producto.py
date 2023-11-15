@@ -1,4 +1,5 @@
 import categoria
+from baseDatos.Impl import ProductoRepositorio
 class Producto:
     def __init__(self,id,nombre,categoria):
         self._id = id
@@ -28,7 +29,7 @@ class Producto:
         def getopiniones(self):
             return self._opinion
         
-        def getpublicaciones(self):
+        def getPublicaciones(self):
             return self._publicaciones
         
         def agregarPublicacion(self,publicacion):
@@ -70,4 +71,6 @@ class Producto:
         def agregarResenador(self,resenador):
             _resenadores.append(resenador)
 
+        def getProductos():
+            return ProductoRepositorio.getProducto()
         #Seguir copiando el codigo....
