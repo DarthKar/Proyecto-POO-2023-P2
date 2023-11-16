@@ -1,14 +1,15 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 
 def CV():
     actual = listaCv.index(label_p2.cget("text"))
     cambio = (actual + 1) % len(listaCv)
     label_p2.config(text=listaCv[cambio])
-    label_p2_fotos.config(image=imgCv[cambio])
 
 def cambioDeVentana():
     ventana.withdraw()
     ventanaPrincipalI.deiconify()
+
 
 def volverVentana():
     ventanaPrincipalI.withdraw()
@@ -21,8 +22,8 @@ def cambiarContenido(proceso):
         LabelDesc2.config(text="Aquí va la descripción para realizar una compra.")
        
     elif proceso == "Devolucion":
-        LabelDesc.config(text="NOMBRE PROCESO: Realizar Devolución")
-        LabelDesc2.config(text="DESCRIPCION PROCESO: Aquí va la descripción para realizar una devolución.")
+        LabelDesc.config(text= "Realizar Devolución")
+        LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
   
     elif proceso == "Opinion":
         LabelDesc.config(text="Opinar")
@@ -35,11 +36,9 @@ def cambiarContenido(proceso):
 
 ventana = tk.Tk()
 ventana.title("Choopi")
-ventana.geometry("650x500")
+ventana.geometry("600x500")
 
-# Fotos y textos de CV
-fotoCv1 = tk.PhotoImage(file="src/image1.gif")
-imgCv = [fotoCv1]
+
 
 listaCv = [
     "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
@@ -79,7 +78,14 @@ label_p2.grid(row=0, column=0,columnspan=2)
 label_p2.bind("<Button-1>", lambda event: CV())
 p2_fotos_frame = tk.Frame(p2, bg="white")
 p2_fotos_frame.pack(pady=10)
-label_p2_fotos = tk.Label(p2_fotos_frame, image=imgCv[0])
+
+image_path = "src\MiguelImage.jpg"
+pil=Image.open(image_path)
+
+img = ImageTk.PhotoImage(file=image_path)
+
+# Cambia esta línea para usar label_p2_fotos en lugar de labelFotoCV
+label_p2_fotos = tk.Label(p2_fotos_frame, image=img)
 label_p2_fotos.grid(row=4, column=0)
 
 p3 = tk.Frame(p1, bg="green")
