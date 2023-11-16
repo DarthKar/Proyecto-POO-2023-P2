@@ -6,6 +6,8 @@ def CV():
     cambio = (actual + 1) % len(listaCv)
     label_p2.config(text=listaCv[cambio])
 
+    
+
 def cambioDeVentana():
     ventana.withdraw()
     ventanaPrincipalI.deiconify()
@@ -32,7 +34,7 @@ def cambiarContenido(proceso):
     elif proceso == "Estadistica":
         LabelDesc.config(text="Estadística")
         LabelDesc2.config(text=" Aquí va la descripción para ver estadísticas.")
-  
+
 
 ventana = tk.Tk()
 ventana.title("Choopi")
@@ -79,14 +81,12 @@ label_p2.bind("<Button-1>", lambda event: CV())
 p2_fotos_frame = tk.Frame(p2, bg="white")
 p2_fotos_frame.pack(pady=10)
 
-image_path = "src\MiguelImage.jpg"
-pil=Image.open(image_path)
+img= Image.open("src\MiguelImage.jpg")
 
-img = ImageTk.PhotoImage(file=image_path)
+pil= ImageTk.PhotoImage(img)
 
-# Cambia esta línea para usar label_p2_fotos en lugar de labelFotoCV
-label_p2_fotos = tk.Label(p2_fotos_frame, image=img)
-label_p2_fotos.grid(row=4, column=0)
+label_p2_fotos = tk.Label(p2_fotos_frame, image=pil)
+label_p2_fotos.grid(row=4, column=0, pady=5, padx=5, sticky="news")
 
 p3 = tk.Frame(p1, bg="green")
 p3.pack(side="top", padx=10, pady=10, fill="both", expand=True)
@@ -127,8 +127,9 @@ frameContenedor.pack(fill="both", expand=True)
 
 frameDelLabelDesc=tk.Frame(frameContenedor)
 frameDelLabelDesc.pack(pady=10)
-LabelDesc=tk.Label(frameDelLabelDesc,text="NOMBRE PROCESO",bg="white", font=("italic", 15), wraplength=270)
+LabelDesc=tk.Label(frameDelLabelDesc,text="a",bg="white", font=("italic", 15), wraplength=270)
 LabelDesc.grid(row=0, column=0, columnspan=2)
+
 
 frameDelLabelDesc2=tk.Frame(frameContenedor)
 frameDelLabelDesc2.pack(pady=10)
@@ -137,8 +138,9 @@ LabelDesc2.grid(row=2, column=0,columnspan=4)
 
 FrameWidgets=tk.Frame(frameContenedor, bg="white")
 FrameWidgets.pack(pady=10)
-
+cambiarContenido("Compra")
 
 ventanaPrincipalI.withdraw()
 
 ventana.mainloop()
+
