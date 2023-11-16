@@ -1,6 +1,9 @@
 from collections import defaultdict
 from baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
+import categoria
+from baseDatos.Impl import ProductoRepositorio
+
 
 class Producto:
     def __init__(self,id,nombre,categoria):
@@ -31,7 +34,7 @@ class Producto:
         def getopiniones(self):
             return self._opinion
         
-        def getpublicaciones(self):
+        def getPublicaciones(self):
             return self._publicaciones
         
         def agregarPublicacion(self,publicacion):

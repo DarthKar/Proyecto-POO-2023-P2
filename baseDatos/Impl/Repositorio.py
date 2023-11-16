@@ -4,18 +4,18 @@ import pickle
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
 from gestorAplicacion.entidad.Producto import producto
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador import Comprador
-from typing import Optional
+
 
 class Repositorio:
-    basesDatos=[]
+    baseDatos=None
     FILE = "basedatos.txt"
     PATH = os.path.join(os.getcwd(), "temp", "{}")
-
+   
     
     @classmethod
     def leer(cls):
         if cls.crearDirectorio() or cls.crearArchivo():
-            baseDatos=BaseDatos()
+            cls.baseDatos=BaseDatos()
             cls.guardarArchivo()
             return
     leer()
@@ -40,27 +40,27 @@ class Repositorio:
         except Exception as e:
             raise RuntimeError(e)
     @classmethod
-    def guardar(cls, vendedor: Vendedor):
+    def guardarVendedor(cls, vendedor: Vendedor):
         pos = next((i for i, v in enumerate(cls.baseDatos.vendedores) if vendedor.id == v.id), None)
 
         if pos is None:
-            cls.basesDatos.vendedores.append(vendedor)
+            cls.baseDatos.vendedores.append(vendedor)
         else:
             cls.baseDatos.vendedores[pos] = vendedor
         cls.guardarArchivo()
 
     @classmethod
-    def guardar(cls, comprador):
-        pos = next((i for i, v in enumerate(cls.baseDatos.vendedores) if comprador.id == v.id), None)
+    def guardarComprador(cls, comprador):
+        pos = next((i for i, v in enumerate(cls.baseDatos.compradores) if comprador.id == v.id), None)
 
         if pos is None:
-            cls.basesDatos.compradores.append(comprador)
+            cls.baseDatos.compradores.append(comprador)
         else:
             cls.baseDatos.compradores[pos] = comprador
         cls.guardarArchivo()
 
     @classmethod
-    def guardar_producto(cls, producto):
+    def guardarProducto(cls, producto):
         pos = next((i for i, v in enumerate(cls.baseDatos.productos) if producto.id == v.id), None)
 
         if pos is None:
@@ -98,8 +98,9 @@ class Repositorio:
         return next((p for p in cls.baseDatos.productos if p.id == id), None)
 
     @classmethod
-    def obtener_productos(cls):
+    def obtenerProductos(cls):
         return cls.baseDatos.productos
+        
 
     @classmethod
     def eliminar_comprador(cls, id):
