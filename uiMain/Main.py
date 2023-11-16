@@ -41,6 +41,7 @@ ventana.title("Choopi")
 ventana.geometry("600x500")
 
 
+<<<<<<< Updated upstream
 
 listaCv = [
     "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
