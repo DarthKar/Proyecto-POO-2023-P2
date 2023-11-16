@@ -46,6 +46,23 @@ ventana.geometry("600x500")
 listaCv = [
     "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
     "Juan Pablo Gaviria Orozco, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
+=======
+# Fotos y textos de CV
+fotoCv1 = tk.PhotoImage(file="src/image1.gif")
+imgCv = [fotoCv1]
+fotoCv2 = tk.PhotoImage(file="src/SebasImage.gif")
+imgCv = [fotoCv2]
+fotoCv3 = tk.PhotoImage(file="src/SebasImage1.gif")
+imgCv = [fotoCv3]
+fotoCv4 = tk.PhotoImage(file="src/SebasImage2.gif")
+imgCv = [fotoCv4]
+fotoCv5 = tk.PhotoImage(file="src/SebasImage2.gif")
+imgCv = [fotoCv5]
+
+listaCv = [
+    "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
+    "Sebastian Gomez Zapata, 22 años, estudiante de la Universidad Nacional de Colombia sede Medellin de Ingenieria de Sistemas",
+>>>>>>> Stashed changes
     "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ]
