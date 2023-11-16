@@ -4,7 +4,7 @@ class Transaccion(ITransaccion):
     def __init__(self,id,comprador):
         self.id = id
         self.comprador = comprador
-        productosTransaccion = []
+        self.productosTransaccion = []
     
     def getComprador(self):
         return self.comprador
