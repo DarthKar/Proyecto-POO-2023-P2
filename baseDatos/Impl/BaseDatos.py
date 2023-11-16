@@ -33,10 +33,10 @@ class BaseDatos:
     def valoresPorDefecto(self):
         self.productos.append(Producto(1, "Ron", Categoria.ALIMENTOS))
         self.productos.append(Producto(2, "Televisor", Categoria.ELECTRONICA))
-        self.productos.approductosend(Producto(3, "Pomada", Categoria.ROPA))
+        self.productos.append(Producto(3, "Pomada", Categoria.ROPA))
         self.productos.append(Producto(4, "Sofá", Categoria.HOGAR))
         self.productos.append(Producto(5, "Muñeca", Categoria.JUGUETES))
-        self.productos.approductos
+        self.productos.append(Producto(6, "Crema facial", Categoria.COSMETICOS))
         self.productos.append(Producto(7, "Libro", Categoria.OTROS))
         self.productos.append(Producto(8, "Desinfectante", Categoria.ELECTRONICA))
         self.productos.append(Producto(9, "Cepillo de dientes", Categoria.HOGAR))

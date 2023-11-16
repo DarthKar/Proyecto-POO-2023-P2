@@ -1,6 +1,5 @@
-from baseDatos.Impl import Repositorio
+import Repositorio
 class ProductoRepositorio():
-
 
     def guardarProducto(self,producto):
         if producto is not None:
@@ -10,5 +9,5 @@ class ProductoRepositorio():
     def getProductoPorId(id):
         return Repositorio.getProducto(id)
     
-    def obtenerProductos():
-        return Repositorio.obtenerProductos()
+    def obtenerProducto():
+        return Repositorio.Repositorio.obtenerProductos()
