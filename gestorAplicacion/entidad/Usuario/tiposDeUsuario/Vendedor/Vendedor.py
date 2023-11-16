@@ -1,5 +1,13 @@
 
 from gestorAplicacion.entidad.Usuario.Usuario import Usuario
+from collections import defaultdict
+from baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
+from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Comprador import Comprador
+from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Transaccion import Transaccion
+from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.ProductoTransaccion import ProductoTransaccion
+
+import Publicacion
+
 class Vendedor(Usuario):
 
     def __init__(self, id, nombre="jhon", apellido="doe", correo=None):
@@ -49,8 +57,57 @@ class Vendedor(Usuario):
     def agregarComprador(self,comprador):
         self.compradores.add(comprador)
     
-    def agregarResanador(self,resenador):
+    def agregarResenador(self,resenador):
         self.resenadores.add(resenador)
 
-    #Se necesita implementar mas metodos aqui. 
+    def mejorVendendor():
+        cantidadProductosPorVendedor = defaultdict(int)
+
+        for comprador in CompradorRepositorio.obtenerCompradores():
+            for transaccion in comprador.getOrdenes():
+                for productotransaccion in transaccion.getProductosTransaccion():
+                    vendedor = productotransaccion.getPublicacion().getVendedor()
+                    cantidadProductosPorVendedor [vendedor] += 1
+
+        mejorVendedor = None
+        maxCantidadProductos = 0
+
+        for vendedor, cantidadProductos in cantidadProductosPorVendedor.items():
+            if cantidadProductos > maxCantidadProductos:
+                maxCantidadProductos = cantidadProductos
+                mejorVendedor = vendedor
+
+        if mejorVendedor:
+            return f"{mejorVendedor.nombre} {mejorVendedor.apellido} con un total de {maxCantidadProductos} productos vendidos"
+        else:
+            return "No se encontró mejor vendedor"
+        
+    def mejorVendedorPorRecaudacion():
+    
+        recaudacionPorVendedor = {}
+
+        for comprador in CompradorRepositorio.obtenerCompradores():
+            for orden in comprador.getOrdenes():
+                for productoTransaccion in orden.getProductosTransaccion():
+                    vendedor = productoTransaccion.getPublicacion().getVendedor()
+                    precioProducto = productoTransaccion.getPublicacion().getPrecio()
+
+                    if vendedor in recaudacionPorVendedor:
+                        recaudacionPorVendedor[vendedor] += precioProducto
+                    else:
+                        recaudacionPorVendedor[vendedor] = precioProducto
+
+        mejorVendedor = None
+        maxRecaudacion = 0
+
+        for vendedor, recaudacion in recaudacionPorVendedor.items():
+            if recaudacion > maxRecaudacion:
+                maxRecaudacion = recaudacion
+                mejorVendedor = vendedor
+
+        if mejorVendedor:
+            return f"{mejorVendedor.getNombre()} {mejorVendedor.getApellido()} ha recaudado un total de {maxRecaudacion} en ventas."
+        else:
+            return "No se encontró ningún mejor vendedor por recaudación."
+
 

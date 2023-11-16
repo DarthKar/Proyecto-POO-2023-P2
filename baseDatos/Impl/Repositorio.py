@@ -86,11 +86,11 @@ class Repositorio:
             raise ValueError("No existe el vendedor")
 
     @classmethod
-    def obtener_compradores(cls):
+    def obtenerCompradores(cls):
         return cls.baseDatos.compradores
 
     @classmethod
-    def obtener_comprador_por_id(cls, id):
+    def obtenerCompradorPorId(cls, id):
         return next((c for c in cls.baseDatos.compradores if c.id == id), None)
 
     @classmethod
@@ -103,7 +103,7 @@ class Repositorio:
         
 
     @classmethod
-    def eliminar_comprador(cls, id):
+    def eliminarComprador(cls, id):
         comprador = cls.obtener_comprador_por_id(id)
         if comprador:
             cls.baseDatos.compradores.remove(comprador)

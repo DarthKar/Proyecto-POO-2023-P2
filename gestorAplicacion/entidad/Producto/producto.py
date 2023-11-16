@@ -188,3 +188,5 @@ class Producto:
                         producto = productoTransaccion.getPublicacion().getProducto()
                         productosDiferentes.append(producto)
             return len(productosDiferentes)
+
+

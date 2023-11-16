@@ -1,10 +1,10 @@
-import Repositorio
+from Repositorio import Repositorio
 class CompradorRepositorio():   #Implementar Repositorio
 
 
     def guardarComprador(self,comprador):
         if comprador is not None:
-            Repositorio.guardarC(comprador)
+            Repositorio.guardarComprador(comprador)
         return
 
     def obtenerPorId(id):
