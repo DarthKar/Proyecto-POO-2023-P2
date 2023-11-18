@@ -6,6 +6,7 @@ def CV():
     actual = listaCv.index(label_p2.cget("text"))
     cambio = (actual + 1) % len(listaCv)
     label_p2.config(text=listaCv[cambio])
+    label_p2_fotos.config(image=listaImagenesCv[cambio])
 
 
 def cambioDeVentana():
@@ -37,6 +38,13 @@ def cambiarContenido(proceso):
         LabelDesc2.config(text=" Aquí va la descripción para ver estadísticas.")
 
 
+def cargar_imagenes():
+    tempList = []
+    for i in range(0, len(listaCv)):
+        tempList.append(ImageTk.PhotoImage(Image.open(f"../{i + 1}.gif").resize((200,356))))
+    return tempList
+
+
 ventana = tk.Tk()
 ventana.title("Choopi")
 ventana.geometry("600x500")
@@ -44,9 +52,11 @@ ventana.geometry("600x500")
 listaCv = [
     "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
     "Juan Pablo Gaviria Orozco, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
-    "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
-    "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    "Sebastian Gomez Zapata, 22 años, estudiante de la Universidad Nacional de Colombia sede Medellin de Ingenieria de Sistemas",
+    "Juan Felipe Cadavid Ruiz, estudaitne de Ingenieria de Sistemas e Informatica, Universidad Nacional de Colombia"
 ]
+
+listaImagenesCv = cargar_imagenes()
 
 ventana.grid_columnconfigure(0, weight=1)
 ventana.grid_rowconfigure(0, weight=1)
@@ -80,11 +90,11 @@ label_p2.bind("<Button-1>", lambda event: CV())
 p2_fotos_frame = tk.Frame(p2, bg="white")
 p2_fotos_frame.pack(pady=10)
 
-img = Image.open("..\src\MiguelImage.jpg")
+img = Image.open("../1.gif")
 
 pil = ImageTk.PhotoImage(img)
 
-label_p2_fotos = tk.Label(p2_fotos_frame, image=pil)
+label_p2_fotos = tk.Label(p2_fotos_frame, image=pil, )
 label_p2_fotos.grid(row=4, column=0, pady=5, padx=5, sticky="news")
 
 p3 = tk.Frame(p1, bg="green")
@@ -95,7 +105,7 @@ label_p3.pack(pady=10)
 p4 = tk.Frame(p1, bg="green")
 p4.pack(padx=10, pady=10, fill="both", expand=True)
 label_foto1 = tk.Label(p4)
-foto1 = tk.PhotoImage(file="src/image1.gif")
+foto1 = tk.PhotoImage(file="../2.gif")
 label_foto1.config(image=foto1, compound="bottom")
 label_foto1.pack(pady=10, padx=10)
 botonVentanaUsuario = tk.Button(p4, text="Usuario interfaz", padx=10, pady=10, command=cambioDeVentana)
