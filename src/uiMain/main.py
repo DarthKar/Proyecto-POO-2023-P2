@@ -6,6 +6,7 @@ def CV():
     actual = listaCv.index(label_p2.cget("text"))
     cambio = (actual + 1) % len(listaCv)
     label_p2.config(text=listaCv[cambio])
+    label_p2.config(bg="gray")
     label_p2_fotos.config(image=listaImagenesCv[cambio])
 
 
@@ -43,8 +44,9 @@ def cambiarContenido(proceso):
 def cargar_imagenes():
     tempList = []
     for i in range(0, len(listaCv)):
-        tempList.append(ImageTk.PhotoImage(Image.open(f"src\{i + 1}.gif").resize((200,356))))
+        tempList.append(ImageTk.PhotoImage(Image.open(f"src/{i + 1}.gif").resize((200,356))))
     return tempList
+
 
 def opinion():
     
@@ -65,6 +67,7 @@ def opinion():
 
 
 ventana = tk.Tk()
+ventana.config(bg="black")
 ventana.title("Choopi")
 ventana.geometry("600x500")
 
@@ -86,42 +89,62 @@ ventanaInicio.pack(fill="both", expand=True)
 menuInicio = tk.Menu(ventana)
 ventana.config(menu=menuInicio)
 
+#Creacion Menu Inicio
 menu1 = tk.Menu(menuInicio, font=("italic"), tearoff=0)
 menuInicio.add_cascade(label="Inicio", menu=menu1)
 menu1.add_command(label="Descripcion")
 menu1.add_separator()
 menu1.add_command(label="Salir", command=quit)
 
-framePrincipal = tk.Frame(ventanaInicio, bg="red")
+framePrincipal = tk.Frame(ventanaInicio, bg="black")
 framePrincipal.pack(fill="both", expand=True, padx=10)
 
-p1 = tk.Frame(framePrincipal, bg="blue")
+p1 = tk.Frame(framePrincipal, bg="dark blue")
 p1.pack(side="left", padx=10, fill="both", expand=True)
 
 p2 = tk.Frame(framePrincipal, bg="black")
 p2.pack(side="right", padx=10, fill="both", expand=True)
 
+#Creacion Frame CV
 p2_label_frame = tk.Frame(p2, bg="white")
-p2_label_frame.pack(pady=10)
+p2_label_frame.pack(side="top", fill="both", expand=True)
 label_p2 = tk.Label(p2_label_frame, text=listaCv[0], font=("italic", 15), wraplength=270)
-label_p2.grid(row=0, column=0, columnspan=2)
+label_p2.pack(pady=10)
 label_p2.bind("<Button-1>", lambda event: CV())
 p2_fotos_frame = tk.Frame(p2, bg="white")
 p2_fotos_frame.pack(pady=10)
 
 img = Image.open("src/1.gif")
+resized_img = img.resize((125, 150))
 
-pil = ImageTk.PhotoImage(img)
+pil = ImageTk.PhotoImage(resized_img)
+
+img2 = Image.open("src/2.gif")
+
+pil2 = ImageTk.PhotoImage(img2)
+img3 = Image.open("src/3.gif")
+
+pil3 = ImageTk.PhotoImage(img3)
+img4 = Image.open("src/4.gif")
+
+pil4 = ImageTk.PhotoImage(img4)
 
 label_p2_fotos = tk.Label(p2_fotos_frame, image=pil, )
 label_p2_fotos.grid(row=4, column=0, pady=5, padx=5, sticky="news")
+label_p3_fotos = tk.Label(p2_fotos_frame, image=pil, )
+label_p3_fotos.grid(row=3, column=0, pady=5, padx=5, sticky="news")
+label_p4_fotos = tk.Label(p2_fotos_frame, image=pil, )
+label_p4_fotos.grid(row=4, column=1, pady=5, padx=5, sticky="news")
+label_p5_fotos = tk.Label(p2_fotos_frame, image=pil, )
+label_p5_fotos.grid(row=3, column=1, pady=5, padx=5, sticky="news")
 
-p3 = tk.Frame(p1, bg="green")
+#Frame Bienvenida
+p3 = tk.Frame(p1, bg="light blue")
 p3.pack(side="top", padx=10, pady=10, fill="both", expand=True)
 label_p3 = tk.Label(p3, text="¡Bienvenido a Choopi!", font=("italic", 20))
 label_p3.pack(pady=10)
 
-p4 = tk.Frame(p1, bg="green")
+p4 = tk.Frame(p1, bg="light blue")
 p4.pack(padx=10, pady=10, fill="both", expand=True)
 label_foto1 = tk.Label(p4)
 foto1 = tk.PhotoImage(file="src/2.gif")
