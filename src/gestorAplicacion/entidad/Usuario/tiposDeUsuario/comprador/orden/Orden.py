@@ -1,5 +1,5 @@
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Transaccion import Transaccion
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.ProductoTransaccion import ProductoTransaccion
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Transaccion import Transaccion
+
 
 class Orden(Transaccion):
     def __init__(self,id,comprador):

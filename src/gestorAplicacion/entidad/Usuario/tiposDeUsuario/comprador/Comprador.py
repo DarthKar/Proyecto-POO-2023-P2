@@ -1,7 +1,7 @@
-from entidad.Usuario import Usuario
 from orden import Carrito
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
-from baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
+from src.baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
+from src.gestorAplicacion.entidad.Usuario import Usuario
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
 
 class Comprador(Usuario):
     def __init__(self, id, nombre, apellido, correo, membresia=Membresia.NINGUNA, saldo=100):

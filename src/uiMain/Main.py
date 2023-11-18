@@ -1,12 +1,12 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
+
 def CV():
     actual = listaCv.index(label_p2.cget("text"))
     cambio = (actual + 1) % len(listaCv)
     label_p2.config(text=listaCv[cambio])
 
-    
 
 def cambioDeVentana():
     ventana.withdraw()
@@ -17,16 +17,17 @@ def volverVentana():
     ventanaPrincipalI.withdraw()
     ventana.deiconify()
 
+
 def cambiarContenido(proceso):
     # Lógica para cambiar el contenido según el proceso seleccionado
     if proceso == "Compra":
         LabelDesc.config(text="Realizar Compra")
         LabelDesc2.config(text="Aquí va la descripción para realizar una compra.")
-       
+
     elif proceso == "Devolucion":
-        LabelDesc.config(text= "Realizar Devolución")
+        LabelDesc.config(text="Realizar Devolución")
         LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
-  
+
     elif proceso == "Opinion":
         LabelDesc.config(text="Opinar")
         LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
@@ -40,29 +41,9 @@ ventana = tk.Tk()
 ventana.title("Choopi")
 ventana.geometry("600x500")
 
-
-<<<<<<< Updated upstream
-
 listaCv = [
     "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
     "Juan Pablo Gaviria Orozco, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
-=======
-# Fotos y textos de CV
-fotoCv1 = tk.PhotoImage(file="src/image1.gif")
-imgCv = [fotoCv1]
-fotoCv2 = tk.PhotoImage(file="src/SebasImage.gif")
-imgCv = [fotoCv2]
-fotoCv3 = tk.PhotoImage(file="src/SebasImage1.gif")
-imgCv = [fotoCv3]
-fotoCv4 = tk.PhotoImage(file="src/SebasImage2.gif")
-imgCv = [fotoCv4]
-fotoCv5 = tk.PhotoImage(file="src/SebasImage2.gif")
-imgCv = [fotoCv5]
-
-listaCv = [
-    "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
-    "Sebastian Gomez Zapata, 22 años, estudiante de la Universidad Nacional de Colombia sede Medellin de Ingenieria de Sistemas",
->>>>>>> Stashed changes
     "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ]
@@ -94,21 +75,21 @@ p2.pack(side="right", padx=10, fill="both", expand=True)
 p2_label_frame = tk.Frame(p2, bg="white")
 p2_label_frame.pack(pady=10)
 label_p2 = tk.Label(p2_label_frame, text=listaCv[0], font=("italic", 15), wraplength=270)
-label_p2.grid(row=0, column=0,columnspan=2)
+label_p2.grid(row=0, column=0, columnspan=2)
 label_p2.bind("<Button-1>", lambda event: CV())
 p2_fotos_frame = tk.Frame(p2, bg="white")
 p2_fotos_frame.pack(pady=10)
 
-img= Image.open("src\MiguelImage.jpg")
+img = Image.open("..\src\MiguelImage.jpg")
 
-pil= ImageTk.PhotoImage(img)
+pil = ImageTk.PhotoImage(img)
 
 label_p2_fotos = tk.Label(p2_fotos_frame, image=pil)
 label_p2_fotos.grid(row=4, column=0, pady=5, padx=5, sticky="news")
 
 p3 = tk.Frame(p1, bg="green")
 p3.pack(side="top", padx=10, pady=10, fill="both", expand=True)
-label_p3 = tk.Label(p3, text="¡Bienvenido a Choopi!", font=("italic",20))
+label_p3 = tk.Label(p3, text="¡Bienvenido a Choopi!", font=("italic", 20))
 label_p3.pack(pady=10)
 
 p4 = tk.Frame(p1, bg="green")
@@ -133,32 +114,31 @@ menuArchivo.add_command(label="Aplicacion")
 menuArchivo.add_separator()
 menuArchivo.add_command(label="Salir", command=volverVentana)
 
-MenuFuncionalidades= tk.Menu(menuP, font=("italic"), tearoff=0)
+MenuFuncionalidades = tk.Menu(menuP, font=("italic"), tearoff=0)
 menuP.add_cascade(label="Procesos y consultas", menu=MenuFuncionalidades)
 MenuFuncionalidades.add_command(label="Realizar Compra", command=lambda: cambiarContenido("Compra"))
 MenuFuncionalidades.add_command(label="Realizar Devolucion", command=lambda: cambiarContenido("Devolucion"))
 MenuFuncionalidades.add_command(label="Opinar", command=lambda: cambiarContenido("Opinion"))
 MenuFuncionalidades.add_command(label="Estadistica", command=lambda: cambiarContenido("Estadistica"))
 
-frameContenedor=tk.Frame(ventanaPrincipalI, bg="blue")
+frameContenedor = tk.Frame(ventanaPrincipalI, bg="blue")
 frameContenedor.pack(fill="both", expand=True)
 
-frameDelLabelDesc=tk.Frame(frameContenedor)
+frameDelLabelDesc = tk.Frame(frameContenedor)
 frameDelLabelDesc.pack(pady=10)
-LabelDesc=tk.Label(frameDelLabelDesc,text="a",bg="white", font=("italic", 15), wraplength=270)
+LabelDesc = tk.Label(frameDelLabelDesc, text="a", bg="white", font=("italic", 15), wraplength=270)
 LabelDesc.grid(row=0, column=0, columnspan=2)
 
-
-frameDelLabelDesc2=tk.Frame(frameContenedor)
+frameDelLabelDesc2 = tk.Frame(frameContenedor)
 frameDelLabelDesc2.pack(pady=10)
-LabelDesc2 = tk.Label(frameDelLabelDesc2,text="DESCRIPCION PROCESO O FUNCIONALIDAD", font=("italic", 15), wraplength=400)
-LabelDesc2.grid(row=2, column=0,columnspan=4)
+LabelDesc2 = tk.Label(frameDelLabelDesc2, text="DESCRIPCION PROCESO O FUNCIONALIDAD", font=("italic", 15),
+                      wraplength=400)
+LabelDesc2.grid(row=2, column=0, columnspan=4)
 
-FrameWidgets=tk.Frame(frameContenedor, bg="white")
+FrameWidgets = tk.Frame(frameContenedor, bg="white")
 FrameWidgets.pack(pady=10)
 cambiarContenido("Compra")
 
 ventanaPrincipalI.withdraw()
 
 ventana.mainloop()
-

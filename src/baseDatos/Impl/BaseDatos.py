@@ -1,36 +1,38 @@
-import pickle
-from gestorAplicacion.entidad.Producto import Categoria
-from gestorAplicacion.entidad.Producto import Producto
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador import Comprador
+import random
+from src.gestorAplicacion.entidad.Producto.categoria import Categoria
+from src.gestorAplicacion.entidad.Producto.producto import Producto
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador import Comprador
+
 
 class BaseDatos:
     def __init__(self):
-        compradores = []
-        vendedores = []
-        productos = []
+        self.compradores = []
+        self.vendedores = []
+        self.productos = []
+        self.valores_por_defecto()
     
-    def getCompradores(self):
+    def get_compradores(self):
         return self.compradores
 
-    def getProductos(self):
+    def get_productos(self):
         return self.productos
     
-    def getVendedores(self):
+    def get_vendedores(self):
         return self.vendedores
     
-    def setCompradores(self, compradores):
+    def set_compradores(self, compradores):
         self.compradores = compradores
     
-    def setProductos(self, productos):
+    def set_productos(self, productos):
         self.productos = productos
 
-    def setVendedores(self, vendedores):
+    def set_vendedores(self, vendedores):
         self.vendedores = vendedores
     
     
-    def valoresPorDefecto(self):
+    def valores_por_defecto(self):
         self.productos.append(Producto(1, "Ron", Categoria.ALIMENTOS))
         self.productos.append(Producto(2, "Televisor", Categoria.ELECTRONICA))
         self.productos.append(Producto(3, "Pomada", Categoria.ROPA))
@@ -150,5 +152,21 @@ class BaseDatos:
         self.vendedores.append(Vendedor(33, "Carlos", "López"))
         self.vendedores.append(Vendedor(34, "Ana", "Martínez"))
         self.vendedores.append(Vendedor(35, "Pedro", "Sánchez"))
+
+        for vendedor in self.vendedores:
+            cantidad_publicaciones = random.randint(10, 20)
+
+            for i in range(1, cantidad_publicaciones):
+                while True:
+                    try:
+                        producto_aleatorio = random.randint(0, len(self.productos) - 1)
+                        inventario_aleatorio = random.randint(1, 99)
+                        precio_aleatorio = random.uniform(10, 100)
+
+                        vendedor.crear_publicacion(self.productos[producto_aleatorio], inventario_aleatorio,
+                                                   precio_aleatorio)
+                        break
+                    except ValueError:
+                        pass
 
         #Falta copiar la implementaciones ramdom.....

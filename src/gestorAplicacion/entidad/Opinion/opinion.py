@@ -26,7 +26,7 @@ class opinion:
 
     def crearOpinionP(self, comprador, producto, comentario, valoracion):
         existe = False
-        if (comprador in producto.getCompradores()):
+        if (comprador in producto.get_compradores()):
             existe = True
             if (producto.existeResena(comprador)==False):
                 opinion = OpinionProducto(comentario, valoracion, producto,comprador)
@@ -55,7 +55,7 @@ class opinion:
         opinionEncontrada = False    
         opinionEliminar = None
 
-        for opinionProducto in producto.getCompradores:
+        for opinionProducto in producto.get_compradores:
             if opinionProducto.getCreador().equals(comprador):
                 opinionEncontrada = True
                 opinionEliminar = opinionProducto
@@ -66,7 +66,7 @@ class opinion:
 
     def crearOpinionV(self, comprador, vendedor, comentario, valoracion):
         existe = False
-        if (comprador in vendedor.getCompradores()):
+        if (comprador in vendedor.get_compradores()):
             existe = True
             if (vendedor.existeResena(comprador)==False):
                 opinion = OpinionVendedor(comentario, valoracion, vendedor,comprador)
@@ -95,7 +95,7 @@ class opinion:
         opinionEncontrada = False    
         opinionEliminar = None
 
-        for opinionVendedor in vendedor.getCompradores:
+        for opinionVendedor in vendedor.get_compradores:
             if opinionVendedor.getCreador().equals(comprador):
                 opinionEncontrada = True
                 opinionEliminar = opinionVendedor

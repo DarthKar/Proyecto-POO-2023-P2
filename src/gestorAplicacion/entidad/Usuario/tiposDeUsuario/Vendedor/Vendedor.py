@@ -1,12 +1,8 @@
 
-from gestorAplicacion.entidad.Usuario.Usuario import Usuario
+from src.gestorAplicacion.entidad.Usuario.Usuario import Usuario
 from collections import defaultdict
-from baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Comprador import Comprador
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Transaccion import Transaccion
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.ProductoTransaccion import ProductoTransaccion
+from src.baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
 
-import Publicacion
 
 class Vendedor(Usuario):
 

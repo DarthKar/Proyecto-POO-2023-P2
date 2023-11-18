@@ -10,4 +10,4 @@ class ProductoRepositorio():
         return Repositorio.getProducto(id)
     
     def obtenerProducto():
-        return Repositorio.Repositorio.obtenerProductos()
+        return Repositorio.Repositorio.obtener_productos()
