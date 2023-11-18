@@ -28,7 +28,22 @@ class Comprador(Usuario):
    
     def obtenerCompradores(self):
         return CompradorRepositorio.obtenerCompradores
+
+    def agregarDevolucion(self, devolucion):
+        if not devolucion.getProductosTransaccion():  
+            self._saldo += self.AplicarDescuento(devolucion.calcularTotal())
+            self._devoluciones.append(devolucion)
+            CompradorRepositorio.guardar(self)
     
+    def getCarrito(self):
+        return self._carrito
+    
+    def getSaldo(self):
+        return self._saldo
+
+    def quitarSaldo(self,quitar):
+        self._saldo = self._saldo - quitar
+
     
     def MasCompradorValor():
         comprasValorMaximo = 0
@@ -70,6 +85,7 @@ class Comprador(Usuario):
         
     def agregarDevolucion(devolucion):
         if devolucion.get
+
     
     #Segui agregando implementaciones....
     
