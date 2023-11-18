@@ -1,6 +1,6 @@
 
-from opinionProducto import OpinionProducto
-from opinionVendedor import OpinionVendedor
+from opinion_producto import OpinionProducto
+from opinion_vendedor import OpinionVendedor
 class opinion:
     
     def __init__(self, comentario, valoracion, creador=None):

@@ -1,4 +1,4 @@
-from comprador import Transaccion
+from orden import Transaccion
 
 class Carrito(Transaccion):
     def __init__(self,id,comprador):

@@ -2,8 +2,8 @@ import random
 from src.gestorAplicacion.entidad.Producto.categoria import Categoria
 from src.gestorAplicacion.entidad.Producto.producto import Producto
 from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
-from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
-from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador import Comprador
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.membresia import Membresia
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador import comprador
 
 
 class BaseDatos:

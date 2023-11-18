@@ -1,6 +1,6 @@
 from collections import defaultdict
 from src.baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
-from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.membresia import Membresia
 
 
 class Producto:

@@ -1,5 +1,5 @@
 
-from src.gestorAplicacion.entidad.Usuario.Usuario import Usuario
+from src.gestorAplicacion.entidad.Usuario.usuario import Usuario
 from collections import defaultdict
 from src.baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
 

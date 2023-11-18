@@ -1,7 +1,7 @@
-from orden import Carrito
+from orden.carrito import Carrito
 from src.baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
-from src.gestorAplicacion.entidad.Usuario import Usuario
-from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
+from src.gestorAplicacion.entidad.Usuario import usuario
+from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.membresia import Membresia
 
 class Comprador(Usuario):
     def __init__(self, id, nombre, apellido, correo, membresia=Membresia.NINGUNA, saldo=100):
@@ -44,7 +44,8 @@ class Comprador(Usuario):
     def quitarSaldo(self,quitar):
         self._saldo = self._saldo - quitar
 
-    
+
+    @staticmethod
     def MasCompradorValor():
         comprasValorMaximo = 0
         masComprador = None
@@ -65,7 +66,8 @@ class Comprador(Usuario):
        
         else:
             return "No se encontró comprador con valor máximo de compras"
-        
+
+    @staticmethod
     def mas_comprador():
 
         tamanoOrdenes = 0
@@ -83,8 +85,8 @@ class Comprador(Usuario):
 
         
         
-    def agregarDevolucion(devolucion):
-        if devolucion.get
+    #def agregarDevolucion(devolucion):
+    #    if devolucion.get
 
     
     #Segui agregando implementaciones....

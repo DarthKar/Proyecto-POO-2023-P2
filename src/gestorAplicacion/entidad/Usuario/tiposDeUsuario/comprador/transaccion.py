@@ -1,4 +1,4 @@
-import ITransaccion
+import itransaccion
 
 class Transaccion(ITransaccion):
     def __init__(self,id,comprador):
