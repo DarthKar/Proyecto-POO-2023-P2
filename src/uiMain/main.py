@@ -77,40 +77,62 @@ class Main:
         self.menuInicio = tk.Menu(self.ventana)
         self.ventana.config(menu=self.menuInicio)
 
+        #Creacion Menu Inicio
+        
         self.menu1 = tk.Menu(self.menuInicio, font=("italic"), tearoff=0)
         self.menuInicio.add_cascade(label="Inicio", menu=self.menu1)
         self.menu1.add_command(label="Descripcion")
         self.menu1.add_separator()
         self.menu1.add_command(label="Salir", command=quit)
 
-        self.framePrincipal = tk.Frame(self.ventanaInicio, bg="red")
+        self.framePrincipal = tk.Frame(self.ventanaInicio, bg="black")
         self.framePrincipal.pack(fill="both", expand=True, padx=10)
 
-        self.p1 = tk.Frame(self.framePrincipal, bg="blue")
+        self.p1 = tk.Frame(self.framePrincipal, bg="dark blue")
         self.p1.pack(side="left", padx=10, fill="both", expand=True)
 
         self.p2 = tk.Frame(self.framePrincipal, bg="black")
         self.p2.pack(side="right", padx=10, fill="both", expand=True)
 
+        #CREACION FRAME CV
+
         self.p2_label_frame = tk.Frame(self.p2, bg="white")
-        self.p2_label_frame.pack(pady=10)
+        self.p2_label_frame.pack(side="top", fill="both", expand=True)
         self.label_p2 = tk.Label(self.p2_label_frame, text=self.listaCv[0], font=("italic", 15), wraplength=270)
-        self.label_p2.grid(row=0, column=0, columnspan=2)
+        self.label_p2.pack(pady=10)
         self.label_p2.bind("<Button-1>", lambda event: self.CV())
         self.p2_fotos_frame = tk.Frame(self.p2, bg="white")
         self.p2_fotos_frame.pack(pady=10)
 
         img = Image.open("src/1.gif")
-        pil = ImageTk.PhotoImage(img)
-        self.label_p2_fotos = tk.Label(self.p2_fotos_frame, image=pil)
-        self.label_p2_fotos.grid(row=4, column=0, pady=5, padx=5, sticky="news")
+        resized_img = img.resize((125, 150))
+        pil = ImageTk.PhotoImage(resized_img)
+        img2 = Image.open("src/2.gif")
 
-        self.p3 = tk.Frame(self.p1, bg="green")
+        pil2 = ImageTk.PhotoImage(img2)
+        img3 = Image.open("src/3.gif")
+
+        pil3 = ImageTk.PhotoImage(img3)
+        img4 = Image.open("src/4.gif")
+
+        pil4 = ImageTk.PhotoImage(img4)
+
+        self.label_p2_fotos = tk.Label(self.p2_fotos_frame, image=pil, )
+        self.label_p2_fotos.grid(row=4, column=0, pady=5, padx=5, sticky="news")
+        self.label_p3_fotos = tk.Label(self.p2_fotos_frame, image=pil, )
+        self.label_p3_fotos.grid(row=3, column=0, pady=5, padx=5, sticky="news")
+        self.label_p4_fotos = tk.Label(self.p2_fotos_frame, image=pil, )
+        self.label_p4_fotos.grid(row=4, column=1, pady=5, padx=5, sticky="news")
+        self.label_p5_fotos = tk.Label(self.p2_fotos_frame, image=pil, )
+        self.label_p5_fotos.grid(row=3, column=1, pady=5, padx=5, sticky="news")
+
+        #FRAME BIENVENIDA
+        self.p3 = tk.Frame(self.p1, bg="light blue")
         self.p3.pack(side="top", padx=10, pady=10, fill="both", expand=True)
         self.label_p3 = tk.Label(self.p3, text="¡Bienvenido a Choopi!", font=("italic", 20))
         self.label_p3.pack(pady=10)
 
-        self.p4 = tk.Frame(self.p1, bg="green")
+        self.p4 = tk.Frame(self.p1, bg="light blue")
         self.p4.pack(padx=10, pady=10, fill="both", expand=True)
         self.label_foto1 = tk.Label(self.p4)
         foto1 = Image.open("src/2.gif").resize((200, 356))
