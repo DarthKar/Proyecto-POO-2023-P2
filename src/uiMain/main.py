@@ -24,6 +24,7 @@ def cambiarContenido(proceso):
     if proceso == "Compra":
         LabelDesc.config(text="Realizar Compra")
         LabelDesc2.config(text="Aquí va la descripción para realizar una compra.")
+    
 
     elif proceso == "Devolucion":
         LabelDesc.config(text="Realizar Devolución")
@@ -32,17 +33,35 @@ def cambiarContenido(proceso):
     elif proceso == "opinion":
         LabelDesc.config(text="Opinar")
         LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
+        opinion()
+        
 
     elif proceso == "Estadistica":
         LabelDesc.config(text="Estadística")
         LabelDesc2.config(text=" Aquí va la descripción para ver estadísticas.")
 
-
 def cargar_imagenes():
     tempList = []
     for i in range(0, len(listaCv)):
-        tempList.append(ImageTk.PhotoImage(Image.open(f"../{i + 1}.gif").resize((200,356))))
+        tempList.append(ImageTk.PhotoImage(Image.open(f"src\{i + 1}.gif").resize((200,356))))
     return tempList
+
+def opinion():
+    
+    for widget in FrameWidgets.winfo_children():
+        widget.destroy()
+    label_entry1 = tk.Label(FrameWidgets, text="Nombre:", font=("italic", 12), padx=5, pady=5)
+    label_entry1.grid(row=0, column=0, sticky="e")
+
+    entry1 = tk.Entry(FrameWidgets, font=("italic", 12), width=30)
+    entry1.grid(row=0, column=1, padx=5, pady=5)
+
+    label_entry2 = tk.Label(FrameWidgets, text="Comentario:", font=("italic", 12), padx=5, pady=5)
+    label_entry2.grid(row=1, column=0, sticky="e")
+
+    entry2 = tk.Entry(FrameWidgets, font=("italic", 12), width=30)
+    entry2.grid(row=1, column=1, padx=5, pady=5)
+
 
 
 ventana = tk.Tk()
@@ -90,7 +109,7 @@ label_p2.bind("<Button-1>", lambda event: CV())
 p2_fotos_frame = tk.Frame(p2, bg="white")
 p2_fotos_frame.pack(pady=10)
 
-img = Image.open("../1.gif")
+img = Image.open("src/1.gif")
 
 pil = ImageTk.PhotoImage(img)
 
@@ -105,7 +124,7 @@ label_p3.pack(pady=10)
 p4 = tk.Frame(p1, bg="green")
 p4.pack(padx=10, pady=10, fill="both", expand=True)
 label_foto1 = tk.Label(p4)
-foto1 = tk.PhotoImage(file="../2.gif")
+foto1 = tk.PhotoImage(file="src/2.gif")
 label_foto1.config(image=foto1, compound="bottom")
 label_foto1.pack(pady=10, padx=10)
 botonVentanaUsuario = tk.Button(p4, text="usuario interfaz", padx=10, pady=10, command=cambioDeVentana)
@@ -148,6 +167,7 @@ LabelDesc2.grid(row=2, column=0, columnspan=4)
 FrameWidgets = tk.Frame(frameContenedor, bg="white")
 FrameWidgets.pack(pady=10)
 cambiarContenido("Compra")
+
 
 ventanaPrincipalI.withdraw()
 
