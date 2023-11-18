@@ -1,12 +1,19 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import Image, ImageTk
 from field_frame import FieldFrame
+
+
+
 class Main:
     def CV(self):
         actual = self.listaCv.index(self.label_p2.cget("text"))
         cambio = (actual + 1) % len(self.listaCv)
         self.label_p2.config(text=self.listaCv[cambio])
         self.label_p2_fotos.config(image=self.listaImagenesCv[cambio])
+
+    def ayuda(self):
+        messagebox.showinfo("Creadores", "Miguel Angel Peña\nJuan Pablo Gaviria\nSebastian Gomez\nJuan Felipe Cadavid")
 
     def cambioDeVentana(self):
         self.ventana.withdraw()
@@ -152,6 +159,7 @@ class Main:
         self.MenuFuncionalidades.add_command(label="Realizar Devolucion", command=lambda: self.cambiarContenido("Devolucion"))
         self.MenuFuncionalidades.add_command(label="Opinar", command=lambda: self.cambiarContenido("opinion"))
         self.MenuFuncionalidades.add_command(label="Estadistica", command=lambda: self.cambiarContenido("Estadistica"))
+        self.menuP.add_command(label="ayuda", command=self.ayuda)
 
         self.frameContenedor = tk.Frame(self.ventanaPrincipalI, bg="blue")
         self.frameContenedor.pack(fill="both", expand=True)
