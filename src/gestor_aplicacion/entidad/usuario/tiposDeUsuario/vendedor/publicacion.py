@@ -42,4 +42,4 @@ class Publicacion(): #Debe implementar serializable
         self.oculto = oculto
     
     def mostrar_publicacion(self):
-        return "\n------------------------------------------\n" + "Vendedor: " + self.vendedor.nombre + "\nProducto: " + self.producto.nombre + "\nInventario: " + str(self.inventario) + "\nPrecio: " + str(self.precio) + "\n------------------------------------------"
+        return "\n------------------------------------------\n" + "vendedor: " + self.vendedor.nombre + "\nproducto: " + self.producto.nombre + "\nInventario: " + str(self.inventario) + "\nPrecio: " + str(self.precio) + "\n------------------------------------------"

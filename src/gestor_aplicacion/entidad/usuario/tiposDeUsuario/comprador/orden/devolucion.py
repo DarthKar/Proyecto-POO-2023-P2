@@ -1,4 +1,4 @@
-from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.transaccion import Transaccion
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.transaccion import Transaccion
 
 
 class Devolucion(Transaccion):

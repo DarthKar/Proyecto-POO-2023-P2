@@ -1,6 +1,6 @@
-from src.gestorAplicacion.entidad.Usuario.usuario import Usuario
+from src.gestor_aplicacion.entidad.usuario.usuario import Usuario
 from collections import defaultdict
-from src.baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
+from src.base_datos.comprador_repositorio import CompradorRepositorio
 
 
 class Vendedor(Usuario):

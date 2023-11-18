@@ -1,4 +1,4 @@
-import Repositorio
+import repositorio
 class VendedorRepositorio():
 
 

@@ -1,7 +1,7 @@
 import os
-import BaseDatos
+import base_datos
 import pickle
-from src.exceptions.excepciones import BaseDatosError
+from src.excepciones.excepciones import BaseDatosError
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
 
 

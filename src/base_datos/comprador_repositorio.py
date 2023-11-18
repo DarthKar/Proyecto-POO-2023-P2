@@ -1,4 +1,4 @@
-from Repositorio import Repositorio
+from repositorio import Repositorio
 class CompradorRepositorio():   #Implementar Repositorio
 
 

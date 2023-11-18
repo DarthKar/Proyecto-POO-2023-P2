@@ -16,5 +16,5 @@ class ProductoTransaccion:
         return self.getCantidad()*self.getPublicacion().getPrecio()
     
     def mostrarEspProducto(self):
-        return "\n-----------------------------------------\n"+"Nombre: "+self.getPublicacion().getProducto().getNombre()+"\nCantidad: "+self.getCantidad()+"\nPrecio: "+self.getPublicacion().getPrecio()+"\nVendedor: "+self.getPublicacion().getVendedor().getNombre()+"\nSubtotal: "+self.getSubTotal()+"\n-----------------------------------------\n"
+        return "\n-----------------------------------------\n"+"Nombre: "+self.getPublicacion().getProducto().getNombre()+"\nCantidad: "+self.getCantidad()+"\nPrecio: "+self.getPublicacion().getPrecio()+"\nvendedor: "+self.getPublicacion().getVendedor().getNombre()+"\nSubtotal: "+self.getSubTotal()+"\n-----------------------------------------\n"
     

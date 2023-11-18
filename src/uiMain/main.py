@@ -29,7 +29,7 @@ def cambiarContenido(proceso):
         LabelDesc.config(text="Realizar Devolución")
         LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
 
-    elif proceso == "Opinion":
+    elif proceso == "opinion":
         LabelDesc.config(text="Opinar")
         LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
 
@@ -108,7 +108,7 @@ label_foto1 = tk.Label(p4)
 foto1 = tk.PhotoImage(file="../2.gif")
 label_foto1.config(image=foto1, compound="bottom")
 label_foto1.pack(pady=10, padx=10)
-botonVentanaUsuario = tk.Button(p4, text="Usuario interfaz", padx=10, pady=10, command=cambioDeVentana)
+botonVentanaUsuario = tk.Button(p4, text="usuario interfaz", padx=10, pady=10, command=cambioDeVentana)
 botonVentanaUsuario.pack()
 
 ventanaPrincipalI = tk.Toplevel()
@@ -128,7 +128,7 @@ MenuFuncionalidades = tk.Menu(menuP, font=("italic"), tearoff=0)
 menuP.add_cascade(label="Procesos y consultas", menu=MenuFuncionalidades)
 MenuFuncionalidades.add_command(label="Realizar Compra", command=lambda: cambiarContenido("Compra"))
 MenuFuncionalidades.add_command(label="Realizar Devolucion", command=lambda: cambiarContenido("Devolucion"))
-MenuFuncionalidades.add_command(label="Opinar", command=lambda: cambiarContenido("Opinion"))
+MenuFuncionalidades.add_command(label="Opinar", command=lambda: cambiarContenido("opinion"))
 MenuFuncionalidades.add_command(label="Estadistica", command=lambda: cambiarContenido("Estadistica"))
 
 frameContenedor = tk.Frame(ventanaPrincipalI, bg="blue")
