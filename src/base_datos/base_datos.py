@@ -4,8 +4,9 @@ from src.gestor_aplicacion.entidad.producto.producto import Producto
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.vendedor import Vendedor
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.membresia import Membresia
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
-
-
+from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
+from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
+from gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.publicacion import Publicacion
 class BaseDatos:
     def __init__(self):
         self.compradores = []
@@ -153,6 +154,8 @@ class BaseDatos:
         self.vendedores.append(Vendedor(34, "Ana", "Martínez"))
         self.vendedores.append(Vendedor(35, "Pedro", "Sánchez"))
 
+        
+
         for vendedor in self.vendedores:
             cantidad_publicaciones = random.randint(10, 20)
 
@@ -166,7 +169,31 @@ class BaseDatos:
                         vendedor.crear_publicacion(self.productos[producto_aleatorio], inventario_aleatorio,
                                                    precio_aleatorio)
                         break
-                    except ValueError:
-                        pass
+                    except ValueError as e:
+                        print(f"Error: {e}")
+                        break 
+        
 
-        #Falta copiar la implementaciones ramdom.....
+
+
+        for comprador in self.compradores:
+            cantidad_ordenes = random.randint(1, 9)
+
+            for i in range(cantidad_ordenes):
+                orden = Orden(i, comprador)
+                cantidad_articulos = random.randint(1, 4)
+
+                for j in range(cantidad_articulos):
+                    producto_aleatorio = random.randint(0, len(self.productos) - 1)
+                    producto = self.productos[producto_aleatorio]
+
+                    publicacion_aleatoria = random.randint(0, len(producto.getPublicaciones()) - 1)
+                    publicacion = producto.getPublicaciones()[publicacion_aleatoria]
+
+                    cantidad_aleatoria = random.randint(1, 10)
+
+                    producto_transaccion = ProductoTransaccion(publicacion, cantidad_aleatoria)
+
+                    orden.agregar_producto(producto_transaccion)
+
+                comprador.agregar_orden(orden)
