@@ -46,6 +46,7 @@ class Main:
 
     def __init__(self):
         self.ventana = tk.Tk()
+        self.ventana.attributes('-fullscreen', True)
         self.ventana.title("Choopi")
         self.ventana.geometry("600x500")
 
@@ -87,12 +88,14 @@ class Main:
         #CREACION FRAME CV
 
         self.p2_label_frame = tk.Frame(self.p2, bg="white")
-        self.p2_label_frame.pack(side="top", fill="both", expand=True)
+        self.p2_label_frame.pack(side="top", padx=10, pady=10,fill="both", expand=True)
         self.label_p2 = tk.Label(self.p2_label_frame, text=self.listaCv[0], font=("italic", 15), wraplength=270)
-        self.label_p2.pack(pady=10)
+        self.label_p2.grid(row=0, column=0) 
+        self.p2_label_frame.grid_rowconfigure(0, weight=1)
+        self.p2_label_frame.grid_columnconfigure(0, weight=1)
         self.label_p2.bind("<Button-1>", lambda event: self.CV())
         self.p2_fotos_frame = tk.Frame(self.p2, bg="white")
-        self.p2_fotos_frame.pack(pady=10)
+        self.p2_fotos_frame.pack(pady=10,padx=10,fill="both",expand=True)
 
         img = Image.open("src/1.gif")
         resized_img = img.resize((125, 150))
@@ -125,13 +128,13 @@ class Main:
         self.p4 = tk.Frame(self.p1, bg="light blue")
         self.p4.pack(padx=10, pady=10, fill="both", expand=True)
         self.label_foto1 = tk.Label(self.p4)
-        foto1 = Image.open("src/2.gif").resize((200, 356))
+        foto1 = Image.open("src/EcommerceImage.gif").resize((200, 356))
         foto1 = ImageTk.PhotoImage(foto1)
         self.label_foto1.config(image=foto1, compound="bottom")
         self.label_foto1.image = foto1
         self.label_foto1.pack(pady=10, padx=10)
-        botonVentanaUsuario = tk.Button(self.p4, text="usuario interfaz", padx=10, pady=10, command=self.cambioDeVentana)
-        botonVentanaUsuario.pack()
+        botonVentanaUsuario = tk.Button(self.p4, text="usuario interfaz", padx=60, pady=45, command=self.cambioDeVentana,bg="light blue",fg="black",  font=("Arial", 16),relief="raised", borderwidth=3,)
+        botonVentanaUsuario.pack(side="bottom")
 
         self.ventanaPrincipalI = tk.Toplevel()
         self.ventanaPrincipalI.title("choopi")
