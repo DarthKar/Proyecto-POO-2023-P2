@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-
+from field_frame import FieldFrame
 class Main:
     def CV(self):
         actual = self.listaCv.index(self.label_p2.cget("text"))
@@ -17,7 +17,6 @@ class Main:
         self.ventana.deiconify()
 
     def cambiarContenido(self, proceso):
-        # Lógica para cambiar el contenido según el proceso seleccionado
         if proceso == "Compra":
             self.LabelDesc.config(text="Realizar Compra")
             self.LabelDesc2.config(text="Aquí va la descripción para realizar una compra.")
@@ -28,7 +27,6 @@ class Main:
             self.LabelDesc.config(text="Opinar")
             self.LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
             self.opinion()
-        
         elif proceso == "Estadistica":
             self.LabelDesc.config(text="Estadística")
             self.LabelDesc2.config(text=" Aquí va la descripción para ver estadísticas.")
@@ -42,17 +40,9 @@ class Main:
     def opinion(self):
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
-        label_entry1 = tk.Label(self.FrameWidgets, text="Nombre:", font=("italic", 12), padx=5, pady=5)
-        label_entry1.grid(row=0, column=0, sticky="e")
+        # Llama a FieldFrame con el número de campos deseado (por ejemplo, 3 campos)
+        FieldFrame(self.FrameWidgets, "Datos",["ID", "Comentario", "Valoracion"], 3, "Introduce aqui los datos")
 
-        entry1 = tk.Entry(self.FrameWidgets, font=("italic", 12), width=30)
-        entry1.grid(row=0, column=1, padx=5, pady=5)
-
-        label_entry2 = tk.Label(self.FrameWidgets, text="Comentario:", font=("italic", 12), padx=5, pady=5)
-        label_entry2.grid(row=1, column=0, sticky="e")
-
-        entry2 = tk.Entry(self.FrameWidgets, font=("italic", 12), width=30)
-        entry2.grid(row=1, column=1, padx=5, pady=5)
 
     def __init__(self):
         self.ventana = tk.Tk()
@@ -63,7 +53,7 @@ class Main:
             "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
             "Juan Pablo Gaviria Orozco, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
             "Sebastian Gomez Zapata, 22 años, estudiante de la Universidad Nacional de Colombia sede Medellin de Ingenieria de Sistemas",
-            "Juan Felipe Cadavid Ruiz, estudaitne de Ingenieria de Sistemas e Informatica, Universidad Nacional de Colombia"
+            "Juan Felipe Cadavid Ruiz, estudiante de Ingenieria de Sistemas e Informatica, Universidad Nacional de Colombia"
         ]
 
         self.listaImagenesCv = self.cargar_imagenes()
@@ -116,7 +106,7 @@ class Main:
         foto1 = Image.open("src/2.gif").resize((200, 356))
         foto1 = ImageTk.PhotoImage(foto1)
         self.label_foto1.config(image=foto1, compound="bottom")
-        self.label_foto1.image = foto1  # Conservar una referencia para evitar el error
+        self.label_foto1.image = foto1
         self.label_foto1.pack(pady=10, padx=10)
         botonVentanaUsuario = tk.Button(self.p4, text="usuario interfaz", padx=10, pady=10, command=self.cambioDeVentana)
         botonVentanaUsuario.pack()
