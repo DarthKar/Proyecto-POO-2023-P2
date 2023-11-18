@@ -1,6 +1,7 @@
 from entidad.Usuario import Usuario
 from orden import Carrito
 from gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.Membresia import Membresia
+from baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
 
 class Comprador(Usuario):
     def __init__(self, id, nombre, apellido, correo, membresia=Membresia.NINGUNA, saldo=100):
@@ -25,8 +26,20 @@ class Comprador(Usuario):
     def getOrdenes(self):
         return self._ordenes
     
-    def agregarDevolucion(devolucion):
-        if devolucion.get
+    def agregarDevolucion(self, devolucion):
+        if not devolucion.getProductosTransaccion():  
+            self._saldo += self.AplicarDescuento(devolucion.calcularTotal())
+            self._devoluciones.append(devolucion)
+            CompradorRepositorio.guardar(self)
+    
+    def getCarrito(self):
+        return self._carrito
+    
+    def getSaldo(self):
+        return self._saldo
+
+    def quitarSaldo(self,quitar):
+        self._saldo = self._saldo - quitar
     
     #Segui agregando implementaciones....
     

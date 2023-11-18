@@ -18,14 +18,14 @@ class Devolucion(Transaccion):
         self.productosTransaccion.remove(productoTransaccion)
         self.orden.setTieneDevoluciones(not not self.productosTransaccion)
     
-    def modificar_producto(productotransaccion, cantidad):
+    def modificar_producto(self,productotransaccion, cantidad):
         publicacion = productotransaccion.get_publicacion()
 
         if cantidad == productotransaccion.get_cantidad():
             return
 
         if cantidad == 0:
-            removerProducto(productotransaccion)
+            self.removerProducto(productotransaccion)
             return
 
         if cantidad > productotransaccion.get_cantidad():
@@ -43,6 +43,26 @@ class Devolucion(Transaccion):
     def setOrden(self, orden):
         self.orden = orden
     
-    #Faltan dos metodos por favor implementarlos
+    def getProductosDevolucion(self):
+        productosDevolucion = []
+        for productoOrden in self.orden.getProductosTransaccion():
+            if not productoOrden.getPublicacion().getProducto().isPerecedero():
+                coincide = False
+                for productoDevolucion in self.productosTransaccion:
+                    if productoOrden.getPublicacion() == productoDevolucion.getPublicacion():
+                        coincide = True
+                        break
+                if not coincide:
+                    productosDevolucion.append(productoOrden)
+        return productosDevolucion
+
+    def getOrdenProductoTransacction(self, publicacion):
+        for productoOrden in self.orden.getProductosTransaccion():
+            if productoOrden.getPublicacion() == publicacion:
+                return productoOrden
+        return None 
+    
+
+
 
     
