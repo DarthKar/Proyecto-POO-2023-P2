@@ -1,14 +1,17 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 
 def CV():
     actual = listaCv.index(label_p2.cget("text"))
     cambio = (actual + 1) % len(listaCv)
     label_p2.config(text=listaCv[cambio])
-    label_p2_fotos.config(image=imgCv[cambio])
+
+    
 
 def cambioDeVentana():
     ventana.withdraw()
     ventanaPrincipalI.deiconify()
+
 
 def volverVentana():
     ventanaPrincipalI.withdraw()
@@ -21,8 +24,8 @@ def cambiarContenido(proceso):
         LabelDesc2.config(text="Aquí va la descripción para realizar una compra.")
        
     elif proceso == "Devolucion":
-        LabelDesc.config(text="NOMBRE PROCESO: Realizar Devolución")
-        LabelDesc2.config(text="DESCRIPCION PROCESO: Aquí va la descripción para realizar una devolución.")
+        LabelDesc.config(text= "Realizar Devolución")
+        LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
   
     elif proceso == "Opinion":
         LabelDesc.config(text="Opinar")
@@ -31,19 +34,35 @@ def cambiarContenido(proceso):
     elif proceso == "Estadistica":
         LabelDesc.config(text="Estadística")
         LabelDesc2.config(text=" Aquí va la descripción para ver estadísticas.")
-  
+
 
 ventana = tk.Tk()
 ventana.title("Choopi")
-ventana.geometry("650x500")
+ventana.geometry("600x500")
 
-# Fotos y textos de CV
-fotoCv1 = tk.PhotoImage(file="src/image1.gif")
-imgCv = [fotoCv1]
+
+<<<<<<< Updated upstream
 
 listaCv = [
     "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
     "Juan Pablo Gaviria Orozco, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
+=======
+# Fotos y textos de CV
+fotoCv1 = tk.PhotoImage(file="src/image1.gif")
+imgCv = [fotoCv1]
+fotoCv2 = tk.PhotoImage(file="src/SebasImage.gif")
+imgCv = [fotoCv2]
+fotoCv3 = tk.PhotoImage(file="src/SebasImage1.gif")
+imgCv = [fotoCv3]
+fotoCv4 = tk.PhotoImage(file="src/SebasImage2.gif")
+imgCv = [fotoCv4]
+fotoCv5 = tk.PhotoImage(file="src/SebasImage2.gif")
+imgCv = [fotoCv5]
+
+listaCv = [
+    "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
+    "Sebastian Gomez Zapata, 22 años, estudiante de la Universidad Nacional de Colombia sede Medellin de Ingenieria de Sistemas",
+>>>>>>> Stashed changes
     "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ]
@@ -79,8 +98,13 @@ label_p2.grid(row=0, column=0,columnspan=2)
 label_p2.bind("<Button-1>", lambda event: CV())
 p2_fotos_frame = tk.Frame(p2, bg="white")
 p2_fotos_frame.pack(pady=10)
-label_p2_fotos = tk.Label(p2_fotos_frame, image=imgCv[0])
-label_p2_fotos.grid(row=4, column=0)
+
+img= Image.open("src\MiguelImage.jpg")
+
+pil= ImageTk.PhotoImage(img)
+
+label_p2_fotos = tk.Label(p2_fotos_frame, image=pil)
+label_p2_fotos.grid(row=4, column=0, pady=5, padx=5, sticky="news")
 
 p3 = tk.Frame(p1, bg="green")
 p3.pack(side="top", padx=10, pady=10, fill="both", expand=True)
@@ -121,8 +145,9 @@ frameContenedor.pack(fill="both", expand=True)
 
 frameDelLabelDesc=tk.Frame(frameContenedor)
 frameDelLabelDesc.pack(pady=10)
-LabelDesc=tk.Label(frameDelLabelDesc,text="NOMBRE PROCESO",bg="white", font=("italic", 15), wraplength=270)
+LabelDesc=tk.Label(frameDelLabelDesc,text="a",bg="white", font=("italic", 15), wraplength=270)
 LabelDesc.grid(row=0, column=0, columnspan=2)
+
 
 frameDelLabelDesc2=tk.Frame(frameContenedor)
 frameDelLabelDesc2.pack(pady=10)
@@ -131,8 +156,9 @@ LabelDesc2.grid(row=2, column=0,columnspan=4)
 
 FrameWidgets=tk.Frame(frameContenedor, bg="white")
 FrameWidgets.pack(pady=10)
-
+cambiarContenido("Compra")
 
 ventanaPrincipalI.withdraw()
 
 ventana.mainloop()
+
