@@ -1,4 +1,3 @@
-
 class Publicacion(): #Debe implementar serializable
 
     def __init__(self, vendedor, producto, inventario, precio):

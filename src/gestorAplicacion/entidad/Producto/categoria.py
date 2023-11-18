@@ -1,4 +1,7 @@
-class Categoria:
+from enum import Enum
+
+
+class Categoria(Enum):
     ELECTRONICA = {"nombre": "Electrónica", "perecedero": False}
     ROPA = {"nombre": "Ropa", "perecedero": False}
     HOGAR = {"nombre": "Hogar", "perecedero": False}
@@ -6,4 +9,3 @@ class Categoria:
     JUGUETES = {"nombre": "Juguetes", "perecedero": False}
     COSMETICOS = {"nombre": "Cosméticos", "perecedero": False}
     OTROS = {"nombre": "Otros", "perecedero": False}
-

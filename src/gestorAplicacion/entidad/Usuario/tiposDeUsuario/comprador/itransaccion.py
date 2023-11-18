@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class ITransaccion(ABC):
     @abstractmethod
     def agregar_producto(self, producto_transaccion):

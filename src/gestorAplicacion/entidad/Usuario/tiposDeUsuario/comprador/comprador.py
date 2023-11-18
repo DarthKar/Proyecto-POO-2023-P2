@@ -1,6 +1,6 @@
 from orden.carrito import Carrito
 from src.baseDatos.Impl.CompradorRepositorio import CompradorRepositorio
-from src.gestorAplicacion.entidad.Usuario import usuario
+from src.gestorAplicacion.entidad.Usuario.usuario import Usuario
 from src.gestorAplicacion.entidad.Usuario.tiposDeUsuario.comprador.membresia import Membresia
 
 class Comprador(Usuario):
