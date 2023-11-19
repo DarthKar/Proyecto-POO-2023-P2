@@ -1,7 +1,6 @@
 from collections import defaultdict
 from base_datos.comprador_repositorio import CompradorRepositorio
 from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.membresia import Membresia
-from gestor_aplicacion.entidad.producto.categoria import Categoria
 
 
 class Producto:
@@ -74,7 +73,7 @@ class Producto:
     
     def agregarResenador(self,resenador):
         self._resenadores.append(resenador)
-
+	
 
     @staticmethod
     def producto_mas_vendido(cls):
