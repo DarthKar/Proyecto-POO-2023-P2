@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
-from field_frame import FieldFrame
-from Comprador_field_principal import Comprador_principal
+from src.uiMain.field_frame import FieldFrame
+from src.uiMain.Comprador_field_principal import Comprador_principal
 
 class Main:
     #Evento de cambio de Curriculum

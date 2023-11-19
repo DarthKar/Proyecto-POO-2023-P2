@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from frames_comprador.Primera_opcion import Primera_opcion
+from src.uiMain.frames_comprador.Primera_opcion import Primera_opcion
 
 
 class Comprador_principal(tk.Frame):
