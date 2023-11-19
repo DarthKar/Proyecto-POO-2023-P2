@@ -6,6 +6,8 @@ from field_frame import FieldFrame
 
 
 class Main:
+    #Evento de cambio de Curriculum
+
     def CV(self):
         actual = self.listaCv.index(self.label_p2.cget("text"))
         cambio = (actual + 1) % len(self.listaCv)
@@ -66,9 +68,9 @@ class Main:
         self.ventana.geometry("600x500")
 
         self.listaCv = [
+            "Sebastian Gomez Zapata, 22 años, estudiante de la Universidad Nacional de Colombia sede Medellin de Ingenieria de Sistemas",
             "Miguel Angel Peña, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
             "Juan Pablo Gaviria Orozco, estudiante de Ingenieria en sistemas e informatica, Universidad Nacional De Colombia",
-            "Sebastian Gomez Zapata, 22 años, estudiante de la Universidad Nacional de Colombia sede Medellin de Ingenieria de Sistemas",
             "Juan Felipe Cadavid Ruiz, estudiante de Ingenieria de Sistemas e Informatica, Universidad Nacional de Colombia"
         ]
 
