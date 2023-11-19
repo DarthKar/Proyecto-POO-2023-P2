@@ -12,6 +12,14 @@ class Main:
         cambio = (actual + 1) % len(self.listaCv)
         self.label_p2.config(text=self.listaCv[cambio])
         self.label_p2_fotos.config(image=self.listaImagenesCv[cambio])
+    #Evento de cambio de foto al pasar encima de la foto
+
+    def cambiar_imagen(self):
+
+        imagenEcommerce4 =Image.open("src/EcommerceImage4.gif")
+        self.pilEc4 = ImageTk.PhotoImage(imagenEcommerce4)
+        self.label_foto.config(image=self.pilEc4)
+
 
     def ayuda(self):
         messagebox.showinfo("Creadores", "Miguel Angel Peña\nJuan Pablo Gaviria\nSebastian Gomez\nJuan Felipe Cadavid")
@@ -162,13 +170,27 @@ class Main:
         self.p4 = tk.Frame(self.p1, bg="light blue")
         self.p4.pack(padx=10, pady=10, fill="both", expand=True)
         self.label_foto1 = tk.Label(self.p4)
-        foto1 = Image.open("src/EcommerceImage.gif").resize((200, 356))
-        foto1 = ImageTk.PhotoImage(foto1)
-        self.label_foto1.config(image=foto1, compound="bottom")
-        self.label_foto1.image = foto1
+       # foto1 = Image.open("src/EcommerceImage.gif").resize((200, 356))
+        #foto1 = ImageTk.PhotoImage(foto1)
+        #self.label_foto1.config(image=foto1, compound="bottom")
+        #self.label_foto1.image = foto1
         self.label_foto1.pack(pady=10, padx=10)
         botonVentanaUsuario = tk.Button(self.p4, text="usuario interfaz", padx=60, pady=45, command=self.cambioDeVentana,bg="light blue",fg="black",  font=("Arial", 16),relief="raised", borderwidth=3,)
         botonVentanaUsuario.pack(side="bottom")
+
+        #Evento cambio de imagen Frame Bienvenida
+        imagenEcommerce2 =Image.open("src/EcommerceImage2.gif")
+        resized_img2 = imagenEcommerce2.resize((125, 150))
+        pilEc2 = ImageTk.PhotoImage(resized_img2)
+        imagenEcommerce3 =Image.open("src/EcommerceImage3.gif")
+        pilEc3 = ImageTk.PhotoImage(imagenEcommerce3)
+        imagenEcommerce5 =Image.open("src/EcommerceImage5.gif")
+        pilEc5 = ImageTk.PhotoImage(imagenEcommerce5)
+        index = 0
+        self.label_foto = tk.Label(self.p1)
+        self.label_foto.config(image=pilEc2, compound="bottom")
+        self.label_foto.image=pilEc2
+        #self.label_foto.bind("<Enter>", lambda event: self.cambiar_imagen())
 
         self.ventanaPrincipalI = tk.Toplevel()
         self.ventanaPrincipalI.title("choopi")
@@ -194,6 +216,7 @@ class Main:
         self.frameContenedor = tk.Frame(self.ventanaPrincipalI, bg="blue")
         self.frameContenedor.pack(fill="both", expand=True)
 
+        
         self.frameDelLabelDesc = tk.Frame(self.frameContenedor)
         self.frameDelLabelDesc.pack(pady=10)
         self.LabelDesc = tk.Label(self.frameDelLabelDesc, text="a", bg="white", font=("italic", 15), wraplength=270)
@@ -210,6 +233,7 @@ class Main:
         self.cambiarContenido("Compra")
 
         self.ventanaPrincipalI.withdraw()
+        
         self.ventana.mainloop()
 
 app = Main()
