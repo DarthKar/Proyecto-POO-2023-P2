@@ -12,15 +12,24 @@ class Main:
         actual = self.listaCv.index(self.label_p2.cget("text"))
         cambio = (actual + 1) % len(self.listaCv)
         self.label_p2.config(text=self.listaCv[cambio])
+        self.label_p3_fotos.config(image=self.listaImagenesCv[cambio])
+        self.label_p4_fotos.config(image=self.listaImagenesCv[cambio+1])
+        self.label_p5_fotos.config(image=self.listaImagenesCv[cambio])
         self.label_p2_fotos.config(image=self.listaImagenesCv[cambio])
+        
+    
     #Evento de cambio de foto al pasar encima de la foto
 
-    def cambiar_imagen(self):
+    def cambiar_imagenBienvenida(self):
 
-        imagenEcommerce4 =Image.open("src/EcommerceImage4.gif")
-        self.pilEc4 = ImageTk.PhotoImage(imagenEcommerce4)
-        self.label_foto.config(image=self.pilEc4)
-
+        if not hasattr(self, 'cambio'):
+            self.cambio = 0
+        self.label_foto1.config(image=self.listaImagenesBienvenida[self.cambio])
+        self.cambio += 1
+        print(self.cambio)
+        if self.cambio >= len(self.listaImagenesBienvenida):
+            self.cambio = 0
+            
 
     def ayuda(self):
         messagebox.showinfo("Creadores", "Miguel Angel Peña\nJuan Pablo Gaviria\nSebastian Gomez\nJuan Felipe Cadavid")
@@ -51,8 +60,14 @@ class Main:
     def cargar_imagenes(self):
         tempList = []
         for i in range(0, len(self.listaCv)):
-            tempList.append(ImageTk.PhotoImage(Image.open(f"src/{i + 1}.gif").resize((200, 356))))
+            tempList.append(ImageTk.PhotoImage(Image.open(f"src/{i + 1}.gif").resize((250, 225))))
         return tempList
+    
+    def cargar_imagenesBienvenida(self):
+        tempListB = []
+        for i in range(0, 5):
+            tempListB.append(ImageTk.PhotoImage(Image.open(f"src/{i + 17}.gif").resize((250, 225))))
+        return tempListB
 
     def opinion(self):
         for widget in self.FrameWidgets.winfo_children():
@@ -75,6 +90,7 @@ class Main:
         ]
 
         self.listaImagenesCv = self.cargar_imagenes()
+        self.listaImagenesBienvenida = self.cargar_imagenesBienvenida()
 
         self.ventana.grid_columnconfigure(0, weight=1)
         self.ventana.grid_rowconfigure(0, weight=1)
@@ -153,27 +169,18 @@ class Main:
         self.p4 = tk.Frame(self.p1, bg="light blue")
         self.p4.pack(padx=10, pady=10, fill="both", expand=True)
         self.label_foto1 = tk.Label(self.p4)
-        foto1 = Image.open("src/EcommerceImage.gif").resize((400, 356))
+        foto1 = Image.open("src/18.gif").resize((400, 356))
         foto1 = ImageTk.PhotoImage(foto1)
         self.label_foto1.config(image=foto1, compound="bottom")
         self.label_foto1.image = foto1
         self.label_foto1.pack(pady=10, padx=10)
         botonVentanaUsuario = tk.Button(self.p4, text="usuario interfaz", padx=60, pady=45, command=self.cambioDeVentana,bg="light blue",fg="black",  font=("Arial", 16),relief="raised", borderwidth=3,)
         botonVentanaUsuario.pack(side="bottom")
+        self.label_foto1.bind("<Enter>", lambda event: self.cambiar_imagenBienvenida())
 
         #Evento cambio de imagen Frame Bienvenida
-        imagenEcommerce2 =Image.open("src/EcommerceImage2.gif")
-        resized_img2 = imagenEcommerce2.resize((125, 150))
-        pilEc2 = ImageTk.PhotoImage(resized_img2)
-        imagenEcommerce3 =Image.open("src/EcommerceImage3.gif")
-        pilEc3 = ImageTk.PhotoImage(imagenEcommerce3)
-        imagenEcommerce5 =Image.open("src/EcommerceImage5.gif")
-        pilEc5 = ImageTk.PhotoImage(imagenEcommerce5)
-        index = 0
-        self.label_foto = tk.Label(self.p1,)
-        self.label_foto.config(image=pilEc2, compound="bottom")
-        self.label_foto.image=pilEc2
-        #self.label_foto.bind("<Enter>", lambda event: self.cambiar_imagen())
+        
+        #self.label_foto.bind("<Enter>", lambda event: self.())
 
         self.ventanaPrincipalI = tk.Toplevel()
         self.ventanaPrincipalI.title("choopi")
