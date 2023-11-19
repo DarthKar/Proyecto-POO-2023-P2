@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from field_frame import FieldFrame
+from field_frame_comprador_principal import field_frame_comprador_principal
 
 
 
@@ -45,7 +46,8 @@ class Main:
     def cambiarContenido(self, proceso):
         if proceso == "Compra":
             self.LabelDesc.config(text="Realizar Compra")
-            self.LabelDesc2.config(text="Aquí va la descripción para realizar una compra.")
+            self.LabelDesc2.config(text="El sistema de gestión de carrito de compras permite a los usuarios agregar, eliminar y gestionar los productos que desean comprar mientras navegan por la tienda en línea. Esta funcionalidad involucra múltiples objetos y componentes que interactúan para proporcionar una experiencia de compra fluida y coherente.",font = ("arial",10),wraplength=500)
+            self.comprar()
         elif proceso == "Devolucion":
             self.LabelDesc.config(text="Realizar Devolución")
             self.LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
@@ -69,12 +71,36 @@ class Main:
             tempListB.append(ImageTk.PhotoImage(Image.open(f"src/{i + 17}.gif").resize((250, 225))))
         return tempListB
 
+#------------------------------------------------------------------------------------------------
+
     def opinion(self):
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
         # Llama a FieldFrame con el número de campos deseado (por ejemplo, 3 campos)
         FieldFrame(self.FrameWidgets, "Datos",["ID", "Comentario", "Valoracion"], 3, "Introduce aqui los datos")
 
+#------------------------------------------------------------------------------------------------
+    
+    def comprar(self):
+        for widget in self.FrameWidgets.winfo_children():
+            widget.destroy()
+        opciones = [
+    "Mostrar lista de productos",
+    "Agregar productos recomendados al carrito",
+    "Agregar productos al carrito",
+    "Eliminar productos del carrito",
+    "Mostrar carrito",
+    "Modificar carrito",
+    "Modificar informacion de pago",
+    "Crear orden de compra",
+    "Realizar pago",
+    "Vaciar ordenes de pago",
+    "Ver ordenes de pago",
+    "Volver al menu principal"
+    ]
+        field_frame_comprador_principal(self.FrameWidgets,"Opciones",opciones,12,"Numero de referencia")
+        
+#------------------------------------------------------------------------------------------------
 
     def __init__(self):
         self.ventana = tk.Tk()
