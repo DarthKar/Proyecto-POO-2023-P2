@@ -2,9 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from field_frame import FieldFrame
-from field_frame_comprador_principal import field_frame_comprador_principal
-
-
+from Comprador_field_principal import Comprador_principal
 
 class Main:
     #Evento de cambio de Curriculum
@@ -98,7 +96,7 @@ class Main:
     "Ver ordenes de pago",
     "Volver al menu principal"
     ]
-        field_frame_comprador_principal(self.FrameWidgets,"Opciones",opciones,12,"Numero de referencia")
+        Comprador_principal(self.FrameWidgets,"Opciones",opciones,12,"Numero de referencia")
         
 #------------------------------------------------------------------------------------------------
 

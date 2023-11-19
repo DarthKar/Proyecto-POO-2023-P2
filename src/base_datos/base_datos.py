@@ -6,7 +6,7 @@ from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.membresia im
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
 from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
 from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
-from gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.publicacion import Publicacion
+
 class BaseDatos:
     def __init__(self):
         self.compradores = []

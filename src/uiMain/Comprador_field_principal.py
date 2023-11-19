@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
+from frames_comprador.Primera_opcion import Primera_opcion
 
-class field_frame_comprador_principal(tk.Frame):
+
+class Comprador_principal(tk.Frame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
         super().__init__(master, width=500, height=500)
         
@@ -67,4 +69,5 @@ class field_frame_comprador_principal(tk.Frame):
             return                                                          
         #---------------------------------------------------------------
         
+
             

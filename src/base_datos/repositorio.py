@@ -1,113 +1,110 @@
 import os
-import base_datos
 import pickle
-from src.excepciones.excepciones import BaseDatosError
-from gestorAplicacion.entidad.Usuario.tiposDeUsuario import Vendedor
-
+from typing import List, Optional
+from gestor_aplicacion.entidad.producto.producto import Producto
+from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
+from gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.vendedor import Vendedor
+from base_datos.base_datos import BaseDatos
 
 class Repositorio:
-    baseDatos=None
-    FILE = "basedatos.txt"
+    baseDatos = None
+    FILE = "basedatos.pickle"
     PATH = os.path.join(os.getcwd(), "temp", "{}")
-   
-    
-    @classmethod
-    def leer(cls):
-        if cls.crear_directorio() or cls.crear_archivo():
-            cls.baseDatos= BaseDatos
-            cls.guardar_archivo()
+
+    @staticmethod
+    def guardar(vendedor: Vendedor) -> None:
+        pos = next((i for i, v in enumerate(Repositorio.baseDatos.getVendedores()) if vendedor.getId() == v.getId()), None)
+        if pos is None:
+            Repositorio.baseDatos.getVendedores().append(vendedor)
+        else:
+            Repositorio.baseDatos.getVendedores()[pos] = vendedor
+        Repositorio.guardar_archivo()
+
+    @staticmethod
+    def guardar(comprador: Comprador) -> None:
+        pos = next((i for i, c in enumerate(Repositorio.baseDatos.getCompradores()) if comprador.getId() == c.getId()), None)
+        if pos is None:
+            Repositorio.baseDatos.getCompradores().append(comprador)
+        else:
+            Repositorio.baseDatos.getCompradores()[pos] = comprador
+        Repositorio.guardar_archivo()
+
+    @staticmethod
+    def guardar(producto: Producto) -> None:
+        pos = next((i for i, p in enumerate(Repositorio.baseDatos.getProductos()) if producto.getId() == p.getId()), None)
+        if pos is None:
+            Repositorio.baseDatos.getProductos().append(producto)
+        else:
+            Repositorio.baseDatos.getProductos()[pos] = producto
+        Repositorio.guardar_archivo()
+
+    @staticmethod
+    def obtener_vendedor_por_id(_id: int) -> Optional[Vendedor]:
+        return next((v for v in Repositorio.baseDatos.getVendedores() if v.getId() == _id), None)
+
+    @staticmethod
+    def obtener_vendedores() -> List[Vendedor]:
+        return Repositorio.baseDatos.getVendedores()
+
+    @staticmethod
+    def eliminar_vendedor(_id: int) -> None:
+        vendedor = Repositorio.obtener_vendedor_por_id(_id)
+        if vendedor:
+            Repositorio.baseDatos.getVendedores().remove(vendedor)
+            Repositorio.guardar_archivo()
+
+    @staticmethod
+    def obtener_compradores() -> List[Comprador]:
+        return Repositorio.baseDatos.getCompradores()
+
+    @staticmethod
+    def obtener_comprador_por_id(_id: int) -> Optional[Comprador]:
+        return next((c for c in Repositorio.baseDatos.getCompradores() if c.getId() == _id), None)
+
+    @staticmethod
+    def obtener_producto(_id: int) -> Optional[Producto]:
+        return next((p for p in Repositorio.baseDatos.getProductos() if p.getId() == _id), None)
+
+    @staticmethod
+    def obtener_productos() -> List[Producto]:
+        return Repositorio.baseDatos.getProductos()
+
+    @staticmethod
+    def eliminar_comprador(_id: int) -> None:
+        comprador = Repositorio.obtener_comprador_por_id(_id)
+        if comprador:
+            Repositorio.baseDatos.getCompradores().remove(comprador)
+            Repositorio.guardar_archivo()
+
+    @staticmethod
+    def guardar_archivo() -> None:
+        with open(Repositorio.PATH.format(Repositorio.FILE), 'wb') as file:
+            pickle.dump(Repositorio.baseDatos, file)
+
+    @staticmethod
+    def leer() -> None:
+        if Repositorio.crear_directorio() or Repositorio.crear_archivo():
+            Repositorio.baseDatos = BaseDatos()
+            Repositorio.guardar_archivo()
             return
-    leer()
-    @classmethod
-    def guardar_archivo(cls):
-        try:
-             with open(cls.PATH,"wb") as archivo:
-                  pickle.dump(cls.baseDatos,archivo)
-        except Exception as e:
-             raise BaseDatosError("Ha ocurrido un error creando el archivo de base de datos")
 
-    @classmethod
-    def crear_archivo(cls):
-        return not os.path.exists(os.path.join(cls.PATH.format(cls.FILE)))
-
-    @classmethod
-    def crear_directorio(cls):
         try:
-            path = os.path.join(cls.PATH.format(""))
+            with open(Repositorio.PATH.format(Repositorio.FILE), 'rb') as file:
+                Repositorio.baseDatos = pickle.load(file)
+        except (IOError, EOFError, pickle.PickleError, AttributeError, ModuleNotFoundError) as e:
+            raise RuntimeError(e)
+
+    @staticmethod
+    def crear_archivo() -> bool:
+        return not os.path.exists(Repositorio.PATH.format(Repositorio.FILE))
+
+    @staticmethod
+    def crear_directorio() -> bool:
+        try:
+            path = Repositorio.PATH.format("")
             if os.path.exists(path):
                 return False
             os.makedirs(path)
             return True
         except OSError as e:
-            raise BaseDatosError("Ha ocurrido un error creando el directorio de la base de datos")
-
-    @classmethod
-    def guardar_vendedor(cls, vendedor: Vendedor):
-        pos = next((i for i, v in enumerate(cls.baseDatos.vendedores) if vendedor.id == v.id), None)
-
-        if pos is None:
-            cls.baseDatos.vendedores.append(vendedor)
-        else:
-            cls.baseDatos.vendedores[pos] = vendedor
-        cls.guardar_archivo()
-
-    @classmethod
-    def guardar_comprador(cls, comprador):
-        pos = next((i for i, v in enumerate(cls.baseDatos.compradores) if comprador.id == v.id), None)
-
-        if pos is None:
-            cls.baseDatos.compradores.append(comprador)
-        else:
-            cls.baseDatos.compradores[pos] = comprador
-        cls.guardar_archivo()
-
-    @classmethod
-    def guardar_producto(cls, producto):
-        pos = next((i for i, v in enumerate(cls.baseDatos.productos) if producto.id == v.id), None)
-
-        if pos is None:
-            cls.baseDatos.productos.append(producto)
-        else:
-            cls.baseDatos.productos[pos] = producto
-        cls.guardar_archivo()
-
-    @classmethod
-    def obtener_vendedor_por_id(cls, id):
-        return next((v for v in cls.baseDatos.vendedores if v.id == id), None)
-
-    @classmethod
-    def obtener_vendedores(cls):
-        return cls.baseDatos.vendedores
-
-    @classmethod
-    def eliminar_vendedor(cls, id):
-        vendedor = cls.obtener_vendedor_por_id(id)
-        if vendedor:
-            cls.baseDatos.vendedores.remove(vendedor)
-        else:
-            raise ValueError("No existe el vendedor")
-
-    @classmethod
-    def obtener_compradores(cls):
-        return cls.baseDatos.compradores
-
-    @classmethod
-    def obtener_comprador_por_id(cls, id):
-        return next((c for c in cls.baseDatos.compradores if c.id == id), None)
-
-    @classmethod
-    def obtener_producto(cls, id):
-        return next((p for p in cls.baseDatos.productos if p.id == id), None)
-
-    @classmethod
-    def obtener_productos(cls):
-        return cls.baseDatos.productos
-        
-
-    @classmethod
-    def eliminar_comprador(cls, id):
-        comprador = cls.obtener_comprador_por_id(id)
-        if comprador:
-            cls.baseDatos.compradores.remove(comprador)
-        else:
-            raise ValueError("No existe el comprador")
+            raise RuntimeError(e)
