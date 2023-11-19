@@ -1,4 +1,4 @@
-from itransaccion import ITransaccion
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.itransaccion import ITransaccion
 
 
 class Transaccion(ITransaccion):

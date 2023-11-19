@@ -3,6 +3,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 from src.uiMain.field_frame import FieldFrame
 from src.uiMain.Comprador_field_principal import Comprador_principal
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
 
 class Main:
     #Evento de cambio de Curriculum
@@ -25,6 +26,7 @@ class Main:
             self.cambio = 0
         self.label_foto1.config(image=self.listaImagenesBienvenida[self.cambio])
         self.cambio += 1
+        print(Comprador.membresia_mas_comprada)
         if self.cambio >= len(self.listaImagenesBienvenida):
             self.cambio = 0
             
@@ -266,5 +268,6 @@ class Main:
         self.ventanaPrincipalI.withdraw()
         
         self.ventana.mainloop()
+
 
 app = Main()

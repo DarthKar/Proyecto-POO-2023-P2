@@ -1,4 +1,4 @@
-from orden import Transaccion
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.transaccion import Transaccion
 
 class Carrito(Transaccion):
     def __init__(self,id,comprador):

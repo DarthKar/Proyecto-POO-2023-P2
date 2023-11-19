@@ -1,6 +1,6 @@
 from typing import List, Optional
-from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
-from base_datos.repositorio import Repositorio
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
+from src.base_datos.repositorio import Repositorio
 
 class CompradorRepositorio:
     @staticmethod

@@ -1,11 +1,11 @@
-from orden.carrito import Carrito
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.carrito import Carrito
 from src.base_datos.comprador_repositorio import CompradorRepositorio
 from src.gestor_aplicacion.entidad.usuario.usuario import Usuario
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.membresia import Membresia
 from collections import defaultdict
 from operator import itemgetter
-from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
-from base_datos.producto_repositorio import ProductoRepositorio
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
+from src.base_datos.producto_repositorio import ProductoRepositorio
 from collections import Counter
 
 
