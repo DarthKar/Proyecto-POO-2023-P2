@@ -5,7 +5,6 @@ from field_frame import FieldFrame
 from field_frame_comprador_principal import field_frame_comprador_principal
 
 
-
 class Main:
     #Evento de cambio de Curriculum
 

@@ -1,17 +1,23 @@
-from repositorio import Repositorio
-class CompradorRepositorio():   #Implementar Repositorio
+from typing import List, Optional
+from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
+from base_datos.repositorio import Repositorio
 
+class CompradorRepositorio:
+    @staticmethod
+    def guardar(comprador: Comprador) -> None:
+        if comprador is None:
+            return
+        Repositorio.guardar(comprador)
 
-    def guardarComprador(self,comprador):
-        if comprador is not None:
-            Repositorio.guardar_comprador(comprador)
-        return
+    @staticmethod
+    def obtener_por_id(_id: int) -> Optional[Comprador]:
+        return Repositorio.obtener_comprador_por_id(_id)
 
-    def obtenerPorId(id):
-        return Repositorio.obtener_comprador_por_id(id)
-
-    def obtenerCompradores():
+    @staticmethod
+    def obtener() -> List[Comprador]:
         return Repositorio.obtener_compradores()
 
-    def eliminarComprador(id):
-        Repositorio.eliminar_comprador(id)
+    @staticmethod
+    def eliminar(_id: int) -> None:
+        Repositorio.eliminar_comprador(_id)
+

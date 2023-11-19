@@ -1,13 +1,18 @@
-import repositorio
-class ProductoRepositorio():
+from typing import List, Optional
+from gestor_aplicacion.entidad.producto.producto import Producto
+from base_datos.repositorio import Repositorio
 
-    def guardarProducto(self,producto):
-        if producto is not None:
-            Repositorio.guardarP(producto)
-        return
-    
-    def getProductoPorId(id):
-        return Repositorio.getProducto(id)
-    
-    def obtenerProducto():
-        return Repositorio.Repositorio.obtener_productos()
+class ProductoRepositorio:
+    @staticmethod
+    def guardar(producto: Producto) -> None:
+        if producto is None:
+            return
+        Repositorio.guardar(producto)
+
+    @staticmethod
+    def get_producto_por_id(_id: int) -> Optional[Producto]:
+        return Repositorio.obtener_producto(_id)
+
+    @staticmethod
+    def get_productos() -> List[Producto]:
+        return Repositorio.obtener_productos()
