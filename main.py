@@ -3,7 +3,8 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 from src.uiMain.field_frame import FieldFrame
 from src.uiMain.Comprador_field_principal import Comprador_principal
-from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
+#from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
+from tkinter import messagebox
 
 class Main:
     #Evento de cambio de Curriculum
@@ -26,7 +27,6 @@ class Main:
             self.cambio = 0
         self.label_foto1.config(image=self.listaImagenesBienvenida[self.cambio])
         self.cambio += 1
-        print(Comprador.membresia_mas_comprada)
         if self.cambio >= len(self.listaImagenesBienvenida):
             self.cambio = 0
             
@@ -61,8 +61,24 @@ class Main:
             self.LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
             self.opinion()
         elif proceso == "Estadistica":
-            self.LabelDesc.config(text="Estadística")
-            self.LabelDesc2.config(text=" Aquí va la descripción para ver estadísticas.")
+            self.LabelDesc.config(text="Estadística",font=("italic","45"))
+            self.LabelDesc2.config(text=" Aquí podras consultar las Estadisticas.",font=("italic","25"))
+            self.FrameWidgets.pack_forget()
+            self.frameEstadisticas=tk.Frame(self.frameContenedor,bg="black")
+            self.frameEstadisticas.pack()
+            labelUsuario = tk.Label(self.frameEstadisticas, text="Usuario que más productos compró",bg="black",font=("italic","18"))
+            labelUsuario.grid(row=0,column=0,columnspan=4)
+            labelUsuario.columnconfigure(0,weight=1)
+            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMasComprador,height=3, width=20)
+            boton.columnconfigure(1,weight=1)
+            boton.grid(row=0,column=5,columnspan=2)
+
+
+
+    def funcionalidadMasComprador(self):
+        #Basicamente aca esta el llamado a todos los metodos
+        messagebox.showinfo("Estadistica","El usuario mas comprador es pepito perez")
+
 
     #Carga de Imagenes para el CV
 
@@ -252,13 +268,12 @@ class Main:
         
         self.frameDelLabelDesc = tk.Frame(self.frameContenedor)
         self.frameDelLabelDesc.pack(pady=10)
-        self.LabelDesc = tk.Label(self.frameDelLabelDesc, text="a", bg="white", font=("italic", 15), wraplength=270)
+        self.LabelDesc = tk.Label(self.frameDelLabelDesc, text="a", bg="light blue",fg="black", font=("italic", 35), wraplength=270)
         self.LabelDesc.grid(row=0, column=0, columnspan=2)
 
         self.frameDelLabelDesc2 = tk.Frame(self.frameContenedor)
         self.frameDelLabelDesc2.pack(pady=10)
-        self.LabelDesc2 = tk.Label(self.frameDelLabelDesc2, text="DESCRIPCION PROCESO O FUNCIONALIDAD", font=("italic", 15),
-                                  wraplength=400)
+        self.LabelDesc2 = tk.Label(self.frameDelLabelDesc2, text="DESCRIPCION PROCESO O FUNCIONALIDAD",bg="light blue",fg="black",font=("italic", 25),wraplength=400)
         self.LabelDesc2.grid(row=2, column=0, columnspan=4)
 
         self.FrameWidgets = tk.Frame(self.frameContenedor, bg="white")
