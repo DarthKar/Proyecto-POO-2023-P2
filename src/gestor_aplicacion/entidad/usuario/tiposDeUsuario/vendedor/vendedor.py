@@ -1,4 +1,5 @@
 from src.gestor_aplicacion.entidad.usuario.usuario import Usuario
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.publicacion import Publicacion
 from collections import defaultdict
 from src.base_datos.comprador_repositorio import CompradorRepositorio
 
@@ -6,28 +7,26 @@ from src.base_datos.comprador_repositorio import CompradorRepositorio
 class Vendedor(Usuario):
 
     def __init__(self, id, nombre="jhon", apellido="doe", correo=None):
-        if correo is None:
-            correo = nombre + "@example.com" 
-        super.__init__(id, nombre, apellido, correo)
-        publicaciones = []
-        opinionesVendedor = []
-        compradores = []
-        resenadores = []
+        super().__init__(id, nombre, apellido, correo)
+        self.publicaciones = []
+        self.opinionesVendedor = []
+        self.compradores = []
+        self.resenadores = []
     
     def getProductoVendedor(self):
         return self.publicaciones
     def agregarPublicacion(self,publicacion):
         if publicacion is not None:
-            self.publicaciones.add(publicacion)
+            self.publicaciones.append(publicacion)
 
     def getOpinion(self):
         return self.opinionesVendedor
     def agregarOpinionVendedor(self, op):
         if op is not None:
-            self.agregarOpinionVendedor.add(op)
+            self.opinionesVendedor.append(op)
 
     def existeResena(self, comprador):
-        return self.resenadores.contains(comprador)
+        return comprador in self.resenadores
     
     def getCompradores(self):
         return self.compradores
@@ -50,15 +49,16 @@ class Vendedor(Usuario):
         return self.resenadores
     
     def agregarComprador(self,comprador):
-        self.compradores.add(comprador)
+        self.compradores.append(comprador)
     
     def agregarResenador(self,resenador):
-        self.resenadores.add(resenador)
+        self.resenadores.append(resenador)
 
+    @staticmethod
     def mejorVendendor():
         cantidadProductosPorVendedor = defaultdict(int)
 
-        for comprador in CompradorRepositorio.obtenerCompradores():
+        for comprador in CompradorRepositorio.obtener():
             for transaccion in comprador.getOrdenes():
                 for productotransaccion in transaccion.getProductosTransaccion():
                     vendedor = productotransaccion.getPublicacion().getVendedor()
@@ -76,12 +76,13 @@ class Vendedor(Usuario):
             return f"{mejorVendedor.nombre} {mejorVendedor.apellido} con un total de {maxCantidadProductos} productos vendidos"
         else:
             return "No se encontró mejor vendedor"
-        
+
+    @staticmethod
     def mejorVendedorPorRecaudacion():
     
         recaudacionPorVendedor = {}
 
-        for comprador in CompradorRepositorio.obtenerCompradores():
+        for comprador in CompradorRepositorio.obtener():
             for orden in comprador.getOrdenes():
                 for productoTransaccion in orden.getProductosTransaccion():
                     vendedor = productoTransaccion.getPublicacion().getVendedor()
@@ -104,5 +105,8 @@ class Vendedor(Usuario):
             return f"{mejorVendedor.getNombre()} {mejorVendedor.getApellido()} ha recaudado un total de {maxRecaudacion} en ventas."
         else:
             return "No se encontró ningún mejor vendedor por recaudación."
+
+    def crear_publicacion(self, producto, inventario_aleatorio, precio_aleatorio):
+        self.publicaciones.append(Publicacion(self, producto, inventario_aleatorio, precio_aleatorio))
 
 

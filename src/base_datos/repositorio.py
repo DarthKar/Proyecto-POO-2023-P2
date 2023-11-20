@@ -1,10 +1,7 @@
 import os
 import pickle
 from typing import List, Optional
-from gestor_aplicacion.entidad.producto.producto import Producto
-from gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
-from gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.vendedor import Vendedor
-from base_datos.base_datos import BaseDatos
+from src.base_datos.base_datos import BaseDatos
 
 class Repositorio:
     baseDatos = None
@@ -12,7 +9,7 @@ class Repositorio:
     PATH = os.path.join(os.getcwd(), "temp", "{}")
 
     @staticmethod
-    def guardar(vendedor: Vendedor) -> None:
+    def guardar(vendedor) -> None:
         pos = next((i for i, v in enumerate(Repositorio.baseDatos.getVendedores()) if vendedor.getId() == v.getId()), None)
         if pos is None:
             Repositorio.baseDatos.getVendedores().append(vendedor)
@@ -21,7 +18,7 @@ class Repositorio:
         Repositorio.guardar_archivo()
 
     @staticmethod
-    def guardar(comprador: Comprador) -> None:
+    def guardar(comprador) -> None:
         pos = next((i for i, c in enumerate(Repositorio.baseDatos.getCompradores()) if comprador.getId() == c.getId()), None)
         if pos is None:
             Repositorio.baseDatos.getCompradores().append(comprador)
@@ -30,7 +27,7 @@ class Repositorio:
         Repositorio.guardar_archivo()
 
     @staticmethod
-    def guardar(producto: Producto) -> None:
+    def guardar(producto) -> None:
         pos = next((i for i, p in enumerate(Repositorio.baseDatos.getProductos()) if producto.getId() == p.getId()), None)
         if pos is None:
             Repositorio.baseDatos.getProductos().append(producto)
@@ -39,11 +36,11 @@ class Repositorio:
         Repositorio.guardar_archivo()
 
     @staticmethod
-    def obtener_vendedor_por_id(_id: int) -> Optional[Vendedor]:
+    def obtener_vendedor_por_id(_id: int):
         return next((v for v in Repositorio.baseDatos.getVendedores() if v.getId() == _id), None)
 
     @staticmethod
-    def obtener_vendedores() -> List[Vendedor]:
+    def obtener_vendedores():
         return Repositorio.baseDatos.getVendedores()
 
     @staticmethod
@@ -54,19 +51,19 @@ class Repositorio:
             Repositorio.guardar_archivo()
 
     @staticmethod
-    def obtener_compradores() -> List[Comprador]:
+    def obtener_compradores():
         return Repositorio.baseDatos.getCompradores()
 
     @staticmethod
-    def obtener_comprador_por_id(_id: int) -> Optional[Comprador]:
+    def obtener_comprador_por_id(_id: int):
         return next((c for c in Repositorio.baseDatos.getCompradores() if c.getId() == _id), None)
 
     @staticmethod
-    def obtener_producto(_id: int) -> Optional[Producto]:
+    def obtener_producto(_id: int):
         return next((p for p in Repositorio.baseDatos.getProductos() if p.getId() == _id), None)
 
     @staticmethod
-    def obtener_productos() -> List[Producto]:
+    def obtener_productos():
         return Repositorio.baseDatos.getProductos()
 
     @staticmethod
@@ -82,15 +79,16 @@ class Repositorio:
             pickle.dump(Repositorio.baseDatos, file)
 
     @staticmethod
-    def leer() -> None:
+    def leer(base_datos: BaseDatos()):
         if Repositorio.crear_directorio() or Repositorio.crear_archivo():
-            Repositorio.baseDatos = BaseDatos()
+            Repositorio.baseDatos = base_datos
             Repositorio.guardar_archivo()
-            return
+            return False
 
         try:
             with open(Repositorio.PATH.format(Repositorio.FILE), 'rb') as file:
                 Repositorio.baseDatos = pickle.load(file)
+                return True
         except (IOError, EOFError, pickle.PickleError, AttributeError, ModuleNotFoundError) as e:
             raise RuntimeError(e)
 

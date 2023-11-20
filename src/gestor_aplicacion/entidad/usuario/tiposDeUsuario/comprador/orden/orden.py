@@ -25,14 +25,14 @@ class Orden(Transaccion):
     def mostrar_orden(self):
         return f"Comprado por: {self.comprador.get_nombre_completo()} \nID de la compra: {self.id}\nEl total a  pagar es: {self.calcular_total()}\n-------------------------------"
 
-    def agregarProducto(self,productoTransaccion):
+    def agregar_producto(self, productoTransaccion):
         self.productosTransaccion.append(productoTransaccion)
     
-    def removerProducto(self,productoTransaccion):
+    def remover_producto(self, productoTransaccion):
         if productoTransaccion in self.productosTransaccion:
             self.productosTransaccion.remove(productoTransaccion)
     
-    def modificarProducto(productoTransaccion,cantidad):
+    def modificar_producto(self, productoTransaccion, cantidad):
         productoTransaccion.setCantidad(cantidad)
     
     def isPagar(self):
