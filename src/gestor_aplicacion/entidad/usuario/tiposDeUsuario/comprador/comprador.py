@@ -4,7 +4,6 @@ from src.gestor_aplicacion.entidad.usuario.usuario import Usuario
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.membresia import Membresia
 from collections import defaultdict
 from operator import itemgetter
-from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
 from src.base_datos.producto_repositorio import ProductoRepositorio
 from collections import Counter
 
@@ -80,7 +79,7 @@ class Comprador(Usuario):
         else:
             raise ValueError(f"Comprador con id {_id} no ha sido encontrado.")
 
-    def agregarOrden(self, orden):
+    def agregar_orden(self, orden):
         self._ordenes.append(orden)
 
     def getOrdenesValidasParaDevolucion(self):

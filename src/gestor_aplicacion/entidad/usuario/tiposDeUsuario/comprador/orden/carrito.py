@@ -10,14 +10,14 @@ class Carrito(Transaccion):
             print(contador1 + ". " + productosTransaccion.mostrarEspProducto());
             contador1 += 1
         
-    def agregarProducto(self,productoTransaccion):
+    def agregar_producto(self,productoTransaccion):
         self.productosTransaccion.append(productoTransaccion)
     
 
-    def removerProducto(self,productoTransaccion):                
+    def remover_producto(self, productoTransaccion):
         if productoTransaccion in self.productosTransaccion:
             self.productosTransaccion.remove(productoTransaccion)
     
     
-    def modificarProducto(self,productoTransaccion,cantidad):
+    def modificar_producto(self, productoTransaccion, cantidad):
         productoTransaccion.setCantidad(cantidad)                                                                       

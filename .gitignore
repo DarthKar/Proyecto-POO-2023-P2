@@ -4,3 +4,4 @@
 .idea/vcs.xml
 .idea/workspace.xml
 *.pyc
+temp/basedatos.pickle
