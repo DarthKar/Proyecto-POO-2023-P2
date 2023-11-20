@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
+from src.base_datos.base_datos import BaseDatos
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
 from src.gestor_aplicacion.entidad.producto.producto import Producto
@@ -66,6 +67,7 @@ class Main:
         elif proceso == "Devolucion":
             self.LabelDesc.config(text="Realizar Devolución")
             self.LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
+            self.devolucion()
         elif proceso == "opinion":
             self.LabelDesc.config(text="Opinar")
             self.LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
@@ -288,6 +290,27 @@ class Main:
 
     # ------------------------------------------------------------------------------------------------
 
+    def devolucion(self):
+        for widget in self.FrameWidgets.winfo_children():
+            widget.destroy()
+        opciones = [
+            "Mostrar lista de productos",
+            "Agregar productos recomendados al carrito",
+            "Agregar productos al carrito",
+            "Eliminar productos del carrito",
+            "Mostrar carrito",
+            "Modificar carrito",
+            "Modificar informacion de pago",
+            "Crear orden de compra",
+            "Realizar pago",
+            "Vaciar ordenes de pago",
+            "Ver ordenes de pago",
+            "Volver al menu principal"
+        ]
+        Comprador_principal(self.FrameWidgets, "Opciones", opciones, 12, "Numero de referencia")
+
+    # ------------------------------------------------------------------------------------------------
+
     def __init__(self):
 
         # Establecimiento de Ventana Principal
@@ -454,6 +477,8 @@ class Main:
         self.ventana.mainloop()
 
 
+
+
 def valores_por_defecto():
     productos = []
     compradores = []
@@ -605,6 +630,12 @@ def valores_por_defecto():
                 producto_transaccion = ProductoTransaccion(publicacion, cantidad_aleatoria)
                 orden.agregar_producto(producto_transaccion)
             comprador.agregar_orden(orden)
+
+    base_datos = BaseDatos()
+    base_datos.set_productos(productos)
+    base_datos.set_vendedores(vendedores)
+    base_datos.set_compradores(compradores)
+    return base_datos
 
 
 if Repositorio.crear_directorio() or Repositorio.crear_archivo():
