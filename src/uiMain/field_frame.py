@@ -13,7 +13,7 @@ class FieldFrame(tk.Frame):
         self.habilitado = habilitado
         self.pulsado = False
         self.Valores = None
-        self.pack()
+        self.grid()
 
         if self.habilitado is None:
             self.habilitado = [True] * self.cantidad_campos
@@ -34,7 +34,8 @@ class FieldFrame(tk.Frame):
             entry = tk.Entry(self, state='normal' if self.habilitado[i] else 'disabled')
             entry.insert(0, self.valores[i])
             entry.grid(row=i + 1, column=6, columnspan=6, sticky="w")
-        
+    
+    def botones_adicionales(self):   
         self.boton_aceptar = tk.Button(self, text="Aceptar", command=self.guardarValores)
         self.boton_aceptar.grid(row=self.cantidad_campos + 2, column=0, columnspan=6, padx=10, pady=10, sticky="w")
 
