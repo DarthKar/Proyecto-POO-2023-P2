@@ -209,6 +209,7 @@ class Main:
         
         messagebox.showinfo("Estadistica","El producto mas vendido son los celulares")
 
+#------------------------------------------------------------------------------------------------------------------------
 
     #Carga de Imagenes para el CV
 
