@@ -2,13 +2,19 @@ import tkinter as tk
 from tkinter import messagebox
 from src.uiMain.field_frame import FieldFrame
 
-class Comprador_principal(FieldFrame):
+class opinion_principal(FieldFrame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
         super().__init__(master,tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores, habilitado)
         for widget in self.winfo_children():
             widget.destroy()
         
+
+    def limpiarTextos(self, event):
         
+        if self.entrada_usuario.get() == "Ingrese un numero":
+            self.entrada_usuario.delete(0, tk.END)  
+
+
     def crearPrincipal(self):
         if self.habilitado is None:
             self.habilitado = [False] * self.cantidad_campos
@@ -35,6 +41,7 @@ class Comprador_principal(FieldFrame):
         
         self.entrada_usuario = tk.Entry(self,state="normal",justify='center')
         self.entrada_usuario.insert(0,"Ingrese un numero")
+        self.entrada_usuario.bind("<FocusIn>",self.limpiarTextos)
         self.entrada_usuario.grid(row=self.cantidad_campos + 2, column=0, columnspan=6, padx=10, pady=10, sticky="w")
 
         self.boton_aceptar = tk.Button(self, text="enviar", command=self.Opciones)
