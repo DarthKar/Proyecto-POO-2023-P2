@@ -15,6 +15,8 @@ from src.uiMain.field_frame import FieldFrame
 from src.uiMain.Comprador_field_principal import Comprador_principal
 from tkinter import messagebox
 from src.base_datos.repositorio import Repositorio
+from src.uiMain.Estadisiticas_field_principal import Estadistica_field
+
 
 
 class Main:
@@ -75,172 +77,9 @@ class Main:
         elif proceso == "Estadistica":
             self.LabelDesc.config(text="Estadística", font=("italic", "45"))
             self.LabelDesc2.config(text=" Aquí podras consultar las Estadisticas.", font=("italic", "25"))
-            self.FrameWidgets.pack_forget()
-            self.frameEstadisticas = tk.Frame(self.frameContenedor, bg="black")
-            self.frameEstadisticas.pack()
+            self.estadistica()
 
-            # Funcionalidad mas comprador
-
-            labelUsuario = tk.Label(self.frameEstadisticas, text="Usuario que más productos compró", bg="black",
-                                    font=("italic", "18"))
-            labelUsuario.grid(row=0, column=0, columnspan=4)
-            labelUsuario.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMasComprador, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=0, column=5, columnspan=2)
-
-            # Funcionalidad mas comprador por factura
-
-            labelComprador = tk.Label(self.frameEstadisticas, text="Usuario con la factura mas alta", bg="black",
-                                      font=("italic", "18"))
-            labelComprador.grid(row=1, column=0, columnspan=4)
-            labelComprador.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadCompradoFactura, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=1, column=5, columnspan=2)
-
-            # Funcionalidad membresia mas Usada
-
-            labelMembresia = tk.Label(self.frameEstadisticas, text="La membresia mas comprada", bg="black",
-                                      font=("italic", "18"))
-            labelMembresia.grid(row=2, column=0, columnspan=4)
-            labelMembresia.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMembresia, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=2, column=5, columnspan=2)
-
-            # Funcionalidad Ventas Totales
-
-            labelVentasTotales = tk.Label(self.frameEstadisticas, text="Ventas totales del E-commerce", bg="black",
-                                          font=("italic", "18"))
-            labelVentasTotales.grid(row=3, column=0, columnspan=4)
-            labelVentasTotales.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadVentasTotales, height=3,
-                              width=20)
-            boton.columnconfigure(3, weight=1)
-            boton.grid(row=3, column=5, columnspan=2)
-
-            # Total Productos vendidos
-
-            labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Total productos Vendidos", bg="black",
-                                              font=("italic", "18"))
-            labelProductosVendidos.grid(row=4, column=0, columnspan=4)
-            labelProductosVendidos.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadTotalProductosVendidos,
-                              height=3, width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=4, column=5, columnspan=2)
-
-            # Mas Vendedor
-
-            labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Usuario que mas vendió", bg="black",
-                                              font=("italic", "18"))
-            labelProductosVendidos.grid(row=5, column=0, columnspan=4)
-            labelProductosVendidos.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMasVendedor, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=5, column=5, columnspan=2)
-
-            # Mas Recaudo
-
-            labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El vendedor com mayor recaudo", bg="black",
-                                              font=("italic", "18"))
-            labelProductosVendidos.grid(row=6, column=0, columnspan=4)
-            labelProductosVendidos.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMasRecaudador, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=6, column=5, columnspan=2)
-
-            # Producto mas Caro
-
-            labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Producto mas caro", bg="black",
-                                              font=("italic", "18"))
-            labelProductosVendidos.grid(row=7, column=0, columnspan=4)
-            labelProductosVendidos.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMasCaro, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=7, column=5, columnspan=2)
-
-            # Producto mas Barato
-
-            labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El producto mas Barato", bg="black",
-                                              font=("italic", "18"))
-            labelProductosVendidos.grid(row=8, column=0, columnspan=4)
-            labelProductosVendidos.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMasBarato, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=8, column=5, columnspan=2)
-
-            # Total Producto Mas vendido
-
-            labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El producto mas Vendido", bg="black",
-                                              font=("italic", "18"))
-            labelProductosVendidos.grid(row=9, column=0, columnspan=4)
-            labelProductosVendidos.columnconfigure(0, weight=1)
-            boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadTotalMasVendido, height=3,
-                              width=20)
-            boton.columnconfigure(1, weight=1)
-            boton.grid(row=9, column=5, columnspan=2)
-
-    #  ****  Definicion de metodos de la funcionalidad estadistica ****
-
-    # Metodo mas comprador
-    def funcionalidadMasComprador(self):
-        # Basicamente aca esta el llamado a todos los metodos
-        messagebox.showinfo("Estadistica", "El usuario mas comprador es pepito perez")
-
-    # Metodo factura mas alta
-    def funcionalidadCompradoFactura(self):
-
-        messagebox.showinfo("Estadistica", "El usuario con la factura mas alta es peranito")
-
-    # Metodo membresia mas comun
-    def funcionalidadMembresia(self):
-
-        messagebox.showinfo("Estadistica", "La membresia mas comun es Oro")
-
-    # Metodo Ventas Totales
-    def funcionalidadVentasTotales(self):
-
-        messagebox.showinfo("Estadistica", "El E-commerce genero en total 2000")
-
-    # Metodo Total Productos vendidos
-    def funcionalidadTotalProductosVendidos(self):
-
-        messagebox.showinfo("Estadistica", "En total se vendieron 15 productos")
-
-    # Metodo Mas Vendedor
-    def funcionalidadMasVendedor(self):
-
-        messagebox.showinfo("Estadistica", "El mas vendedor fue Cristiano Ronaldo")
-
-    # Metodo Mas recaudador
-    def funcionalidadMasRecaudador(self):
-
-        messagebox.showinfo("Estadistica", "El vendedor que mas Recaudo es Messi")
-
-    # Metodo Producto Mas Caro
-    def funcionalidadMasCaro(self):
-
-        messagebox.showinfo("Estadistica", "El producto mas caro es la ropa")
-
-    # Metodo Producto mas Barato
-    def funcionalidadMasBarato(self):
-
-        messagebox.showinfo("Estadistica", "El producto mas barato es la sal")
-
-    # Metodo Mas Vendido
-    def funcionalidadTotalMasVendido(self):
-
-        messagebox.showinfo("Estadistica", "El producto mas vendido son los celulares")
-
+   
     # ------------------------------------------------------------------------------------------------------------------------
 
     # Carga de Imagenes para el CV
@@ -259,36 +98,44 @@ class Main:
             tempListB.append(ImageTk.PhotoImage(Image.open(f"src/{i + 17}.gif").resize((250, 225))))
         return tempListB
 
-    # ------------------------------------------------------------------------------------------------
-
+# ------------------------------------------------------------------------------------------------
+   
     def opinion(self):
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
         # Llama a FieldFrame con el número de campos deseado (por ejemplo, 3 campos)
-        FieldFrame(self.FrameWidgets, "Datos", ["ID", "Comentario", "Valoracion"], 3, "Introduce aqui los datos")
-
-    # ------------------------------------------------------------------------------------------------
-
+        x = FieldFrame(self.FrameWidgets, "Datos",["ID", "Comentario", "Valoracion"], 3, "Introduce aqui los datos")
+        x.botones_adicionales()
+#------------------------------------------------------------------------------------------------
+    
     def comprar(self):
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
         opciones = [
-            "Mostrar lista de productos",
-            "Agregar productos recomendados al carrito",
-            "Agregar productos al carrito",
-            "Eliminar productos del carrito",
-            "Mostrar carrito",
-            "Modificar carrito",
-            "Modificar informacion de pago",
-            "Crear orden de compra",
-            "Realizar pago",
-            "Vaciar ordenes de pago",
-            "Ver ordenes de pago",
-            "Volver al menu principal"
-        ]
-        Comprador_principal(self.FrameWidgets, "Opciones", opciones, 12, "Numero de referencia")
+    "Mostrar lista de productos",
+    "Agregar productos al carrito",
+    "Eliminar productos del carrito",
+    "Mostrar carrito",
+    "Modificar carrito",
+    "Modificar informacion de pago",
+    "Crear orden de compra",
+    "Realizar pago",
+    "Vaciar ordenes de pago",
+    "Ver ordenes de pago",
+    "Volver al menu principal"
+    ]
+        co = Comprador_principal(self.FrameWidgets,"Opciones",opciones,11,"Numero de referencia")
+        co.crearPrincipal()
 
-    # ------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------
+
+    def estadistica(self):
+        for widget in self.FrameWidgets.winfo_children():
+            widget.destroy()
+        es = Estadistica_field(self.FrameWidgets,"Opciones","",0,"Numero de referencia")
+        es.estadistica_principal()
+
+# ------------------------------------------------------------------------------------------------
 
     def devolucion(self):
         for widget in self.FrameWidgets.winfo_children():
@@ -428,7 +275,7 @@ class Main:
 
         self.ventanaPrincipalI = tk.Toplevel()
         self.ventanaPrincipalI.title("choopi")
-        self.ventanaPrincipalI.geometry("600x500")
+        self.ventanaPrincipalI.geometry("650x600")
 
         self.menuP = tk.Menu(self.ventanaPrincipalI, tearoff=0)
         self.ventanaPrincipalI.config(menu=self.menuP)
