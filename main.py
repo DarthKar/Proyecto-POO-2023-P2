@@ -38,11 +38,11 @@ class Main:
     # Evento de cambio de foto al pasar encima de la foto
     def iniciar_sesion(self):
         usuarioLB = self.entry_usuario.get()
-        usuariobuscar = CompradorRepositorio.obtener_por_id(int(usuarioLB))
+        self.comprador = CompradorRepositorio.obtener_por_id(int(usuarioLB))
+        
+        if self.comprador is not None:
 
-        if usuariobuscar is not None:
-
-            messagebox.showinfo("Inicio de Sesión", f"Bienvenido, {usuariobuscar.getNombre()}!")
+            messagebox.showinfo("Inicio de Sesión", f"Bienvenido, {self.comprador.getNombre()}!")
             # Si la autenticación es exitosa, ocultamos la ventana de inicio de sesión y mostramos la principal
             self.InicioSesion.withdraw()
             self.ventanaPrincipalI.deiconify()
@@ -171,6 +171,7 @@ class Main:
 
         # Establecimiento de Ventana Principal
 
+        self.comprador = None
         self.ventana = tk.Tk()
         self.ventana.attributes('-fullscreen', True)
         self.ventana.title("Choopi")
