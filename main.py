@@ -2,6 +2,7 @@ import random
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from src.base_datos.comprador_repositorio import CompradorRepositorio
 
 from src.base_datos.base_datos import BaseDatos
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
@@ -17,11 +18,10 @@ from tkinter import messagebox
 from src.base_datos.repositorio import Repositorio
 from src.uiMain.Estadisiticas_field_principal import Estadistica_field
 from src.uiMain.Opinion_field_principal import opinion_principal
-
+from src.gestor_aplicacion.entidad.usuario.usuario import Usuario
 
 
 class Main:
-    # Evento de cambio de Curriculum
 
     def CV(self):
         actual = self.listaCv.index(self.label_p2.cget("text"))
@@ -34,7 +34,27 @@ class Main:
         self.label_p5_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-1])
         
 
+
     # Evento de cambio de foto al pasar encima de la foto
+    def iniciar_sesion(self):
+        usuarioLB = self.entry_usuario.get()
+        
+        usuariobuscar = None
+        bdc = CompradorRepositorio.obtener()
+
+
+        for usuario in bdc:
+          if  usuario.getId() == usuarioLB:
+                usuariobuscar =  usuario
+
+        if usuariobuscar is not None:
+
+            messagebox.showinfo("Inicio de Sesión", f"Bienvenido, {usuario}!")
+            # Si la autenticación es exitosa, ocultamos la ventana de inicio de sesión y mostramos la principal
+            self.InicioSesion.withdraw()
+            self.ventanaPrincipalI.deiconify()
+        else:
+            messagebox.showerror("Error", "Usuario o contraseña incorrectos.")
 
     def cambiar_imagenBienvenida(self):
 
@@ -53,8 +73,11 @@ class Main:
 
     def cambioDeVentana(self):
         self.ventana.withdraw()
-        self.ventanaPrincipalI.deiconify()
+        self.InicioSesion.deiconify()
 
+    def cambioDeVentanaSesion(self):
+        self.InicioSesion.withdraw()
+        self.ventanaPrincipalI.deiconify()
     # Evento volver ventana
 
     def volverVentana(self):
@@ -265,6 +288,28 @@ class Main:
                               lambda event: self.cambiar_imagenBienvenida())  # Evento cambio de imagen Frame Bienvenida
 
         # Ventana de Usuario Interfaz
+        self.InicioSesion = tk.Toplevel()
+        self.InicioSesion.title("Inicio de Sesión")
+        self.InicioSesion.geometry("650x600")
+        self.frameSesion = tk.Frame(self.InicioSesion, bg="light blue")
+        self.frameSesion.pack(expand=True, fill="both")
+
+        # Etiquetas y entradas para el nombre de usuario y la contraseña
+        tk.Label(self.frameSesion, text="Usuario:").pack(pady=10)
+        self.entry_usuario = tk.Entry(self.frameSesion)
+        self.entry_usuario.pack(pady=10)
+
+        tk.Label(self.frameSesion, text="Contraseña:").pack(pady=10)
+        self.entry_contrasena = tk.Entry(self.frameSesion, show="*")
+        self.entry_contrasena.pack(pady=10)
+
+        # Botón para iniciar sesión
+        self.boton_login = tk.Button(self.frameSesion, text="Iniciar Sesión", command=self.iniciar_sesion)
+        self.boton_login.pack(pady=10)
+
+
+
+
 
         self.ventanaPrincipalI = tk.Toplevel()
         self.ventanaPrincipalI.title("choopi")
@@ -313,7 +358,7 @@ class Main:
         self.cambiarContenido("Compra")
 
         self.ventanaPrincipalI.withdraw()
-
+        self.InicioSesion.withdraw()
         self.ventana.mainloop()
 
 

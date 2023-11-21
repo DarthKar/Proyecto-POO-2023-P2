@@ -30,9 +30,9 @@ class Repositorio:
     def guardar_producto(producto) -> None:
         pos = next((i for i, p in enumerate(Repositorio.baseDatos.getProductos()) if producto.getId() == p.getId()), None)
         if pos is None:
-            Repositorio.baseDatos.get_productos().append(producto)
+            Repositorio.baseDatos.getProductos().append(producto)
         else:
-            Repositorio.baseDatos.get_productos()[pos] = producto
+            Repositorio.baseDatos.getProductos()[pos] = producto
         Repositorio.guardar_archivo()
 
     @staticmethod

@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from src.uiMain.field_frame import FieldFrame
+from src.base_datos.base_datos import BaseDatos
 
 
 class opinion_principal(FieldFrame):
@@ -8,8 +9,12 @@ class opinion_principal(FieldFrame):
         super().__init__(master,tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores, habilitado)
         for widget in self.winfo_children():
             widget.destroy()
+
+    bd=BaseDatos()
         
-   
+    bdc = bd.get_compradores()
+    bdv = bd.get_vendedores()
+    bdp = bd.get_productos()
    
 #----------------------------------------------------------------------------------------
     def Opciones(self):
@@ -43,18 +48,11 @@ class opinion_principal(FieldFrame):
             entry_valor3 = tk.StringVar()
             entry_valor3.set("Escriba aqui")
                 
-            def generarBotones():
+   
                   
-                botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
-                botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
-                
-                botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+               
 
-                botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
-                botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
-
-            if elegido == "1":
+            if elegido == "1": # Opinion Producto
                 for widget in self.winfo_children():
                     widget.destroy()
                 
@@ -87,7 +85,14 @@ class opinion_principal(FieldFrame):
                 entryVa.bind("<FocusIn>",self.limpiarTextos)
                 entryVa.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
-                generarBotones()
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+             
+                self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
+                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+
+                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
+                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
 
             if elegido == "2":
@@ -123,7 +128,14 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
-                generarBotones()
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+             
+                self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
+                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+
+                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
+                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
             if elegido == "3":
                 for widget in self.winfo_children():
@@ -144,7 +156,14 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=1, column=6, columnspan=6, sticky="w", padx=10,pady=10)
 
-                generarBotones()
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+             
+                self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
+                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+
+                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
+                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
 
             if elegido == "4":
@@ -180,7 +199,14 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
                 
-                generarBotones()
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+             
+                self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
+                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+
+                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
+                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
             if elegido == "5":
                 for widget in self.winfo_children():
@@ -215,7 +241,14 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
-                generarBotones()
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+             
+                self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
+                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+
+                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
+                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
             if elegido == "6":
                 for widget in self.winfo_children():
@@ -236,10 +269,46 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=1, column=6, columnspan=6, sticky="w", padx=10,pady=10)
 
-                generarBotones()
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+             
+                self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
+                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+
+                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
+                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
+
+            if elegido == "7":
+                    
+                for widget in self.winfo_children():
+                        widget.destroy()
+                
+
+                numeroDeIdentificacion = tk.Label(self, text="Identificacion", font=("YU Gothic", 10))
+                numeroDeIdentificacion.grid(row=0,column=0,columnspan=6, sticky="w", padx=10,pady=10)
+                                            
+                entryIdent = tk.Entry(self, state="normal",textvariable=entry_valor,justify='center')
+                entryIdent.bind("<FocusIn>",self.limpiarTextos)
+                entryIdent.grid(row=0, column=6, columnspan=6, sticky="w",padx=10,pady=10)
+
+                labeldeid = tk.Label(self, text="Id del producto", font=("YU Gothic", 10))
+                labeldeid.grid(row=1, column=0, columnspan=6, sticky="w", padx=10,pady=10)
+
+                entryId = tk.Entry(self, state="normal",textvariable=entry_valor1,justify='center')
+                entryId.bind("<FocusIn>",self.limpiarTextos)
+                entryId.grid(row=1, column=6, columnspan=6, sticky="w", padx=10,pady=10)
+
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+             
+                self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
+                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
 
             
-
+    def crearOpinionProducto(self):
+        
+        pass
+        
 
     def limpiarTextos(self, event):
             entry = event.widget

@@ -44,6 +44,7 @@ class Comprador(Usuario):
     def getCarrito(self):
         return self._carrito
     
+    
     def getSaldo(self):
         return self._saldo
 
