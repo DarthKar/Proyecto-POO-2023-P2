@@ -1,22 +1,14 @@
 import tkinter as tk
+from tkinter import font
 
-def actualizar_texto():
-    texto = entrada_texto.get("1.0", "end-1c")
-    etiqueta.config(text=texto)
+# Crear una ventana principal
+root = tk.Tk()
 
-ventana = tk.Tk()
-ventana.title("Ejemplo de Texto con Ajuste y Saltos de Línea")
+# Obtener la lista de fuentes disponibles
+fuentes_disponibles = font.families()
 
-# Entrada de texto
-entrada_texto = tk.Text(ventana, wrap="word", width=30, height=10)
-entrada_texto.pack(pady=10)
+# Imprimir la lista de fuentes
+print(fuentes_disponibles)
 
-# Botón para actualizar el texto
-boton_actualizar = tk.Button(ventana, text="Actualizar Texto", command=actualizar_texto)
-boton_actualizar.pack(pady=5)
-
-# Etiqueta que mostrará el texto ajustado
-etiqueta = tk.Label(ventana, text="", wraplength=200)
-etiqueta.pack(pady=10)
-
-ventana.mainloop()
+# Puedes cerrar la ventana después de obtener la lista si no la necesitas
+root.destroy()
