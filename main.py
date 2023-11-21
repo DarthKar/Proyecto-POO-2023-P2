@@ -103,6 +103,9 @@ class Main:
             self.LabelDesc.config(text="Estadística", font=("italic", "45"))
             self.LabelDesc2.config(text=" Aquí podras consultar las Estadisticas.", font=("italic", "25"))
             self.estadistica()
+        else:
+            self.LabelDesc.config(text="Bienvenido a Chopee", font=("italic", "45"))
+            self.LabelDesc2.config(text="Selecciona alguna de las opciones en el menú superior para comenzar", font=("italic", "25"))
 
 
 
@@ -365,7 +368,7 @@ class Main:
 
         self.FrameWidgets = tk.Frame(self.frameContenedor, bg="white")
         self.FrameWidgets.pack(pady=10)
-        self.cambiarContenido("Compra")
+        self.cambiarContenido("")
 
         self.ventanaPrincipalI.withdraw()
         self.InicioSesion.withdraw()
