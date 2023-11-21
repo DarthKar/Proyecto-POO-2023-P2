@@ -16,6 +16,7 @@ from src.uiMain.Comprador_field_principal import Comprador_principal
 from tkinter import messagebox
 from src.base_datos.repositorio import Repositorio
 from src.uiMain.Estadisiticas_field_principal import Estadistica_field
+from src.uiMain.Opinion_field_principal import opinion_principal
 
 
 
@@ -106,8 +107,16 @@ class Main:
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
         # Llama a FieldFrame con el número de campos deseado (por ejemplo, 3 campos)
-        x = FieldFrame(self.FrameWidgets, "Datos",["ID", "Comentario", "Valoracion"], 3, "Introduce aqui los datos")
-        x.botones_adicionales()
+        opc = [
+        "Opinar sobre un producto",
+        "Editar una opinion producto",
+        "Borrar una opinion de un producto",
+        "Opinar sobre un vendedor",
+        "Editar una opinion vendedor", 
+        "Borrar una opinion de un vendedor" 
+         ]
+        x = opinion_principal(self.FrameWidgets,"Opciones",opc,6,"Numero de referencia")
+        x.crearPrincipal()
 #------------------------------------------------------------------------------------------------
     
     def comprar(self):
