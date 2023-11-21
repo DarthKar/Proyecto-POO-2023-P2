@@ -1,5 +1,3 @@
-from opinion_producto import OpinionProducto
-from opinion_vendedor import OpinionVendedor
 
 
 class opinion:
@@ -28,6 +26,7 @@ class opinion:
         self.creador = creador
 
     def crearOpinionP(self, comprador, producto, comentario, valoracion):
+        from src.gestor_aplicacion.entidad.opinion.opinion_producto import OpinionProducto
         existe = False
         if (comprador in producto.get_compradores()):
             existe = True
@@ -66,6 +65,7 @@ class opinion:
         return None
 
     def crearOpinionV(self, comprador, vendedor, comentario, valoracion):
+        from opinion.opinion_vendedor import OpinionVendedor
         existe = False
         if (comprador in vendedor.get_compradores()):
             existe = True
@@ -102,3 +102,68 @@ class opinion:
         if ((opinionEncontrada and opinionVendedor) != None):
             return opinionEliminar
         return None
+
+class OpinionProducto(opinion):
+
+    def __init__(self, comentario, valoracion, producto, comprador):
+        super().__init__(comentario, valoracion)
+        self.comprador = comprador
+        self.producto = producto
+
+    def getProducto(self):
+        return self.producto
+
+    def setProducto(self, producto):
+        self.producto = producto
+
+    def getComentario(self):
+        return self.comentario
+
+    def setComentario(self, comentario):
+        self.comentario = comentario
+
+    def getValoracion(self):
+        return self.valoracion
+
+    def setValoracion(self, valoracion):
+        self.valoracion = valoracion
+
+    def getComprador(self):
+        return self.comprador
+
+    def setComprador(self, comprador):
+        self.comprador = comprador
+
+class OpinionVendedor(opinion):
+
+    def __init__(self, comentario, valoracion, comprador, vendedor):
+        super().__init__(comentario, valoracion)
+        self.comprador = comprador
+        self.vendedor = vendedor
+
+    def getComprador(self):
+        return self.comprador
+
+    def setComprador(self, comprador):
+        self.comprador = comprador
+
+    def getVendedor(self):
+        return self.vendedor
+
+    def setVendedor(self, vendedor):
+        self.vendedor = vendedor
+
+    def getComentario(self):
+        return self.comentario
+
+    def setComentario(self, comentario):
+        self.comentario = comentario
+
+    def getValoracion(self):
+        return self.valoracion
+
+    def setValoracion(self, valoracion):
+        self.valoracion = valoracion
+
+    def getVendedor(self):
+        return self.vendedor
