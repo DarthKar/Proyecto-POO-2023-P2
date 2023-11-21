@@ -1,6 +1,10 @@
 import select
 import tkinter as tk
 from tkinter import messagebox
+
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.carrito import Carrito
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
 from src.uiMain.field_frame import FieldFrame
 from src.base_datos.producto_repositorio import ProductoRepositorio
 from src.base_datos.usuario_repositorio import UsuarioRepositorio
@@ -9,8 +13,9 @@ from src.base_datos.producto_repositorio import ProductoRepositorio
 from src.uiMain.Elementos_utiles.click_label import LabelCambio
 
 class Comprador_principal(FieldFrame):
-    def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
+    def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, comprador, valores=None, habilitado=None ):
         super().__init__(master,tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores, habilitado)
+        self.comprador = comprador
         for widget in self.winfo_children():
             widget.destroy()
         
@@ -118,17 +123,14 @@ class Comprador_principal(FieldFrame):
         def validar_entrada():
             try:
                 if (int_producto < 1) or (int_producto > 35):
-                    raise ValueError("El número debe estar entre 1 y 35")       #Bloque de excepcion de numero          
-            except ValueError:
-                if producto.isdigit():
-                    messagebox.showinfo("Cuidado!","Ingrese un número válido entre 1 y 35")            
-                    return False
-                if producto == "":
-                    messagebox.showinfo("Cuidado!","Ingrese un número válido")
-                    return False
-                else:
-                    messagebox.showinfo("Cuidado!","Ingrese un número válido (no letras)")
-                    return False
+                    raise ValueError("El número debe estar entre 1 y 35")       #Bloque de excepcion de numero
+                if not producto.isdigit() or producto == "":
+                    raise ValueError("Cuidado!", "Ingrese en producto un número válido (no letras)")
+                if cantidad == "" or not cantidad.isdigit():
+                    raise ValueError("Cuidado!", "Ingrese una cantidad válida")
+            except ValueError as e:
+                messagebox.showerror('Error', str(e))
+                return False
             return True
         if not validar_entrada():
             return self.interfaz_2_1()
@@ -137,16 +139,17 @@ class Comprador_principal(FieldFrame):
         for ven in UsuarioRepositorio.obtener():
             for pu in ven.getPublicaciones():
                 if ((pu.getProducto().getNombre() == ProductoRepositorio.get_productos()[int_producto-1].getNombre()) and (pu.getInventario() > int_cantidad)):
-                    puaux.append(pu.mostrar_publicacion())
-
+                    puaux.append(pu)
     #-----------------------------------------------------------------
         def validar_entrada_1():
             try:
                 if len(puaux) <= 0:
                     raise ValueError("No existen publicaciones de este producto o que tenga las unidades requeridas, regresando al menú")
-            except ValueError:
-                if len(puaux) <= 0:
-                    messagebox.showinfo("No existen publicaciones de este producto o que tenga las unidades requeridas, regresando al menú")            
+            except ValueError as e:
+                messagebox.showerror('Error', str(e))
+                return False
+            return True
+
         if not validar_entrada_1():
             return self.interfaz_2_1()
         
@@ -157,13 +160,16 @@ class Comprador_principal(FieldFrame):
         #compra = ProductoTransaccion(puaux[select1 - 1], cantidad_deseada)
         #carrito.agregarProducto(compra)
 
-        boton_seguir = tk.Button(self, text="seguir",bg="#3BA8F9",command=self.confirmacion_1)
-        boton_seguir.grid(row=1, column=3, padx=5, pady=5, sticky="w")
+        self.comprador.getCarrito().agregar_producto(ProductoTransaccion(puaux[0], int_cantidad))
+        self.confirmacion("Producto agregado correctamente al carrito")
 
-    def confirmacion_1 (self):
+
+
+
+    def confirmacion (self, texto):
         for widget in self.winfo_children():
-                widget.destroy()
-        confirmacion_label = tk.Label(self, text="Producto agregado correctamente al carrito")
+            widget.destroy()
+        confirmacion_label = tk.Label(self, text=texto)
         confirmacion_label.grid(row=0, column=0, padx=5, pady=5)
 
         boton_regresar = tk.Button(self, text="Regresar",bg="#3BA8F9",command=self.volver_principal)
@@ -210,17 +216,16 @@ class Comprador_principal(FieldFrame):
 #-----------------------------------------------------------------------------------------
 
     def interfaz_5(self):
-        label = tk.Label(self, text="¿Qué desea modificar?", bd=2, relief="solid",bg="#BAD526")
-        label.grid(row=0, column=0, columnspan=3, pady=10,padx=10)
+        orden = Orden(len(self.comprador.getOrdenes()), self.comprador)
+        for pt in self.comprador.getCarrito().getProductosTransaccion():
+            orden.agregar_producto(pt)
+            pt.getPublicacion().reducirInventario(pt.getCantidad())
+        orden.pagado()
+        self.comprador.agregar_orden(orden)
+        self.comprador._carrito = Carrito(1, self.comprador)
 
-        boton_opcion_1 = tk.Button(self, text="Modificar cantidad de un producto", command=self.modificar)
-        boton_opcion_1.grid(row=1, column=0, pady=10,padx=10)
+        self.confirmacion("Se ha creado la orden exitosamente")
 
-        boton_opcion_2 = tk.Button(self, text="Vaciar carrito completamente", command=self.vaciar_carrito)
-        boton_opcion_2.grid(row=2, column=0, pady=10,padx=10)
-
-        boton_opcion_3 = tk.Button(self, text="Volver al menú principal", command=self.volver_principal)
-        boton_opcion_3.grid(row=3, column=0, pady=10,padx=10)
     
     def modificar(self):
         #Mostrar el carrito, mediante la implementación y las excepciones si no selecciona un producto disponible
@@ -278,10 +283,19 @@ class Comprador_principal(FieldFrame):
             self.interfaz_2(pro)
 
         if elegido == "3":
+            self.comprador._carrito = Carrito(1, self.comprador)
+            self.confirmacion("Se ha limpiado el carrito exitosamente.")
+        
+        if elegido == "4":
             for widget in self.winfo_children():
                 widget.destroy()
-            self.interfaz_3()
-        
+            pro = []
+            num = 1
+            for i in self.comprador.getCarrito().getProductosTransaccion():
+                pro.append(f"{num}. {i.getPublicacion().getProducto().getNombre()} - Cantidad {i.getCantidad()}")
+                num = num + 1
+            self.interfaz_1(pro)
+
         if elegido == "5":
             for widget in self.winfo_children():
                 widget.destroy()

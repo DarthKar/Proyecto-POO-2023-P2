@@ -1,10 +1,12 @@
 import random
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 from PIL import Image, ImageTk
 from src.base_datos.comprador_repositorio import CompradorRepositorio
 
 from src.base_datos.base_datos import BaseDatos
+from src.base_datos.producto_repositorio import ProductoRepositorio
+from src.base_datos.usuario_repositorio import UsuarioRepositorio
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
 from src.gestor_aplicacion.entidad.producto.producto import Producto
@@ -12,6 +14,7 @@ from src.gestor_aplicacion.entidad.producto.categoria import Categoria
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.membresia import Membresia
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.vendedor import Vendedor
+from src.uiMain.devolucion_field import DevolucionField
 from src.uiMain.field_frame import FieldFrame
 from src.uiMain.Comprador_field_principal import Comprador_principal
 from tkinter import messagebox
@@ -32,14 +35,15 @@ class Main:
         self.label_p3_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-3])
         self.label_p4_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-2])
         self.label_p5_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-1])
-        
+        self.comprador = None
+
 
 
     # Evento de cambio de foto al pasar encima de la foto
     def iniciar_sesion(self):
         usuarioLB = self.entry_usuario.get()
         self.comprador = CompradorRepositorio.obtener_por_id(int(usuarioLB))
-        
+
         if self.comprador is not None:
 
             messagebox.showinfo("Inicio de Sesión", f"Bienvenido, {self.comprador.getNombre()}!")
@@ -89,6 +93,7 @@ class Main:
         elif proceso == "Devolucion":
             self.LabelDesc.config(text="Realizar Devolución")
             self.LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
+            self.devolucion()
         elif proceso == "opinion":
             self.LabelDesc.config(text="Opinar", font=("YU Gothic","45"))
             self.LabelDesc2.config(text="El sistema de opiniones permite a los usuarios crear, editar y borrar a los usuarios opiniones de los productos y vendedores dentro de la tienda, esta funcionalidad permite la interaccion entre usuarios de la tienda para mejorar la experiencia general.",
@@ -99,7 +104,7 @@ class Main:
             self.LabelDesc2.config(text=" Aquí podras consultar las Estadisticas.", font=("italic", "25"))
             self.estadistica()
 
-   
+
 
     # ------------------------------------------------------------------------------------------------------------------------
 
@@ -120,7 +125,7 @@ class Main:
         return tempListB
 
 # ------------------------------------------------------------------------------------------------
-   
+
     def opinion(self):
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
@@ -130,13 +135,13 @@ class Main:
         "Editar una opinion producto",
         "Borrar una opinion de un producto",
         "Opinar sobre un vendedor",
-        "Editar una opinion vendedor", 
-        "Borrar una opinion de un vendedor" 
+        "Editar una opinion vendedor",
+        "Borrar una opinion de un vendedor"
          ]
         x = opinion_principal(self.FrameWidgets,"Opciones",opc,6,"Numero de referencia")
         x.crearPrincipal()
 #------------------------------------------------------------------------------------------------
-    
+
     def comprar(self):
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
@@ -145,17 +150,11 @@ class Main:
     "Agregar productos al carrito",
     "Eliminar productos del carrito",
     "Mostrar carrito",
-    "Modificar carrito",
-    "Modificar informacion de pago",
-    "Crear orden de compra",
     "Realizar pago",
-    "Vaciar ordenes de pago",
-    "Ver ordenes de pago",
-    "Volver al menu principal"
     ]
-        co = Comprador_principal(self.FrameWidgets,"Opciones",opciones,11,"Numero de referencia")
+        co = Comprador_principal(self.FrameWidgets,"Opciones",opciones,5,"Numero de referencia", self.comprador)
         co.crearPrincipal()
-       
+
 
 # ------------------------------------------------------------------------------------------------
 
@@ -164,6 +163,22 @@ class Main:
             widget.destroy()
         es = Estadistica_field(self.FrameWidgets,"Opciones","",0,"Numero de referencia")
         es.estadistica_principal()
+
+# ------------------------------------------------------------------------------------------------
+    def devolucion(self):
+
+        orden = self.obtener_orden()
+
+        for widget in self.FrameWidgets.winfo_children():
+            widget.destroy()
+        opciones = [
+             "1. Elegir productos a devolver"
+                , "2. Deshacer productos a devolver"
+                , "3. Listar productos a devolver"
+                , "4. Guardar"
+        ]
+        co = DevolucionField(self.FrameWidgets, "Opciones", opciones, 4, "Numero de referencia", self.comprador)
+        co.crearPrincipal()
 
 # ------------------------------------------------------------------------------------------------
 
@@ -354,6 +369,32 @@ class Main:
         self.ventanaPrincipalI.withdraw()
         self.InicioSesion.withdraw()
         self.ventana.mainloop()
+
+    def obtener_orden(self):
+        # Crear una nueva ventana Toplevel
+        ventana = tk.Toplevel(self.ventanaPrincipalI)
+        ventana.title("Selecciona la orden")
+
+        # Crear un Combobox en la ventana Toplevel
+        combo = ttk.Combobox(ventana, values=list(map(lambda orden: F"{orden.getId()}", self.comprador.getOrdenes())))
+        combo.pack(padx=10, pady=10)
+
+        # Función para manejar el botón OK
+        seleccion = tk.StringVar()
+        def on_ok():
+            if(combo.get() is None or combo.get() == ""):
+                return
+            seleccion.set(combo.get())
+            ventana.destroy()
+
+        # Botón OK para cerrar la ventana Toplevel
+        btn_ok = tk.Button(ventana, text="OK", command=on_ok)
+        btn_ok.pack(pady=10)
+
+        # Hacer que la ventana principal se bloquee mientras la ventana Toplevel está abierta
+        self.ventanaPrincipalI.wait_window(ventana)
+
+
 
 
 def valores_por_defecto():

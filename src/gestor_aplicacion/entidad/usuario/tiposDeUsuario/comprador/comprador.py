@@ -82,6 +82,7 @@ class Comprador(Usuario):
 
     def agregar_orden(self, orden):
         self._ordenes.append(orden)
+        CompradorRepositorio.guardar(self)
 
     def getOrdenesValidasParaDevolucion(self):
         return [
@@ -92,6 +93,10 @@ class Comprador(Usuario):
                 for productoTransaccion in orden.getProductosTransaccion()
             )
         ]
+
+    def get_orden_por_id(self, _id):
+        self.next = next((c for c in Repositorio.baseDatos.get_compradores() if c.getId() == _id), None)
+        return self.next
 
 
     @staticmethod
