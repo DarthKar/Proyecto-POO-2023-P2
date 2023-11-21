@@ -112,7 +112,7 @@ class Main:
 
     def cargar_imagenes(self):
         tempList = []
-        for i in range(0, len(self.listaCv)*2):
+        for i in range(0, len(self.listaCv)*4):
             tempList.append(ImageTk.PhotoImage(Image.open(f"src/{i + 1}.gif").resize((250, 225))))
         return tempList
 
