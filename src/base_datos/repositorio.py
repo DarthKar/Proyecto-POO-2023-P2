@@ -64,7 +64,7 @@ class Repositorio:
 
     @staticmethod
     def obtener_productos():
-        return Repositorio.baseDatos.getProductos()
+        return Repositorio.baseDatos.get_productos()
 
     @staticmethod
     def eliminar_comprador(_id: int) -> None:
@@ -79,8 +79,8 @@ class Repositorio:
             pickle.dump(Repositorio.baseDatos, file)
 
     @staticmethod
-    def leer(base_datos: BaseDatos()):
-        if Repositorio.crear_directorio() or Repositorio.crear_archivo():
+    def leer(base_datos):
+        if Repositorio.crear_directorio() or Repositorio.crear_archivo() or base_datos is not None:
             Repositorio.baseDatos = base_datos
             Repositorio.guardar_archivo()
             return False

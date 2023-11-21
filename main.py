@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
+from src.base_datos.base_datos import BaseDatos
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
 from src.gestor_aplicacion.entidad.producto.producto import Producto
@@ -455,9 +456,15 @@ def valores_por_defecto():
                 producto_transaccion = ProductoTransaccion(publicacion, cantidad_aleatoria)
                 orden.agregar_producto(producto_transaccion)
             comprador.agregar_orden(orden)
-
+    base_datos = BaseDatos()
+    base_datos.set_productos(productos)
+    base_datos.set_vendedores(vendedores)
+    base_datos.set_compradores(compradores)
+    return base_datos
 
 if Repositorio.crear_directorio() or Repositorio.crear_archivo():
     Repositorio.leer(valores_por_defecto())
+else:
+    Repositorio.leer(None)
 
 app = Main()
