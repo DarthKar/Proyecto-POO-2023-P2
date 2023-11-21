@@ -44,7 +44,8 @@ class Main:
     def ayuda(self):
         messagebox.showinfo("Creadores", "Miguel Angel Peña\nJuan Pablo Gaviria\nSebastian Gomez\nJuan Felipe Cadavid")
 
-    # Evento cambio de ventana
+    def aplicacion(self):
+        messagebox.showinfo("Choopi","La aplicacion busca ser un sistema de e-commerce completo. Esto incluye almacenar información de usuarios, gestionar productos (inventario, edición, agregado y eliminación), y permitir a los usuarios comprar, calificar productos y crear listas de deseos. El objetivo es modelar una tienda online con interacciones complejas entre clases para reflejar su funcionalidad de manera efectiva.")
 
     def cambioDeVentana(self):
         self.ventana.withdraw()
@@ -263,7 +264,7 @@ class Main:
         # Menu archivo
         self.menuArchivo = tk.Menu(self.menuP, font=("italic"), tearoff=0)
         self.menuP.add_cascade(label="Archivo", menu=self.menuArchivo)
-        self.menuArchivo.add_command(label="Aplicacion")
+        self.menuArchivo.add_command(label="Aplicacion", command=self.aplicacion)
         self.menuArchivo.add_separator()
         self.menuArchivo.add_command(label="Salir", command=self.volverVentana)
 
