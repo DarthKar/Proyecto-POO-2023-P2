@@ -94,7 +94,7 @@ class Comprador(Usuario):
         ]
 
     def get_orden_por_id(self, _id):
-        self.next = next((c for c in Repositorio.baseDatos.get_compradores() if c.getId() == _id), None)
+        self.next = next((c for c in self._ordenes if c.getId() == _id), None)
         return self.next
 
 

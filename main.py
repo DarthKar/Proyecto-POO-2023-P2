@@ -177,7 +177,7 @@ class Main:
                 , "3. Listar productos a devolver"
                 , "4. Guardar"
         ]
-        co = DevolucionField(self.FrameWidgets, "Opciones", opciones, 4, "Numero de referencia", self.comprador)
+        co = DevolucionField(self.FrameWidgets, "Opciones", opciones, 4, "Numero de referencia", orden)
         co.crearPrincipal()
 
 # ------------------------------------------------------------------------------------------------
@@ -394,6 +394,7 @@ class Main:
 
         # Hacer que la ventana principal se bloquee mientras la ventana Toplevel está abierta
         self.ventanaPrincipalI.wait_window(ventana)
+        return self.comprador.get_orden_por_id(int(seleccion.get()))
 
 
 

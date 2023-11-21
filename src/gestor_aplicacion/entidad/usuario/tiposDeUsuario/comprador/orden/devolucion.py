@@ -3,17 +3,17 @@ from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.transaccion 
 
 class Devolucion(Transaccion):
     
-    def __init__(self, id, comprador):
+    def __init__(self, id, comprador, orden):
         super().__init__(id, comprador)
-        self.orden = None
+        self.orden = orden
 
-    def agregarProducto(self,productoTransaccion):
+    def agregar_producto(self, productoTransaccion):
         publicacion = productoTransaccion.getPublicacion()
         publicacion.reducirInventario(productoTransaccion.getCantidad())
         self.productosTransaccion.append(productoTransaccion)
         self.orden.setTieneDevoluciones(True)
     
-    def removerProducto(self,productoTransaccion):
+    def remover_producto(self, productoTransaccion):
         productoTransaccion.getPublicacion().aumentarInventario(productoTransaccion.getCantidad())
         self.productosTransaccion.remove(productoTransaccion)
         self.orden.setTieneDevoluciones(not not self.productosTransaccion)
@@ -25,7 +25,7 @@ class Devolucion(Transaccion):
             return
 
         if cantidad == 0:
-            self.removerProducto(productotransaccion)
+            self.remover_producto(productotransaccion)
             return
 
         if cantidad > productotransaccion.get_cantidad():

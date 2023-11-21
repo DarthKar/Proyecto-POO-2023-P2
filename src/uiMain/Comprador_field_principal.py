@@ -2,6 +2,7 @@ import select
 import tkinter as tk
 from tkinter import messagebox
 
+from src.excepciones.excepciones import ValidacionCompraError, InventarioCompraError, CompraError
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.carrito import Carrito
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
@@ -144,21 +145,16 @@ class Comprador_principal(FieldFrame):
         def validar_entrada_1():
             try:
                 if len(puaux) <= 0:
-                    raise ValueError("No existen publicaciones de este producto o que tenga las unidades requeridas, regresando al menú")
-            except ValueError as e:
-                messagebox.showerror('Error', str(e))
+                    raise ProductoError("No existen publicaciones de este producto o que tenga las unidades requeridas, regresando al menú")
+                if puaux[0].getInventario() <= 0:
+                    raise InventarioCompraError("No hay inventario para este producto")
+            except CompraError as e:
+                messagebox.showerror('Error', e.mensaje_error)
                 return False
             return True
 
         if not validar_entrada_1():
             return self.interfaz_2_1()
-        
-    #-----------------------------------------------------------------
-        #Comprobar y sacar excepcion por el indice de lista y cantidad disponible
-        #Hacer excepcion si paux no contiene elementos
-        #Mostrar las publicaciones y hacer la revision de que el indice no se pase de las disponibles en la lista paux
-        #compra = ProductoTransaccion(puaux[select1 - 1], cantidad_deseada)
-        #carrito.agregarProducto(compra)
 
         self.comprador.getCarrito().agregar_producto(ProductoTransaccion(puaux[0], int_cantidad))
         self.confirmacion("Producto agregado correctamente al carrito")
@@ -247,8 +243,8 @@ class Comprador_principal(FieldFrame):
             try:
                 opcion = int(elegido)
                 if (opcion < 1) or (opcion > 11):
-                    raise ValueError("El número debe estar entre 1 y 11")        #Bloque de excepcion de numero          
-            except ValueError:
+                    raise ValidacionCompraError("El número debe estar entre 1 y 11")        #Bloque de excepcion de numero
+            except ValidacionCompraError:
                 if elegido.isdigit():
                     messagebox.showinfo("Cuidado!","Ingrese un número válido entre 1 y 11")            
                     return False

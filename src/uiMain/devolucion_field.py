@@ -1,19 +1,23 @@
 import tkinter as tk
 from tkinter import messagebox
+
+from src.excepciones.excepciones import ValidacionDevolucionError, OrdenError, DevolucionError, \
+    InventarioDevolucionError
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.devolucion import Devolucion
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.producto_transaccion import ProductoTransaccion
 from src.uiMain.field_frame import FieldFrame
-from src.base_datos.comprador_repositorio import CompradorRepositorio
+
 
 class DevolucionField(FieldFrame):
-    def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, comprador, valores=None,
+    def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, orden, valores=None,
                  habilitado=None):
         super().__init__(master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores, habilitado)
-        self.comprador = comprador
+        self.orden = orden
+        self.productosDevolucion = []
         for widget in self.winfo_children():
             widget.destroy()
 
     def crearPrincipal(self):
-
-
 
         # Crear la ventana principal
         if self.habilitado is None:
@@ -71,12 +75,72 @@ class DevolucionField(FieldFrame):
             lab.grid(row=fila, column=columna, padx=5, pady=5, sticky="w")
 
         # Botón de regresar al final
-        boton_regresar = tk.Button(self, text="Regresar", bg="#3BA8F9", command=self.volver_principal)
+        boton_regresar = tk.Button(self, text="continuar", bg="#3BA8F9", command=self.interfaz_1_2)
         boton_regresar.grid(row=8, column=3, padx=5, pady=5, sticky="w")
 
     # -----------------------------------------------------------------------------------------
 
+    def interfaz_1_2(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        label_producto = tk.Label(self, text="Elija una publicación que desea devolver", justify="center")
+        label_producto.grid(row=0, column=0)
+
+        entry_producto = tk.Entry(self, width=30)
+        entry_producto.grid(row=0, column=1)
+
+        label_unidades = tk.Label(self, text="¿Cuántas unidades desea devolver?", justify="center")
+        label_unidades.grid(row=1, column=0)
+
+        entry_unidades = tk.Entry(self, width=30)
+        entry_unidades.grid(row=1, column=1)
+
+        boton_seguir = tk.Button(self, text="seguir", bg="#3BA8F9",
+                                 command=lambda: self.interfaz_1_3(entry_producto.get(), entry_unidades.get()))
+        boton_seguir.grid(row=8, column=3, padx=5, pady=5, sticky="w")
+
+    # -----------------------------------------------------------------------------------------
+
+    def interfaz_1_3(self, publicacion, cantidad):
+
+        try:
+            if (not publicacion.isdigit() or publicacion == "" or int(publicacion) <= 0):
+                raise ValidacionDevolucionError("Ingrese en publicación un número válido")
+            if (not cantidad.isdigit() or cantidad == "" or int(cantidad) <= 0):
+                raise ValidacionDevolucionError("Ingrese en cantidad un número válido")
+            if (int(publicacion) > len(self.orden.getProductosTransaccion())):
+                raise OrdenError("Ha seleccionado una publicación no valida.")
+
+            pt = self.orden.getProductosTransaccion()[int(publicacion) - 1]
+
+            if(int(cantidad) > pt.getPublicacion().getInventario()):
+                raise InventarioDevolucionError(F"Ha seleccionado una cantidad invalida. No puede ser mayor que {pt.cantidad()}")
+
+            self.productosDevolucion.append(
+                ProductoTransaccion(pt.getPublicacion(), int(cantidad)))
+
+        except DevolucionError as e:
+            messagebox.showerror('Error', str(e.get_mensaje()))
+            self.interfaz_1_2()
+
+        self.confirmacion("Se ha agregado publicacion a devolver con exito")
+
+    def confirmacion(self, texto, boolean=True):
+        for widget in self.winfo_children():
+            widget.destroy()
+        confirmacion_label = tk.Label(self, text=texto)
+        confirmacion_label.grid(row=0, column=0, padx=5, pady=5)
+        if (boolean):
+            boton_regresar = tk.Button(self, text="Regresar", bg="#3BA8F9", command=self.volver_principal)
+            boton_regresar.grid(row=1, column=0)
+
     def interfaz_2(self, label_1):
+        self.productosDevolucion = []
+        self.confirmacion("Se ha limpiado los productos a devolver")
+
+    # -----------------------------------------------------------------------------------------
+
+    def interfaz_3(self, label_1):
         for idx, texto in enumerate(label_1):
             fila = idx % 9
             columna = idx // 9
@@ -84,35 +148,17 @@ class DevolucionField(FieldFrame):
             lab = tk.Label(self, text=texto, borderwidth=1, relief="solid")
             lab.grid(row=fila, column=columna, padx=5, pady=5, sticky="w")
 
-        boton_regresar = tk.Button(self, text="Seguir", bg="#3BA8F9", command=lambda: self.interfaz_2_1())
+        # Botón de regresar al final
+        boton_regresar = tk.Button(self, text="Regresar", bg="#3BA8F9", command=self.volver_principal)
         boton_regresar.grid(row=8, column=3, padx=5, pady=5, sticky="w")
 
-    def interfaz_2_1(self):
-        for widget in self.winfo_children():
-            widget.destroy()
-        label_producto = tk.Label(self, text="Elija el producto que desea comprar", justify="center")
-        label_producto.grid(row=0, column=0)
+    def interfaz_4(self):
+        devolucion = Devolucion(len(self.orden.getComprador().getOrdenes()), self.orden.getComprador(), self.orden)
+        for item in self.productosDevolucion:
+            devolucion.agregar_producto(item)
+        self.orden.getComprador().agregarDevolucion(devolucion)
 
-        entry_producto = tk.Entry(self, width=30)
-        entry_producto.grid(row=0, column=1)
-
-        label_unidades = tk.Label(self, text="¿Cuántas unidades desea comprar?", justify="center")
-        label_unidades.grid(row=1, column=0)
-
-        entry_unidades = tk.Entry(self, width=30)
-        entry_unidades.grid(row=1, column=1)
-
-        boton_seguir = tk.Button(self, text="seguir", bg="#3BA8F9",
-                                 command=lambda: self.interfaz_2_2(entry_producto.get(), entry_unidades.get()))
-        boton_seguir.grid(row=8, column=3, padx=5, pady=5, sticky="w")
-
-    def interfaz_2_2(self, producto, cantidad):
-        producto = int(producto)
-        cantidad = int(cantidad)
-
-
-
-    # -----------------------------------------------------------------------------------------
+        self.confirmacion("Se ha guardado correctamente la devolución", False)
 
     def Opciones(self):
         elegido = self.entrada_usuario.get()
@@ -121,18 +167,15 @@ class DevolucionField(FieldFrame):
             try:
                 opcion = int(elegido)
                 if (opcion < 1) or (opcion > 11):
-                    raise ValueError("El número debe estar entre 1 y 11")  # Bloque de excepcion de numero
-            except ValueError:
-                if elegido.isdigit():
-                    messagebox.showinfo("Cuidado!", "Ingrese un número válido entre 1 y 11")
-                    return False
+                    raise ValidacionDevolucionError("El número debe estar entre 1 y 11")
+                if not elegido.isdigit():
+                    raise ValidacionDevolucionError("Cuidado!", "Ingrese un número válido entre 1 y 11")
                 if elegido == "":
-                    messagebox.showinfo("Cuidado!", "Ingrese un número válido")
-                    return False
-                else:
-                    messagebox.showinfo("Cuidado!", "Ingrese un número válido (no letras)")
-                    return False
-            return True
+                    raise ValidacionDevolucionError("Cuidado!", "Ingrese un número válido")
+                return True
+            except ValidacionDevolucionError as e:
+                messagebox.showinfo("Cuidado!", e.get_mensaje())
+                return False
 
         if not validar_entrada():
             return
@@ -142,50 +185,28 @@ class DevolucionField(FieldFrame):
                 widget.destroy()
             pro = []
             num = 1
-            for i in ProductoRepositorio.get_productos():
-                pro.append(f"{num}. {i.getNombre()}")
+            for i in self.orden.getProductosTransaccion():
+                pro.append(f"{num}. {i.getPublicacion().getProducto().getNombre()} - Cantidad {i.getCantidad()}")
                 num = num + 1
             self.interfaz_1(pro)
 
-
         if elegido == "2":
-            pro = [
-                "1.Camisa básica",
-                "2.Pantalones vaqueros",
-                "3.Zapatillas deportivas",
-                "4.Mochila resistente",
-                "5.Reloj elegante",
-                "6.Gafas de sol polarizadas",
-                "7.Auriculares inalámbricos",
-                "8.Teclado mecánico",
-                "9.Ratón ergonómico",
-                "10.Cámara digital compacta",
-                "11.Bicicleta de montaña",
-                "12.Guantes de entrenamiento",
-                "13.Gorra ajustable",
-                "14.Bufanda de lana",
-                "15.Manta suave de viaje",
-                "16.Botella de agua deportiva",
-                "17.Silla de oficina ergonómica",
-                "18.Mesa plegable portátil",
-                "19.Maletín ejecutivo",
-                "20.Termo de acero inoxidable",
-                "21.Lámpara LED de escritorio",
-                "22.Juego de sartenes antiadherentes",
-                "23.Cuaderno de notas premium",
-                "24.Organizador de cables",
-                "25.Máquina de café expresso",
-                "26.Kit de herramientas domésticas",
-                "27.Purificador de aire compacto",
-                "28.Kit de pesas ajustables",
-                "29.Caja de herramientas para bricolaje",
-                "30.Abrelatas eléctrico",
-                "31.Linterna recargable resistente al agua",
-                "32.Aspiradora de mano",
-                "33.Tostadora de pan automática",
-                "34.Set de viaje para afeitado",
-                "35.Bolsa térmica para picnic"
-            ]
             for widget in self.winfo_children():
                 widget.destroy()
             self.interfaz_2(pro)
+
+        if elegido == "3":
+            pu = []
+            num = 1
+            for i in self.orden.getProductosTransaccion():
+                pu.append(f"{num}. {i.getPublicacion().getProducto().getNombre()} - Cantidad {i.getCantidad()}")
+                num = num + 1
+
+            for widget in self.winfo_children():
+                widget.destroy()
+            self.interfaz_3(pu)
+
+        if elegido == "4":
+            for widget in self.winfo_children():
+                widget.destroy()
+            self.interfaz_4()
