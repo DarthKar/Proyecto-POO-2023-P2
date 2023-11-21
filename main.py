@@ -372,6 +372,7 @@ class Main:
 
         self.ventanaPrincipalI.withdraw()
         self.InicioSesion.withdraw()
+        self.ventanaPrincipalI.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.ventana.mainloop()
 
     def obtener_orden(self):
@@ -399,7 +400,10 @@ class Main:
         self.ventanaPrincipalI.wait_window(ventana)
         return self.comprador.get_orden_por_id(int(seleccion.get()))
 
-
+    def on_closing(self):
+        if messagebox.askokcancel("Salir", "¿Realmente deseas salir?"):
+            Repositorio.guardar_archivo()
+            self.ventana.destroy()
 
 
 def valores_por_defecto():
@@ -539,6 +543,12 @@ def valores_por_defecto():
                     print(f"Error: {e}")
                     break
 
+    base_datos = BaseDatos()
+    Repositorio.baseDatos = base_datos
+    Repositorio.baseDatos.set_productos(productos)
+    Repositorio.baseDatos.set_vendedores(vendedores)
+    Repositorio.baseDatos.set_compradores(compradores)
+
     for comprador in compradores:
         cantidad_ordenes = random.randint(1, 9)
         for i in range(cantidad_ordenes):
@@ -553,10 +563,7 @@ def valores_por_defecto():
                 producto_transaccion = ProductoTransaccion(publicacion, cantidad_aleatoria)
                 orden.agregar_producto(producto_transaccion)
             comprador.agregar_orden(orden)
-    base_datos = BaseDatos()
-    base_datos.set_productos(productos)
-    base_datos.set_vendedores(vendedores)
-    base_datos.set_compradores(compradores)
+
     return base_datos
 
 if Repositorio.crear_directorio() or Repositorio.crear_archivo():
