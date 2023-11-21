@@ -21,13 +21,13 @@ class Producto:
         return comprador in self._resenadores
     
     def getId(self):
-        return self.id
+        return self._id
     
     def getNombre(self):
         return self._nombre
     
     def getCategoria(self):
-        return self.categoria
+        return self._categoria
     
     def getopiniones(self):
         return self._opinion
@@ -39,13 +39,13 @@ class Producto:
         self._publicaciones.append(publicacion)
     
     def setId(self,id):
-        self.id = id
+        self._id = id
     
     def setNombre(self,nombre):
-        self.nombre = nombre
+        self._nombre = nombre
     
     def setCategoria(self,categoria):
-        self.categoria = categoria
+        self._categoria = categoria
     
     def setcompradores(self,compradores):
         self._compradores = compradores
@@ -66,7 +66,7 @@ class Producto:
         self._resenadores = resenadores
     
     def is_perecedero(self):
-        return self._categoria.is_perecedero()
+        return self._categoria.value.get("perecedero")
     
     def agregarComprador(self,comprador):
         self._compradores.append(comprador)
