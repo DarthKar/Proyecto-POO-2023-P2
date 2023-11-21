@@ -61,7 +61,3 @@ class FieldFrame(tk.Frame):
             if isinstance(entry_widget, tk.Entry):
                 entry_widget.delete(0, tk.END)
 
-    def limpiarSeleccion(self, event):
-        for entry_widget in self.grid_slaves(column=6):
-            if isinstance(entry_widget, tk.Entry):
-                entry_widget.delete(0, tk.END)

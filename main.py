@@ -3,7 +3,6 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
-from src.base_datos.base_datos import BaseDatos
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.orden.orden import Orden
 from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
 from src.gestor_aplicacion.entidad.producto.producto import Producto
@@ -16,7 +15,6 @@ from src.uiMain.Comprador_field_principal import Comprador_principal
 from tkinter import messagebox
 from src.base_datos.repositorio import Repositorio
 from src.uiMain.Estadisiticas_field_principal import Estadistica_field
-from src.uiMain.Opinion_field_principal import opinion_principal
 
 
 
@@ -70,7 +68,6 @@ class Main:
         elif proceso == "Devolucion":
             self.LabelDesc.config(text="Realizar Devolución")
             self.LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
-            self.devolucion()
         elif proceso == "opinion":
             self.LabelDesc.config(text="Opinar")
             self.LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
@@ -81,6 +78,7 @@ class Main:
             self.estadistica()
 
    
+
     # ------------------------------------------------------------------------------------------------------------------------
 
     # Carga de Imagenes para el CV
@@ -104,17 +102,9 @@ class Main:
     def opinion(self):
         for widget in self.FrameWidgets.winfo_children():
             widget.destroy()
-        opc = [
-        "Opinar sobre un producto",
-        "Editar una opinion producto",
-        "Borrar una opinion de un producto",
-        "Opinar sobre un vendedor",
-        "Editar una opinion vendedor", 
-        "Borrar una opinion de un vendedor" 
-        ]
-
-        x = opinion_principal(self.FrameWidgets,"Opciones",opc,6,"Numero de referencia")
-        x.crearPrincipal()
+        # Llama a FieldFrame con el número de campos deseado (por ejemplo, 3 campos)
+        x = FieldFrame(self.FrameWidgets, "Datos",["ID", "Comentario", "Valoracion"], 3, "Introduce aqui los datos")
+        x.botones_adicionales()
 #------------------------------------------------------------------------------------------------
     
     def comprar(self):
@@ -145,27 +135,6 @@ class Main:
         es.estadistica_principal()
 
 # ------------------------------------------------------------------------------------------------
-
-    def devolucion(self):
-        for widget in self.FrameWidgets.winfo_children():
-            widget.destroy()
-        opciones = [
-            "Mostrar lista de productos",
-            "Agregar productos recomendados al carrito",
-            "Agregar productos al carrito",
-            "Eliminar productos del carrito",
-            "Mostrar carrito",
-            "Modificar carrito",
-            "Modificar informacion de pago",
-            "Crear orden de compra",
-            "Realizar pago",
-            "Vaciar ordenes de pago",
-            "Ver ordenes de pago",
-            "Volver al menu principal"
-        ]
-        Comprador_principal(self.FrameWidgets, "Opciones", opciones, 12, "Numero de referencia")
-
-    # ------------------------------------------------------------------------------------------------
 
     def __init__(self):
 
@@ -333,8 +302,6 @@ class Main:
         self.ventana.mainloop()
 
 
-
-
 def valores_por_defecto():
     productos = []
     compradores = []
@@ -486,12 +453,6 @@ def valores_por_defecto():
                 producto_transaccion = ProductoTransaccion(publicacion, cantidad_aleatoria)
                 orden.agregar_producto(producto_transaccion)
             comprador.agregar_orden(orden)
-
-    base_datos = BaseDatos()
-    base_datos.set_productos(productos)
-    base_datos.set_vendedores(vendedores)
-    base_datos.set_compradores(compradores)
-    return base_datos
 
 
 if Repositorio.crear_directorio() or Repositorio.crear_archivo():
