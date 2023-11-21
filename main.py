@@ -69,8 +69,9 @@ class Main:
             self.LabelDesc.config(text="Realizar Devolución")
             self.LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
         elif proceso == "opinion":
-            self.LabelDesc.config(text="Opinar")
-            self.LabelDesc2.config(text="Aquí va la descripción para dejar una opinión.")
+            self.LabelDesc.config(text="Opinar", font=("YU Gothic","45"))
+            self.LabelDesc2.config(text="El sistema de opiniones permite a los usuarios crear, editar y borrar a los usuarios opiniones de los productos y vendedores dentro de la tienda, esta funcionalidad permite la interaccion entre usuarios de la tienda para mejorar la experiencia general.",
+                                   font=("arial", 10), wraplength=500)
             self.opinion()
         elif proceso == "Estadistica":
             self.LabelDesc.config(text="Estadística", font=("italic", "45"))
@@ -125,6 +126,7 @@ class Main:
     ]
         co = Comprador_principal(self.FrameWidgets,"Opciones",opciones,11,"Numero de referencia")
         co.crearPrincipal()
+       
 
 # ------------------------------------------------------------------------------------------------
 
@@ -242,7 +244,7 @@ class Main:
         self.label_foto1.config(image=foto1, compound="bottom")
         self.label_foto1.image = foto1
         self.label_foto1.pack(pady=10, padx=10)
-        botonVentanaUsuario = tk.Button(self.p4, text="usuario interfaz", padx=60, pady=45,
+        botonVentanaUsuario = tk.Button(self.p4, text="Entrar a la tienda", padx=60, pady=45,
                                         command=self.cambioDeVentana, bg="light blue", fg="black", font=("Arial", 16),
                                         relief="raised", borderwidth=3, )
         botonVentanaUsuario.pack(side="bottom")
