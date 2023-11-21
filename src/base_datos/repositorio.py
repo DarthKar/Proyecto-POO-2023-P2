@@ -10,20 +10,20 @@ class Repositorio:
 
     @staticmethod
     def guardar_vendedor(vendedor) -> None:
-        pos = next((i for i, v in enumerate(Repositorio.baseDatos.getVendedores()) if vendedor.getId() == v.getId()), None)
+        pos = next((i for i, v in enumerate(Repositorio.baseDatos.get_vendedores()) if vendedor.getId() == v.getId()), None)
         if pos is None:
-            Repositorio.baseDatos.getVendedores().append(vendedor)
+            Repositorio.baseDatos.get_vendedores().append(vendedor)
         else:
-            Repositorio.baseDatos.getVendedores()[pos] = vendedor
+            Repositorio.baseDatos.get_vendedores()[pos] = vendedor
         Repositorio.guardar_archivo()
 
     @staticmethod
     def guardar_comprador(comprador) -> None:
-        pos = next((i for i, c in enumerate(Repositorio.baseDatos.getCompradores()) if comprador.getId() == c.getId()), None)
+        pos = next((i for i, c in enumerate(Repositorio.baseDatos.get_compradores()) if comprador.getId() == c.getId()), None)
         if pos is None:
-            Repositorio.baseDatos.getCompradores().append(comprador)
+            Repositorio.baseDatos.get_compradores().append(comprador)
         else:
-            Repositorio.baseDatos.getCompradores()[pos] = comprador
+            Repositorio.baseDatos.get_compradores()[pos] = comprador
         Repositorio.guardar_archivo()
 
     @staticmethod
@@ -37,26 +37,26 @@ class Repositorio:
 
     @staticmethod
     def obtener_vendedor_por_id(_id: int):
-        return next((v for v in Repositorio.baseDatos.getVendedores() if v.getId() == _id), None)
+        return next((v for v in Repositorio.baseDatos.get_vendedores() if v.getId() == _id), None)
 
     @staticmethod
     def obtener_vendedores():
-        return Repositorio.baseDatos.getVendedores()
+        return Repositorio.baseDatos.get_vendedores()
 
     @staticmethod
     def eliminar_vendedor(_id: int) -> None:
         vendedor = Repositorio.obtener_vendedor_por_id(_id)
         if vendedor:
-            Repositorio.baseDatos.getVendedores().remove(vendedor)
+            Repositorio.baseDatos.get_vendedores().remove(vendedor)
             Repositorio.guardar_archivo()
 
     @staticmethod
     def obtener_compradores():
-        return Repositorio.baseDatos.getCompradores()
+        return Repositorio.baseDatos.get_compradores()
 
     @staticmethod
     def obtener_comprador_por_id(_id: int):
-        return next((c for c in Repositorio.baseDatos.getCompradores() if c.getId() == _id), None)
+        return next((c for c in Repositorio.baseDatos.get_compradores() if c.getId() == _id), None)
 
     @staticmethod
     def obtener_producto(_id: int):
@@ -70,7 +70,7 @@ class Repositorio:
     def eliminar_comprador(_id: int) -> None:
         comprador = Repositorio.obtener_comprador_por_id(_id)
         if comprador:
-            Repositorio.baseDatos.getCompradores().remove(comprador)
+            Repositorio.baseDatos.get_compradores().remove(comprador)
             Repositorio.guardar_archivo()
 
     @staticmethod
