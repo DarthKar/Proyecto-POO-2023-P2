@@ -6,7 +6,7 @@ class CompradorRepositorio:
     def guardar(comprador) -> None:
         if comprador is None:
             return
-        Repositorio.guardar(comprador)
+        Repositorio.guardar_comprador(comprador)
 
     @staticmethod
     def obtener_por_id(_id: int):
