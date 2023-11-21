@@ -24,7 +24,7 @@ class Producto:
         return self.id
     
     def getNombre(self):
-        return self.nombre
+        return self._nombre
     
     def getCategoria(self):
         return self.categoria

@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from src.uiMain.field_frame import FieldFrame
-from src.base_datos.repositorio import Repositorio
+from src.base_datos.producto_repositorio import ProductoRepositorio
 
 class Comprador_principal(FieldFrame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
@@ -136,8 +136,12 @@ class Comprador_principal(FieldFrame):
         if elegido == "1":
             for widget in self.winfo_children():
                 widget.destroy()
-
-            self.interfaz_1(Repositorio.obtener_productos())
+            pro = []
+            num = 1
+            for i in ProductoRepositorio.get_productos():
+                pro.append(f"{num}. {i.getNombre()}" )
+                num = num + 1
+            self.interfaz_1(pro)
 
         if elegido == "2":
             pro = [

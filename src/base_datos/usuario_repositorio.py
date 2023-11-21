@@ -1,22 +1,21 @@
 from typing import List, Optional
-from gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.vendedor import Vendedor
-from base_datos.repositorio import Repositorio
+from src.base_datos.repositorio import Repositorio
 
 class UsuarioRepositorio:
     @staticmethod
-    def guardar(vendedor: Vendedor) -> None:
+    def guardar(vendedor) -> None:
         if vendedor is None:
             return
-        Repositorio.guardar(vendedor)
+        Repositorio.guardar_vendedor(vendedor)
 
     @staticmethod
-    def obtener_por_id(_id: int) -> Optional[Vendedor]:
+    def obtener_por_id(_id: int):
         return Repositorio.obtener_vendedor_por_id(_id)
 
     @staticmethod
-    def obtener() -> List[Vendedor]:
+    def obtener():
         return Repositorio.obtener_vendedores()
 
     @staticmethod
-    def eliminar(_id: int) -> None:
+    def eliminar(_id: int):
         Repositorio.eliminar_vendedor(_id)

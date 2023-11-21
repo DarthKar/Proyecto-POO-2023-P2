@@ -9,30 +9,30 @@ class Repositorio:
     PATH = os.path.join(os.getcwd(), "temp", "{}")
 
     @staticmethod
-    def guardar(vendedor) -> None:
+    def guardar_vendedor(vendedor) -> None:
         pos = next((i for i, v in enumerate(Repositorio.baseDatos.getVendedores()) if vendedor.getId() == v.getId()), None)
         if pos is None:
-            Repositorio.baseDatos.getVendedores().append(vendedor)
+            Repositorio.baseDatos.get_vendedores().append(vendedor)
         else:
-            Repositorio.baseDatos.getVendedores()[pos] = vendedor
+            Repositorio.baseDatos.get_vendedores()[pos] = vendedor
         Repositorio.guardar_archivo()
 
     @staticmethod
-    def guardar(comprador) -> None:
+    def guardar_comprador(comprador) -> None:
         pos = next((i for i, c in enumerate(Repositorio.baseDatos.getCompradores()) if comprador.getId() == c.getId()), None)
         if pos is None:
-            Repositorio.baseDatos.getCompradores().append(comprador)
+            Repositorio.baseDatos.get_compradores().append(comprador)
         else:
-            Repositorio.baseDatos.getCompradores()[pos] = comprador
+            Repositorio.baseDatos.get_compradores()[pos] = comprador
         Repositorio.guardar_archivo()
 
     @staticmethod
-    def guardar(producto) -> None:
+    def guardar_producto(producto) -> None:
         pos = next((i for i, p in enumerate(Repositorio.baseDatos.getProductos()) if producto.getId() == p.getId()), None)
         if pos is None:
-            Repositorio.baseDatos.getProductos().append(producto)
+            Repositorio.baseDatos.get_productos().append(producto)
         else:
-            Repositorio.baseDatos.getProductos()[pos] = producto
+            Repositorio.baseDatos.get_productos()[pos] = producto
         Repositorio.guardar_archivo()
 
     @staticmethod
