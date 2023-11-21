@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from src.uiMain.field_frame import FieldFrame
 
+
 class Comprador_principal(FieldFrame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
         super().__init__(master,tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores, habilitado)
@@ -35,10 +36,18 @@ class Comprador_principal(FieldFrame):
         
         self.entrada_usuario = tk.Entry(self,state="normal",justify='center')
         self.entrada_usuario.insert(0,"Ingrese un numero")
+        self.entrada_usuario.bind("<FocusIn>",self.limpiarTextos)
         self.entrada_usuario.grid(row=self.cantidad_campos + 2, column=0, columnspan=6, padx=10, pady=10, sticky="w")
 
         self.boton_aceptar = tk.Button(self, text="enviar", command=self.Opciones)
         self.boton_aceptar.grid(row=self.cantidad_campos + 2, column=6, columnspan=6, padx=10, pady=10, sticky="w")
+
+#-----------------------------------------------------------------------------------------
+
+    def limpiarTextos(self, event):
+        
+        if self.entrada_usuario.get() == "Ingrese un numero":
+            self.entrada_usuario.delete(0, tk.END)  
 
 #-----------------------------------------------------------------------------------------
     #Primera opcion
@@ -78,9 +87,27 @@ class Comprador_principal(FieldFrame):
     def interfaz_2_1 (self):
         for widget in self.winfo_children():
                 widget.destroy()
-        FieldFrame(self,"Requerimientos",["Elija el producto que desea comprar","Cuantas unidades desea comprar"],2,"Introduce aqui los datos")
-        boton_regresar = tk.Button(self, text="regresar",bg="#3BA8F9")
-        boton_regresar.grid(row=8, column=3, padx=5, pady=5, sticky="w")
+        label_producto = tk.Label(self, text="Elija el producto que desea comprar", justify="center")
+        label_producto.grid(row=0, column=0)
+
+        entry_producto = tk.Entry(self, width=30)
+        entry_producto.grid(row=0, column=1)
+
+        label_unidades = tk.Label(self, text="¿Cuántas unidades desea comprar?", justify="center")
+        label_unidades.grid(row=1, column=0)
+
+        entry_unidades = tk.Entry(self, width=30)
+        entry_unidades.grid(row=1, column=1)
+
+        boton_seguir = tk.Button(self, text="seguir",bg="#3BA8F9",command=lambda: self.interfaz_2_2(entry_producto.get(),entry_unidades.get()))
+        boton_seguir.grid(row=8, column=3, padx=5, pady=5, sticky="w")
+
+
+    def interfaz_2_2 (self,producto,cantidad):
+        producto = int(producto)
+        cantidad = int(cantidad)
+        #Comprobar y sacar excepcion por el indice de lista y cantidad disponible
+    
 
 
 #-----------------------------------------------------------------------------------------
@@ -189,3 +216,4 @@ class Comprador_principal(FieldFrame):
             for widget in self.winfo_children():
                 widget.destroy()
             self.interfaz_2(pro)
+    
