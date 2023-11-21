@@ -186,6 +186,7 @@ class Main:
 
         # Establecimiento de Ventana Principal
 
+        str(Comprador.MasCompradorValor())
         self.comprador = None
         self.ventana = tk.Tk()
         self.ventana.attributes('-fullscreen', True)

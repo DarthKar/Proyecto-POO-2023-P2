@@ -1,8 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
+from src.base_datos.comprador_repositorio import CompradorRepositorio
+from src.base_datos.producto_repositorio import ProductoRepositorio
 from src.uiMain.field_frame import FieldFrame
 from src.base_datos.base_datos import BaseDatos
-
+from src.gestor_aplicacion.entidad.opinion.opinion import opinion
+from src.base_datos.usuario_repositorio import UsuarioRepositorio
+from src.gestor_aplicacion.entidad.opinion.opinion import opinion, OpinionProducto, OpinionVendedor
 
 class opinion_principal(FieldFrame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
@@ -49,13 +53,28 @@ class opinion_principal(FieldFrame):
             entry_valor3.set("Escriba aqui")
                 
    
-                  
+                
                
 
             if elegido == "1": # Opinion Producto
                 for widget in self.winfo_children():
                     widget.destroy()
                 
+                
+                def CrearOP():
+                         numID = int(entryIdent.get())
+                         prodID = int(entryId.get())
+                         coment = entryCO.get()
+                         valoracion = entryVa.get()
+
+                         autor = CompradorRepositorio.obtener_por_id(numID)   
+                         producto = ProductoRepositorio.get_producto_por_id(prodID)
+                         op = None
+                         op = OpinionProducto(coment, valoracion, producto, autor)
+                         if op is not None:
+                              messagebox.showinfo("exito", "Se creo la opinion con exito :)")
+                              producto.addopinionProducto(op)       
+                        
 
                 numeroDeIdentificacion = tk.Label(self, text="Identificacion", font=("YU Gothic", 10))
                 numeroDeIdentificacion.grid(row=0,column=0,columnspan=6, sticky="w", padx=10,pady=10)
@@ -85,21 +104,31 @@ class opinion_principal(FieldFrame):
                 entryVa.bind("<FocusIn>",self.limpiarTextos)
                 entryVa.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
-                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=CrearOP)
                 self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
                 self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
 
-                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
-                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
 
             if elegido == "2":
                 for widget in self.winfo_children():
                     widget.destroy()
                 
+                def EditarOP():
+                         numID = int(entryIdent.get())
+                         prodID = int(entryId.get())
+                         coment = entryCO.get()
+                         valoracion = entryVa.get()
 
+                         autor = CompradorRepositorio.obtener_por_id(numID)   
+                         producto= ProductoRepositorio.get_producto_por_id(prodID)
+                         op = None
+                         op = OpinionProducto(coment, valoracion, producto, autor)
+                         if op is not None:
+                              messagebox.showinfo("exito", "Se edito la opinion con exito :)")
+                         
                 numeroDeIdentificacion = tk.Label(self, text="Identificacion", font=("YU Gothic", 10))
                 numeroDeIdentificacion.grid(row=0,column=0,columnspan=6, sticky="w", padx=10,pady=10)
                 
@@ -128,20 +157,31 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
-                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=EditarOP)
                 self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
                 self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
 
-                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
-                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
+                
 
             if elegido == "3":
                 for widget in self.winfo_children():
                         widget.destroy()
                 
+                def BorrarOP():
+      
+                    numID = int(entryIdent.get())
+                    autor = CompradorRepositorio.obtener_por_id(numID)
 
+                    prodID = int(entryId.get())
+                    producto = ProductoRepositorio.get_producto_por_id(prodID)
+
+                    for opinion in producto.getopiniones():
+                        if opinion.getCreador() == autor:
+                            producto.getopiniones().remove(opinion)
+                            break
+                    messagebox.showinfo("Éxito", "Se borró la opinión con éxito :)")            
                 numeroDeIdentificacion = tk.Label(self, text="Identificacion", font=("YU Gothic", 10))
                 numeroDeIdentificacion.grid(row=0,column=0,columnspan=6, sticky="w", padx=10,pady=10)
 
@@ -156,20 +196,32 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=1, column=6, columnspan=6, sticky="w", padx=10,pady=10)
 
-                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
-                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=BorrarOP)
+                self.botonAceptar.grid(row=4, column=5, columnspan=6, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonSalir.grid(row=4, column=0, columnspan=6, sticky="w", pady=10, padx=10)
 
-                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
-                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
+              
 
 
             if elegido == "4":
                 for widget in self.winfo_children():
                     widget.destroy()
                 
+                def CrearOP():
+                         numID = int(entryIdent.get())
+                         prodID = int(entryId.get())
+                         coment = entryCO.get()
+                         valoracion = entryVA.get()
+
+                         autor = CompradorRepositorio.obtener_por_id(numID)   
+                         producto = UsuarioRepositorio.obtener_por_id(prodID)
+                         op = None
+                         op = OpinionVendedor(coment, valoracion, autor, producto)
+                         if op is not None:
+                              messagebox.showinfo("exito", "Se creo la opinion con exito :)")
+                              producto.agregarOpinionVendedor(op)    
 
                 numeroDeIdentificacion = tk.Label(self, text="Identificacion", font=("YU Gothic", 10))
                 numeroDeIdentificacion.grid(row=0,column=0,columnspan=6, sticky="w", padx=10,pady=10)
@@ -195,23 +247,34 @@ class opinion_principal(FieldFrame):
                 labeldeVA = tk.Label(self, text="Valoracion", font=("YU Gothicb", 10))      
                 labeldeVA.grid(row=3, column=0, columnspan=6, sticky="w", pady=10,padx=10)
                
-                entryId = tk.Entry(self, state="normal",textvariable=entry_valor3,justify='center')
-                entryId.bind("<FocusIn>",self.limpiarTextos)
-                entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
+                entryVA = tk.Entry(self, state="normal",textvariable=entry_valor3,justify='center')
+                entryVA.bind("<FocusIn>",self.limpiarTextos)
+                entryVA.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
                 
-                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=CrearOP)
                 self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
                 self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
 
-                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
-                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
             if elegido == "5":
                 for widget in self.winfo_children():
                     widget.destroy()
                 
+                def EditarOP():
+                         numID = int(entryIdent.get())
+                         prodID = int(entryId.get())
+                         coment = entryCO.get()
+                         valoracion = entryVA.get()
+
+                         autor = CompradorRepositorio.obtener_por_id(numID)   
+                         producto = UsuarioRepositorio.obtener_por_id(prodID)
+                         op = None
+                         op = OpinionVendedor(coment, valoracion, autor, producto)
+                         if op is not None:
+                              messagebox.showinfo("exito", "Se creo la opinion con exito :)")
+                              producto.agregarOpinionVendedor(op) 
 
                 numeroDeIdentificacion = tk.Label(self, text="Identificacion", font=("YU Gothic", 10))
                 numeroDeIdentificacion.grid(row=0,column=0,columnspan=6, sticky="w", padx=10,pady=10)
@@ -241,18 +304,28 @@ class opinion_principal(FieldFrame):
                 entryId.bind("<FocusIn>",self.limpiarTextos)
                 entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
-                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
+                self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=EditarOP)
                 self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
                 self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
 
-                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
-                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
-
             if elegido == "6":
                 for widget in self.winfo_children():
                         widget.destroy()
+                def BorrarOP():
+      
+                    numID = int(entryIdent.get())
+                    autor = CompradorRepositorio.obtener_por_id(numID)
+
+                    prodID = int(entryId.get())
+                    producto = ProductoRepositorio.obtener_por_id(prodID)
+
+                    for opinion in producto.getopiniones():
+                        if opinion.getCreador() == autor:
+                            producto.getopiniones().remove(opinion)
+                            break
+                    messagebox.showinfo("Éxito", "Se borró la opinión con éxito :)") 
                 
 
                 numeroDeIdentificacion = tk.Label(self, text="Identificacion", font=("YU Gothic", 10))
@@ -274,9 +347,6 @@ class opinion_principal(FieldFrame):
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
                 self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
-
-                self.botonLimpiar = tk.Button(self,text="Limpiar", bg="#BFEC27", command=self.volver_principal)
-                self.botonLimpiar.grid(row=4, column=3, columnspan=2, sticky="w", pady=10, padx=10)
 
             if elegido == "7":
                     

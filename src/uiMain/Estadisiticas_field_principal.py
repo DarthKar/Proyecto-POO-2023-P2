@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
 from src.uiMain.field_frame import FieldFrame
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.comprador import Comprador
+from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.vendedor.vendedor import Vendedor
+from src.gestor_aplicacion.entidad.producto.producto import Producto
 
 class Estadistica_field(FieldFrame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
@@ -11,37 +14,37 @@ class Estadistica_field(FieldFrame):
      # Metodo mas comprador
     def funcionalidadMasComprador(self):
         # Basicamente aca esta el llamado a todos los metodos
-        messagebox.showinfo("Estadistica", "El usuario mas comprador es pepito perez")
+        messagebox.showinfo("Estadistica", str(Comprador.mas_comprador()) )
 
     # Metodo factura mas alta
     def funcionalidadCompradoFactura(self):
 
-        messagebox.showinfo("Estadistica", "El usuario con la factura mas alta es peranito")
+        messagebox.showinfo("Estadistica", str(Comprador.MasCompradorValor()) )
 
     # Metodo membresia mas comun
     def funcionalidadMembresia(self):
 
-        messagebox.showinfo("Estadistica", "La membresia mas comun es Oro")
+        messagebox.showinfo("Estadistica", str(Comprador.membresia_mas_comprada()))
 
     # Metodo Ventas Totales
     def funcionalidadVentasTotales(self):
 
-        messagebox.showinfo("Estadistica", "El E-commerce genero en total 2000")
+        messagebox.showinfo("Estadistica", str(Producto.ventasTotales()) )
 
     # Metodo Total Productos vendidos
     def funcionalidadTotalProductosVendidos(self):
 
-        messagebox.showinfo("Estadistica", "En total se vendieron 15 productos")
+        messagebox.showinfo("Estadistica",str(Producto.productosTotalesVendidos()) )
 
     # Metodo Mas Vendedor
     def funcionalidadMasVendedor(self):
 
-        messagebox.showinfo("Estadistica", "El mas vendedor fue Cristiano Ronaldo")
+        messagebox.showinfo("Estadistica", str(Vendedor.mejorVendendor()))
 
     # Metodo Mas recaudador
     def funcionalidadMasRecaudador(self):
 
-        messagebox.showinfo("Estadistica", "El vendedor que mas Recaudo es Messi")
+        messagebox.showinfo("Estadistica", str(Vendedor.mejorVendedorPorRecaudacion()))
 
     # Metodo Producto Mas Caro
     def funcionalidadMasCaro(self):
@@ -51,7 +54,7 @@ class Estadistica_field(FieldFrame):
     # Metodo Producto mas Barato
     def funcionalidadMasBarato(self):
 
-        messagebox.showinfo("Estadistica", "El producto mas barato es la sal")
+        messagebox.showinfo("Estadistica", str(Producto.productoMasBarato()))
 
     # Metodo Mas Vendido
     def funcionalidadTotalMasVendido(self):

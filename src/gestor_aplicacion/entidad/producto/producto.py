@@ -76,7 +76,7 @@ class Producto:
 	
 
     @staticmethod
-    def producto_mas_vendido(cls):
+    def producto_mas_vendido():
         productos = defaultdict(int)
         for comprador in CompradorRepositorio.obtener():
             for orden in comprador.get_ordenes():  # Cambiar por transaccion
@@ -89,11 +89,11 @@ class Producto:
             if cantidad > valor:
                 valor = cantidad
                 producto_mas_vendido = producto
-        return producto_mas_vendido
+        return f"El producto mas vendido de toda la tienda es el {producto_mas_vendido}"
     
 
     @staticmethod
-    def productoMasCaro(cls):
+    def productoMasCaro():
         productoMasCaro = 0
         productoCaro = None
         for comprador in CompradorRepositorio.obtener():
@@ -102,38 +102,38 @@ class Producto:
                     if productoMasCaro < productoTransaccion.getPublicacion().getPrecio():
                         productoMasCaro = productoTransaccion.getPublicacion().getPrecio()
                         productoCaro=productoTransaccion.getPublicacion().getProducto().getNombre()
-        return (productoMasCaro+" que vale "+productoCaro)
+        return f"El producto mas caro de la tienda es {productoMasCaro} que vale {productoCaro}"
     
     @staticmethod
-    def ventasTotales(cls):
+    def ventasTotales():
         valorVentas = 0
         for comprador in CompradorRepositorio.obtener():
             for orden in comprador.getOrdenes():
                 for productoTransaccion in orden.getProductosTransaccion():
                     valorVentas += (productoTransaccion.getPublicacion().getPrecio()*productoTransaccion.getCantidad())
-        return valorVentas
+        return f"En total el E-commerce generó: {valorVentas}, pesos"
     
 
     @staticmethod
-    def productosTotalesVendidos(cls):
+    def productosTotalesVendidos():
         valorVendidos = 0
         for comprador in CompradorRepositorio.obtener():
             for orden in comprador.getOrdenes():
                 for productoTransaccion in orden.getProductosTransaccion():
                     valorVendidos += 1
-        return valorVendidos
+        return  f"El numero de productos vendidos es de {valorVendidos} "
     
     @staticmethod
-    def productoMasBarato(cls):
+    def productoMasBarato():
         productoMasBarato = float('inf')
         productoBarato = None
         for comprador in CompradorRepositorio.obtener():
-            for orden in comprador.get_ordenes():
+            for orden in comprador.getOrdenes():
                 for productoTransaccion in orden.getProductosTransaccion():
                     if productoMasBarato > productoTransaccion.getPublicacion().getPrecio():
                         productoMasBarato = productoTransaccion.getPublicacion().getPrecio()
                         productoBarato = productoTransaccion.getPublicacion().getProducto().getNombre()
-        return f"{productoBarato} que vale {productoMasBarato}"
+        return f"El producto mas barato es {productoBarato} que vale {productoMasBarato}"
     
 
     @staticmethod
