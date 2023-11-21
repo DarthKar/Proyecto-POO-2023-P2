@@ -60,7 +60,7 @@ class Repositorio:
 
     @staticmethod
     def obtener_producto(_id: int):
-        return next((p for p in Repositorio.baseDatos.getProductos() if p.getId() == _id), None)
+        return next((p for p in Repositorio.baseDatos.get_productos() if p.getId() == _id), None)
 
     @staticmethod
     def obtener_productos():
