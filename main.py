@@ -38,18 +38,11 @@ class Main:
     # Evento de cambio de foto al pasar encima de la foto
     def iniciar_sesion(self):
         usuarioLB = self.entry_usuario.get()
-        
-        usuariobuscar = None
-        bdc = CompradorRepositorio.obtener()
-
-
-        for usuario in bdc:
-          if  usuario.getId() == usuarioLB:
-                usuariobuscar =  usuario
+        usuariobuscar = CompradorRepositorio.obtener_por_id(int(usuarioLB))
 
         if usuariobuscar is not None:
 
-            messagebox.showinfo("Inicio de Sesión", f"Bienvenido, {usuario}!")
+            messagebox.showinfo("Inicio de Sesión", f"Bienvenido, {usuariobuscar.getNombre()}!")
             # Si la autenticación es exitosa, ocultamos la ventana de inicio de sesión y mostramos la principal
             self.InicioSesion.withdraw()
             self.ventanaPrincipalI.deiconify()

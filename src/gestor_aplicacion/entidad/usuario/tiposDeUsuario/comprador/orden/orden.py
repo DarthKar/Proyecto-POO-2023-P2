@@ -4,8 +4,8 @@ from src.gestor_aplicacion.entidad.usuario.tiposDeUsuario.comprador.transaccion 
 class Orden(Transaccion):
     def __init__(self,id,comprador):
         super().__init__(id,comprador)
-        pagar = False
-        tieneDevoluciones = None
+        self.pagar = False
+        self.tiene_devoluciones = False
 
     def pagado(self):
         self.pagar = True
@@ -17,10 +17,10 @@ class Orden(Transaccion):
             contador += 1
 
     def isTieneDevoluciones(self):
-        return self.tieneDevoluciones
+        return self.tiene_devoluciones
     
     def setTieneDevoluciones(self,tieneDevoluciones):
-        self.tieneDevoluciones = tieneDevoluciones
+        self.tiene_devoluciones = tieneDevoluciones
     
     def mostrar_orden(self):
         return f"Comprado por: {self.comprador.get_nombre_completo()} \nID de la compra: {self.id}\nEl total a  pagar es: {self.calcular_total()}\n-------------------------------"
