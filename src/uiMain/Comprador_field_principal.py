@@ -1,7 +1,10 @@
+import select
 import tkinter as tk
 from tkinter import messagebox
 from src.uiMain.field_frame import FieldFrame
 from src.base_datos.producto_repositorio import ProductoRepositorio
+from src.base_datos.usuario_repositorio import UsuarioRepositorio
+from src.gestor_aplicacion.entidad.producto.producto import Producto
 
 class Comprador_principal(FieldFrame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
@@ -71,6 +74,7 @@ class Comprador_principal(FieldFrame):
 
 #-----------------------------------------------------------------------------------------
     
+    #Segunda opcion
     
     def interfaz_2(self,label_1):
         for idx, texto in enumerate(label_1):
@@ -90,13 +94,13 @@ class Comprador_principal(FieldFrame):
         label_producto = tk.Label(self, text="Elija el producto que desea comprar", justify="center")
         label_producto.grid(row=0, column=0)
 
-        entry_producto = tk.Entry(self, width=30)
+        entry_producto = tk.Entry(self, width=30, justify='center')
         entry_producto.grid(row=0, column=1)
 
         label_unidades = tk.Label(self, text="¿Cuántas unidades desea comprar?", justify="center")
         label_unidades.grid(row=1, column=0)
 
-        entry_unidades = tk.Entry(self, width=30)
+        entry_unidades = tk.Entry(self, width=30, justify='center')
         entry_unidades.grid(row=1, column=1)
 
         boton_seguir = tk.Button(self, text="seguir",bg="#3BA8F9",command=lambda: self.interfaz_2_2(entry_producto.get(),entry_unidades.get()))
@@ -104,10 +108,128 @@ class Comprador_principal(FieldFrame):
 
 
     def interfaz_2_2 (self,producto,cantidad):
-        producto = int(producto)
-        cantidad = int(cantidad)
+        for widget in self.winfo_children():
+                widget.destroy()
+        int_producto = int(producto)
+        int_cantidad = int(cantidad)
+        #-----------------------------------------------------------------
+        def validar_entrada():
+            try:
+                if (int_producto < 1) or (int_producto > 35):
+                    raise ValueError("El número debe estar entre 1 y 35")       #Bloque de excepcion de numero          
+            except ValueError:
+                if producto.isdigit():
+                    messagebox.showinfo("Cuidado!","Ingrese un número válido entre 1 y 35")            
+                    return False
+                if producto == "":
+                    messagebox.showinfo("Cuidado!","Ingrese un número válido")
+                    return False
+                else:
+                    messagebox.showinfo("Cuidado!","Ingrese un número válido (no letras)")
+                    return False
+            return True
+        if not validar_entrada():
+            return self.interfaz_2_1()
+        #-----------------------------------------------------------------
+        puaux = []
+        contador = 0
+        for ven in UsuarioRepositorio.obtener():
+            for pu in ven.getPublicaciones():
+                if (pu.getProducto().getNombre() == Producto.getProductos()[select].getNombre() and
+                        pu.getInventario() > cantidad):
+                    print(f"{contador + 1}. {pu.mostrarPublicacion()}")
+                    puaux.append(pu)
+                    contador += 1
+        #-----------------------------------------------------------------
+        def validar_entrada_1():
+            try:
+                if len(puaux) <= 0:
+                    raise ValueError("No existen publicaciones de este producto o que tenga las unidades requeridas, regresando al menú")
+            except ValueError:
+                if len(puaux) <= 0:
+                    messagebox.showinfo("No existen publicaciones de este producto o que tenga las unidades requeridas, regresando al menú")            
+        if not validar_entrada_1():
+            return self.interfaz_2_1()
         #Comprobar y sacar excepcion por el indice de lista y cantidad disponible
+        #Hacer excepcion si paux no contiene elementos
+        #Mostrar las publicaciones y hacer la revision de que el indice no se pase de las disponibles en la lista paux
+        #compra = ProductoTransaccion(puaux[select1 - 1], cantidad_deseada)
+        #carrito.agregarProducto(compra)
+        boton_seguir = tk.Button(self, text="seguir",bg="#3BA8F9",command=self.confirmacion_1)
+        boton_seguir.grid(row=8, column=3, padx=5, pady=5, sticky="w")
+
+    def confirmacion_1 (self):
+        for widget in self.winfo_children():
+                widget.destroy()
+        confirmacion_label = tk.Label(self, text="Producto agregado correctamente al carrito")
+        confirmacion_label.grid(row=0, column=0, padx=5, pady=5)
+
+        boton_regresar = tk.Button(self, text="Regresar",bg="#3BA8F9",command=self.volver_principal)
+        boton_regresar.grid(row=1, column=0)
+
+
+#-----------------------------------------------------------------------------------------
+
+    #Tercera opcion
+
+    def interfaz_3(self):
+        
+        label_eliminar = tk.Label(self, text="Elija el producto que desea eliminar del carrito", justify="center", bd=2, relief="solid")
+        label_eliminar.grid(row=0, column=0,padx=5,sticky="w")
+
+        entry_eliminar = tk.Entry(self, width=20, justify='center')
+        entry_eliminar.grid(row=0, column=3)
+
+        label_eliminar = tk.Label(self, text="Cuantas unidades desea eliminar", justify="center", bd=2, relief="solid")
+        label_eliminar.grid(row=1, column=0,padx=5,pady=10,sticky="w")
+
+        entry_eliminar = tk.Entry(self, width=20, justify='center')
+        entry_eliminar.grid(row=1, column=3,pady=10)
+
+        boton_eliminar = tk.Button(self, text="Seguir", bg="#3BA8F9", command=self.interfaz_3_1)
+        boton_eliminar.grid(row=2, columnspan=2,pady=10,sticky="e")
     
+    def interfaz_3_1(self):
+        for widget in self.winfo_children():
+            widget.destroy()
+        #Organizar excepcion por si alguno de los labels esta vacio o se le dan letras numeros fuera de rango
+        boton_eliminar = tk.Button(self, text="Confirmar", bg="#3BA8F9", command=self.interfaz_3_2)
+        boton_eliminar.grid(row=2, columnspan=2,pady=10,sticky="e")
+    
+    def interfaz_3_2(self):
+        for widget in self.winfo_children():
+                widget.destroy()
+        confirmacion_label = tk.Label(self, text="Producto eliminado correctamente del carrito")
+        confirmacion_label.grid(row=0, column=0, padx=5, pady=5)
+
+        boton_regresar = tk.Button(self, text="Regresar",bg="#3BA8F9",command=self.volver_principal)
+        boton_regresar.grid(row=1, column=0)
+
+#-----------------------------------------------------------------------------------------
+
+    def interfaz_5(self):
+        label = tk.Label(self, text="¿Qué desea modificar?", bd=2, relief="solid",bg="#BAD526")
+        label.grid(row=0, column=0, columnspan=3, pady=10,padx=10)
+
+        boton_opcion_1 = tk.Button(self, text="Modificar cantidad de un producto", command=self.modificar)
+        boton_opcion_1.grid(row=1, column=0, pady=10,padx=10)
+
+        boton_opcion_2 = tk.Button(self, text="Vaciar carrito completamente", command=self.vaciar_carrito)
+        boton_opcion_2.grid(row=2, column=0, pady=10,padx=10)
+
+        boton_opcion_3 = tk.Button(self, text="Volver al menú principal", command=self.volver_principal)
+        boton_opcion_3.grid(row=3, column=0, pady=10,padx=10)
+    
+    def modificar(self):
+        #Mostrar el carrito, mediante la implementación y las excepciones si no selecciona un producto disponible
+        boton_eliminar = tk.Button(self, text="Seguir", bg="#3BA8F9", command=self.modificar_1)
+        boton_eliminar.grid(row=2, columnspan=2,pady=10,sticky="e")
+    
+    def modificar_1(self):
+        pass
+
+    def vaciar_carrito(self):
+        pass
 
 
 #-----------------------------------------------------------------------------------------
@@ -139,49 +261,26 @@ class Comprador_principal(FieldFrame):
             pro = []
             num = 1
             for i in ProductoRepositorio.get_productos():
-                pro.append(f"{num}. {i.getNombre()}" )
+                pro.append(f"{num}. {i.getNombre()}")
                 num = num + 1
             self.interfaz_1(pro)
 
         if elegido == "2":
-            pro = [
-            "1.Camisa básica",
-            "2.Pantalones vaqueros",
-            "3.Zapatillas deportivas",
-            "4.Mochila resistente",
-            "5.Reloj elegante",
-            "6.Gafas de sol polarizadas",
-            "7.Auriculares inalámbricos",
-            "8.Teclado mecánico",
-            "9.Ratón ergonómico",
-            "10.Cámara digital compacta",
-            "11.Bicicleta de montaña",
-            "12.Guantes de entrenamiento",
-            "13.Gorra ajustable",
-            "14.Bufanda de lana",
-            "15.Manta suave de viaje",
-            "16.Botella de agua deportiva",
-            "17.Silla de oficina ergonómica",
-            "18.Mesa plegable portátil",
-            "19.Maletín ejecutivo",
-            "20.Termo de acero inoxidable",
-            "21.Lámpara LED de escritorio",
-            "22.Juego de sartenes antiadherentes",
-            "23.Cuaderno de notas premium",
-            "24.Organizador de cables",
-            "25.Máquina de café expresso",
-            "26.Kit de herramientas domésticas",
-            "27.Purificador de aire compacto",
-            "28.Kit de pesas ajustables",
-            "29.Caja de herramientas para bricolaje",
-            "30.Abrelatas eléctrico",
-            "31.Linterna recargable resistente al agua",
-            "32.Aspiradora de mano",
-            "33.Tostadora de pan automática",
-            "34.Set de viaje para afeitado",
-            "35.Bolsa térmica para picnic"
-            ]
             for widget in self.winfo_children():
                 widget.destroy()
+            pro = []
+            num = 1
+            for i in ProductoRepositorio.get_productos():
+                pro.append(f"{num}. {i.getNombre()}")
+                num = num + 1
             self.interfaz_2(pro)
-    
+
+        if elegido == "3":
+            for widget in self.winfo_children():
+                widget.destroy()
+            self.interfaz_3()
+        
+        if elegido == "5":
+            for widget in self.winfo_children():
+                widget.destroy()
+            self.interfaz_5()
