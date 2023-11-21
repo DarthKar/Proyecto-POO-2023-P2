@@ -381,6 +381,9 @@ class Main:
         ventana.title("Selecciona la orden")
 
         # Crear un Combobox en la ventana Toplevel
+        label = tk.Label(ventana, text="Selecciona un id de orden", fg="black", font=("italic", 15),
+                                  wraplength=270)
+        label.pack(padx=10, pady=10)
         combo = ttk.Combobox(ventana, values=list(map(lambda orden: F"{orden.getId()}", self.comprador.getOrdenes())))
         combo.pack(padx=10, pady=10)
 
