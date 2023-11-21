@@ -5,6 +5,8 @@ from src.uiMain.field_frame import FieldFrame
 from src.base_datos.producto_repositorio import ProductoRepositorio
 from src.base_datos.usuario_repositorio import UsuarioRepositorio
 from src.gestor_aplicacion.entidad.producto.producto import Producto
+from src.base_datos.producto_repositorio import ProductoRepositorio
+from src.uiMain.Elementos_utiles.click_label import LabelCambio
 
 class Comprador_principal(FieldFrame):
     def __init__(self, master, tituloCriterio, nombres_criterios, cantidad_campos, tituloValores, valores=None, habilitado=None):
@@ -130,17 +132,14 @@ class Comprador_principal(FieldFrame):
             return True
         if not validar_entrada():
             return self.interfaz_2_1()
-        #-----------------------------------------------------------------
+    #-----------------------------------------------------------------
         puaux = []
-        contador = 0
         for ven in UsuarioRepositorio.obtener():
             for pu in ven.getPublicaciones():
-                if (pu.getProducto().getNombre() == Producto.getProductos()[select].getNombre() and
-                        pu.getInventario() > cantidad):
-                    print(f"{contador + 1}. {pu.mostrarPublicacion()}")
-                    puaux.append(pu)
-                    contador += 1
-        #-----------------------------------------------------------------
+                if ((pu.getProducto().getNombre() == ProductoRepositorio.get_productos()[int_producto-1].getNombre()) and (pu.getInventario() > int_cantidad)):
+                    puaux.append(pu.mostrar_publicacion())
+
+    #-----------------------------------------------------------------
         def validar_entrada_1():
             try:
                 if len(puaux) <= 0:
@@ -150,13 +149,16 @@ class Comprador_principal(FieldFrame):
                     messagebox.showinfo("No existen publicaciones de este producto o que tenga las unidades requeridas, regresando al menú")            
         if not validar_entrada_1():
             return self.interfaz_2_1()
+        
+    #-----------------------------------------------------------------
         #Comprobar y sacar excepcion por el indice de lista y cantidad disponible
         #Hacer excepcion si paux no contiene elementos
         #Mostrar las publicaciones y hacer la revision de que el indice no se pase de las disponibles en la lista paux
         #compra = ProductoTransaccion(puaux[select1 - 1], cantidad_deseada)
         #carrito.agregarProducto(compra)
+
         boton_seguir = tk.Button(self, text="seguir",bg="#3BA8F9",command=self.confirmacion_1)
-        boton_seguir.grid(row=8, column=3, padx=5, pady=5, sticky="w")
+        boton_seguir.grid(row=1, column=3, padx=5, pady=5, sticky="w")
 
     def confirmacion_1 (self):
         for widget in self.winfo_children():
