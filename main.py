@@ -26,11 +26,13 @@ class Main:
     def CV(self):
         actual = self.listaCv.index(self.label_p2.cget("text"))
         cambio = (actual + 1) % len(self.listaCv)
+        print(cambio)
         self.label_p2.config(text=self.listaCv[cambio])
-        self.label_p3_fotos.config(image=self.listaImagenesCv[cambio+2])
-        self.label_p4_fotos.config(image=self.listaImagenesCv[cambio + 1])
-        self.label_p5_fotos.config(image=self.listaImagenesCv[cambio+3])
-        self.label_p2_fotos.config(image=self.listaImagenesCv[cambio+4])
+        self.label_p2_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-4])
+        self.label_p3_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-3])
+        self.label_p4_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-2])
+        self.label_p5_fotos.config(image=self.listaImagenesCv[4*(cambio+1)-1])
+        
 
     # Evento de cambio de foto al pasar encima de la foto
 
