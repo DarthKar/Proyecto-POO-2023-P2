@@ -224,7 +224,7 @@ class Main:
         self.menuInicio.add_cascade(label="Inicio", menu=self.menu1)
         self.menu1.add_command(label="Descripcion")
         self.menu1.add_separator()
-        self.menu1.add_command(label="Salir", command=quit)
+        self.menu1.add_command(label="Salir", command=self.on_closing)
 
         self.framePrincipal = tk.Frame(self.ventanaInicio, bg="black")
         self.framePrincipal.pack(fill="both", expand=True, padx=10)
