@@ -44,7 +44,6 @@ class Comprador(Usuario):
     def getCarrito(self):
         return self._carrito
     
-    
     def getSaldo(self):
         return self._saldo
 
@@ -99,19 +98,19 @@ class Comprador(Usuario):
         comprasValorMaximo = 0
         masComprador = None
 
-        for comprador in CompradorRepositorio.obtenerCompradores():
+        for comprador in CompradorRepositorio.obtener():
             comprasValor = 0
 
             for orden in comprador.getOrdenes():
-                for productoTransaccion in orden.getProductoTransaccion():
-                    comprasValor += productoTransaccion().getPublicacion().precio()
+                for productosTransaccion in orden.getProductosTransaccion():
+                    comprasValor += productosTransaccion.getPublicacion().getPrecio()
 
             if comprasValor > comprasValorMaximo:
                 comprasValorMaximo = comprasValor
                 masComprador = comprador
 
         if masComprador:
-            return f"{masComprador.nombre} {masComprador.apellido} ha realizado compras por un valor máximo de {comprasValorMaximo}"
+            return f"{masComprador.getNombre()} {masComprador.getApellido()} ha realizado compras por un valor máximo de {comprasValorMaximo}"
        
         else:
             return "No se encontró comprador con valor máximo de compras"
@@ -122,13 +121,13 @@ class Comprador(Usuario):
         tamanoOrdenes = 0
         masComprador = None
 
-        for comprador in CompradorRepositorio.obtenerCompradores():
+        for comprador in CompradorRepositorio.obtener():
             if len(comprador.getOrdenes()) > tamanoOrdenes:
                 tamanoOrdenes = len(comprador.getOrdenes())
                 masComprador = comprador
 
         if masComprador:
-            return f"{masComprador.nombre()} {masComprador.apellido()} con el ID {masComprador.getId()} y con el correo electrónico {masComprador.getCorreo()} con un total de {tamanoOrdenes} productos comprados"
+            return f"{masComprador.getNombre()} {masComprador.getApellido()} con el ID {masComprador.getId()} y con el correo electrónico {masComprador.getCorreo()} con un total de {tamanoOrdenes} productos comprados"
         else:
             return "No se encontró comprador con órdenes"
 
