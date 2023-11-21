@@ -92,7 +92,7 @@ class Main:
             self.comprar()
         elif proceso == "Devolucion":
             self.LabelDesc.config(text="Realizar Devolución")
-            self.LabelDesc2.config(text="Aquí va la descripción para realizar una devolución.")
+            self.LabelDesc2.config(text="El sistema de devoluciones permite devolver un producto.")
             self.devolucion()
         elif proceso == "opinion":
             self.LabelDesc.config(text="Opinar", font=("YU Gothic","45"))
