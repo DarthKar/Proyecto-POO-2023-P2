@@ -105,10 +105,10 @@ class opinion_principal(FieldFrame):
                 entryVa.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
                 self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=CrearOP)
-                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonAceptar.grid(row=4, column=5, columnspan=6, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonSalir.grid(row=4, column=0, columnspan=6, sticky="w", pady=10, padx=10)
 
 
 
@@ -158,10 +158,10 @@ class opinion_principal(FieldFrame):
                 entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
                 self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=EditarOP)
-                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonAceptar.grid(row=4, column=5, columnspan=6, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonSalir.grid(row=4, column=0, columnspan=6, sticky="w", pady=10, padx=10)
 
                 
 
@@ -252,10 +252,10 @@ class opinion_principal(FieldFrame):
                 entryVA.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
                 
                 self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=CrearOP)
-                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonAceptar.grid(row=4, column=5, columnspan=6, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonSalir.grid(row=4, column=0, columnspan=6, sticky="w", pady=10, padx=10)
 
 
             if elegido == "5":
@@ -305,10 +305,10 @@ class opinion_principal(FieldFrame):
                 entryId.grid(row=3, column=6, columnspan=6, sticky="w", pady=10, padx=10)
 
                 self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=EditarOP)
-                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonAceptar.grid(row=4, column=5, columnspan=6, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonSalir.grid(row=4, column=0, columnspan=6, sticky="w", pady=10, padx=10)
 
             if elegido == "6":
                 for widget in self.winfo_children():
@@ -343,10 +343,10 @@ class opinion_principal(FieldFrame):
                 entryId.grid(row=1, column=6, columnspan=6, sticky="w", padx=10,pady=10)
 
                 self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
-                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonAceptar.grid(row=4, column=5, columnspan=6, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonSalir.grid(row=4, column=0, columnspan=6, sticky="w", pady=10, padx=10)
 
             if elegido == "7":
                     
@@ -369,10 +369,10 @@ class opinion_principal(FieldFrame):
                 entryId.grid(row=1, column=6, columnspan=6, sticky="w", padx=10,pady=10)
 
                 self.botonAceptar = tk.Button(self,text="Aceptar", bg="#35B907", command=self.volver_principal)
-                self.botonAceptar.grid(row=4, column=5, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonAceptar.grid(row=4, column=5, columnspan=6, sticky="w", pady=10, padx=10)
              
                 self.botonSalir = tk.Button(self,text="Salir", bg="#FE1700", command=self.volver_principal)
-                self.botonSalir.grid(row=4, column=0, columnspan=2, sticky="w", pady=10, padx=10)
+                self.botonSalir.grid(row=4, column=0, columnspan=6, sticky="w", pady=10, padx=10)
 
             
     def crearOpinionProducto(self):

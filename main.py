@@ -104,7 +104,7 @@ class Main:
             self.LabelDesc2.config(text=" Aquí podras consultar las Estadisticas.", font=("italic", "25"))
             self.estadistica()
         else:
-            self.LabelDesc.config(text="Bienvenido a Chopee", font=("italic", "45"))
+            self.LabelDesc.config(text="Bienvenido a Chopee", font=("italic", "45"), wraplength=500)
             self.LabelDesc2.config(text="Selecciona alguna de las opciones en el menú superior para comenzar", font=("italic", "25"))
 
 
