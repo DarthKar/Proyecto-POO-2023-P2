@@ -26,10 +26,10 @@ class Main:
         actual = self.listaCv.index(self.label_p2.cget("text"))
         cambio = (actual + 1) % len(self.listaCv)
         self.label_p2.config(text=self.listaCv[cambio])
-        self.label_p3_fotos.config(image=self.listaImagenesCv[cambio])
+        self.label_p3_fotos.config(image=self.listaImagenesCv[cambio+2])
         self.label_p4_fotos.config(image=self.listaImagenesCv[cambio + 1])
-        self.label_p5_fotos.config(image=self.listaImagenesCv[cambio])
-        self.label_p2_fotos.config(image=self.listaImagenesCv[cambio])
+        self.label_p5_fotos.config(image=self.listaImagenesCv[cambio+3])
+        self.label_p2_fotos.config(image=self.listaImagenesCv[cambio+4])
 
     # Evento de cambio de foto al pasar encima de la foto
 
@@ -88,7 +88,7 @@ class Main:
 
     def cargar_imagenes(self):
         tempList = []
-        for i in range(0, len(self.listaCv)):
+        for i in range(0, len(self.listaCv)*2):
             tempList.append(ImageTk.PhotoImage(Image.open(f"src/{i + 1}.gif").resize((250, 225))))
         return tempList
 
@@ -192,7 +192,7 @@ class Main:
 
         self.p2_label_frame = tk.Frame(self.p2, bg="white")
         self.p2_label_frame.pack(side="top", padx=10, pady=10, fill="both", expand=True)
-        self.label_p2 = tk.Label(self.p2_label_frame, text=self.listaCv[0], font=("italic", 25), bg="white",
+        self.label_p2 = tk.Label(self.p2_label_frame, text=self.listaCv[0], font=("italic", 25), bg="white",fg="black",
                                  wraplength=490)
         self.label_p2.grid(row=0, column=0)
         self.p2_label_frame.grid_rowconfigure(0, weight=1)
