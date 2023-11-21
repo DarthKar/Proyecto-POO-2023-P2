@@ -65,7 +65,7 @@ class Estadistica_field(FieldFrame):
         self.frameEstadisticas = tk.Frame(self, bg="black")
         self.frameEstadisticas.pack()
         # Funcionalidad mas comprador
-        labelUsuario = tk.Label(self.frameEstadisticas, text="Usuario que más productos compró", bg="black",
+        labelUsuario = tk.Label(self.frameEstadisticas, text="Usuario que más productos compró", bg="black", fg="white",
                                 font=("italic", "18"))
         labelUsuario.grid(row=0, column=0, columnspan=4)
         labelUsuario.columnconfigure(0, weight=1)
@@ -74,7 +74,7 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(1, weight=1)
         boton.grid(row=0, column=5, columnspan=2)
         # Funcionalidad mas comprador por factura
-        labelComprador = tk.Label(self.frameEstadisticas, text="Usuario con la factura mas alta", bg="black",
+        labelComprador = tk.Label(self.frameEstadisticas, text="Usuario con la factura mas alta", bg="black", fg="white",
                                   font=("italic", "18"))
         labelComprador.grid(row=1, column=0, columnspan=4)
         labelComprador.columnconfigure(0, weight=1)
@@ -83,16 +83,16 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(1, weight=1)
         boton.grid(row=1, column=5, columnspan=2)
         # Funcionalidad membresia mas Usada
-        labelMembresia = tk.Label(self.frameEstadisticas, text="La membresia mas comprada", bg="black",
+        labelMembresia = tk.Label(self.frameEstadisticas, text="La membresia mas comprada", bg="black",fg="white",
                                   font=("italic", "18"))
         labelMembresia.grid(row=2, column=0, columnspan=4)
         labelMembresia.columnconfigure(0, weight=1)
-        boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMembresia, height=3,
+        boton = tk.Button(self.frameEstadisticas, text="Botón", command=self.funcionalidadMembresia, height=3, fg="white",
                           width=20)
         boton.columnconfigure(1, weight=1)
         boton.grid(row=2, column=5, columnspan=2)
         # Funcionalidad Ventas Totales
-        labelVentasTotales = tk.Label(self.frameEstadisticas, text="Ventas totales del E-commerce", bg="black",
+        labelVentasTotales = tk.Label(self.frameEstadisticas, text="Ventas totales del E-commerce", bg="black", fg="white",
                                       font=("italic", "18"))
         labelVentasTotales.grid(row=3, column=0, columnspan=4)
         labelVentasTotales.columnconfigure(0, weight=1)
@@ -101,7 +101,7 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(3, weight=1)
         boton.grid(row=3, column=5, columnspan=2)
         # Total Productos vendidos
-        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Total productos Vendidos", bg="black",
+        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Total productos Vendidos", bg="black", fg="white",
                                           font=("italic", "18"))
         labelProductosVendidos.grid(row=4, column=0, columnspan=4)
         labelProductosVendidos.columnconfigure(0, weight=1)
@@ -110,7 +110,7 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(1, weight=1)
         boton.grid(row=4, column=5, columnspan=2)
         # Mas Vendedor
-        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Usuario que mas vendió", bg="black",
+        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Usuario que mas vendió", bg="black", fg="white",
                                           font=("italic", "18"))
         labelProductosVendidos.grid(row=5, column=0, columnspan=4)
         labelProductosVendidos.columnconfigure(0, weight=1)
@@ -119,7 +119,7 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(1, weight=1)
         boton.grid(row=5, column=5, columnspan=2)
         # Mas Recaudo
-        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El vendedor com mayor recaudo", bg="black",
+        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El vendedor com mayor recaudo", bg="black", fg="white",
                                           font=("italic", "18"))
         labelProductosVendidos.grid(row=6, column=0, columnspan=4)
         labelProductosVendidos.columnconfigure(0, weight=1)
@@ -128,7 +128,7 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(1, weight=1)
         boton.grid(row=6, column=5, columnspan=2)
         # Producto mas Caro
-        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Producto mas caro", bg="black",
+        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="Producto mas caro", bg="black", fg="white",
                                           font=("italic", "18"))
         labelProductosVendidos.grid(row=7, column=0, columnspan=4)
         labelProductosVendidos.columnconfigure(0, weight=1)
@@ -137,7 +137,7 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(1, weight=1)
         boton.grid(row=7, column=5, columnspan=2)
         # Producto mas Barato
-        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El producto mas Barato", bg="black",
+        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El producto mas Barato", bg="black", fg="white",
                                           font=("italic", "18"))
         labelProductosVendidos.grid(row=8, column=0, columnspan=4)
         labelProductosVendidos.columnconfigure(0, weight=1)
@@ -146,7 +146,7 @@ class Estadistica_field(FieldFrame):
         boton.columnconfigure(1, weight=1)
         boton.grid(row=8, column=5, columnspan=2)
         # Total Producto Mas vendido
-        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El producto mas Vendido", bg="black",
+        labelProductosVendidos = tk.Label(self.frameEstadisticas, text="El producto mas Vendido", bg="black", fg="white",
                                           font=("italic", "18"))
         labelProductosVendidos.grid(row=9, column=0, columnspan=4)
         labelProductosVendidos.columnconfigure(0, weight=1)
