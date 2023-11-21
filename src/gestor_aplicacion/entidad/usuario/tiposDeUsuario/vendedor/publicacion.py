@@ -1,3 +1,5 @@
+
+
 class Publicacion(): #Debe implementar serializable
 
     def __init__(self, vendedor, producto, inventario, precio):
@@ -42,4 +44,4 @@ class Publicacion(): #Debe implementar serializable
         self.oculto = oculto
     
     def mostrar_publicacion(self):
-        return "\n------------------------------------------\n" + "vendedor: " + self.vendedor.nombre + "\nproducto: " + self.producto.nombre + "\nInventario: " + str(self.inventario) + "\nPrecio: " + str(self.precio) + "\n------------------------------------------"
+        return "\n------------------------------------------\n" + "vendedor: " + self.vendedor.nombre + "\nproducto: " + self.producto.getNombre() + "\nInventario: " + str(self.inventario) + "\nPrecio: " + str(self.precio) + "\n------------------------------------------"
